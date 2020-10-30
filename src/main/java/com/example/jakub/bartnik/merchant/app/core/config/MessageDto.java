@@ -1,4 +1,4 @@
-package com.example.jakub.bartnik.merchant.app.config;
+package com.example.jakub.bartnik.merchant.app.core.config;
 
 public class MessageDto {
 

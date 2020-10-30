@@ -37,7 +37,8 @@ a:hover {
 /*}*/
 
 html,
-body{
+body
+{
     /*display: -ms-flexbox;*/
     /*display: flex;*/
     color: #fff;
@@ -130,3 +131,4 @@ body{
 .form-signin .form-control:focus {
     z-index: 2;
 }
+

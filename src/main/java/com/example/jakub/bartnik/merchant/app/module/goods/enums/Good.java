@@ -1,6 +1,6 @@
-package com.example.jakub.bartnik.merchant.app.module.goods.dto;
+package com.example.jakub.bartnik.merchant.app.module.goods.enums;
 
-public enum Goods {
+public enum Good {
 
     WOOD("WOOD"),
     IRON("IRON"),
@@ -8,7 +8,7 @@ public enum Goods {
 
     private String name;
 
-    Goods(String name) {
+     Good(String name) {
         this.name = name;
     }
 

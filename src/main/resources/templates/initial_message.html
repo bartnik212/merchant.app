@@ -9,33 +9,36 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <div th:replace="part_navigator :: navbar"/>
 
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+    </style>
 </head>
 <body>
 
-<h1 th:text="${message1}"></h1>
+<h1 th:utext="${message1}"></h1>
 <br>
 
 
+<form th:action="@{/initialmessage}" th:object="${initialGoodForm}" method="post">
 
-<div class="input-group">
-    <div class="input-group-prepend">
-        <div class="input-group-text">
-            <form th:action="@{/initialmessage}" th:object="${player}">
-
-            <th:block th:each="goods : ${allGoods}">
+    <th:block th:each="goods : ${allGoods}">
 
 
-                <input type="radio" checked="checked" th:text="${goods.name}" th:value="${goods.name}" th:field="*{listOfGoods}"
+        <input type="radio" checked="checked" th:text="${goods.name}"
+               th:value="${goods.name}" th:field="*{getGoodDto}"
+               aria-label="Radio button for following text input">
+        <br>
+    </th:block>
 
-                       aria-label="Radio button for following text input">
+    <br>
 
-            </th:block>
-
-            <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
-            </form>
-        </div>
-    </div>
-</div>
+    <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
+</form>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

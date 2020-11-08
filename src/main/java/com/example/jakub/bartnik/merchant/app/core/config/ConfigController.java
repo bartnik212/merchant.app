@@ -1,6 +1,7 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.City;
+import com.example.jakub.bartnik.merchant.app.module.goods.enums.GameState;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Weapon;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
@@ -53,6 +54,8 @@ public class ConfigController {
 
     @GetMapping("/choose_first_good")
     public String chooseFirstGood(Model model) {
+
+        playerService.setGameState(GameState.CHOOSE_FIRST_GOOD);
 
         model.addAttribute("message1", new MessageDto(applicationProperties.getMessage1()));
         model.addAttribute("allGoods", Good.values());
@@ -127,13 +130,25 @@ public class ConfigController {
     }
 
 
-//    @GetMapping("/game")
-//    public String game() {
-//        if(playerService.gameState == chooseinitialgood){
-//            return "redirect:/choose_initial_good";
-//        } else
-//
-//    }
+    @GetMapping("/game")
+    public String game() {
 
+        GameState gameState = playerService.getGameState();
 
+        if (gameState == null) {
+            return "redirect:/choose_first_good";
+
+        } else if (gameState == GameState.CHOOSE_FIRST_GOOD) {
+            return "redirect:/choose_first_weapon";
+
+        } else if (gameState == GameState.CHOOSE_FIRST_WEAPON) {
+            return "redirect:/select_weapon";
+
+        } else if (gameState == GameState.SELECT_WEAPON) {
+            return "redirect:/choose_city";
+        }
+
+        return "/user_form";
+
+    }
 }

@@ -19,4 +19,7 @@ public class ApplicationProperties {
 
     @Value("${message4}")
     private String message4;
+
+    @Value("${message5}")
+    private String message5;
 }

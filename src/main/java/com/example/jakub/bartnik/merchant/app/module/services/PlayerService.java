@@ -1,6 +1,7 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.City;
+import com.example.jakub.bartnik.merchant.app.module.goods.enums.GameState;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Weapon;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class PlayerService {
     private int coins;
     private int healthPoints; // = 100
     private City citySelected;
+    private GameState gameState;
 
 
 

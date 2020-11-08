@@ -16,4 +16,7 @@ public class ApplicationProperties {
 
     @Value("${message3}")
     private String message3;
+
+    @Value("${message4}")
+    private String message4;
 }

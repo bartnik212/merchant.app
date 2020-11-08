@@ -1,5 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
+import com.example.jakub.bartnik.merchant.app.module.goods.enums.City;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Weapon;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
@@ -9,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 
 @Slf4j
@@ -82,19 +81,35 @@ public class ConfigController {
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
-//        model.addAttribute("player", new PlayerService());
-
         return "select_weapon";
 
     }
 
     @PostMapping("/select_weapon")
-    public String selectWeapon(WeaponOwnedForm weaponOwnedForm){
+    public String postSelectWeapon(WeaponOwnedForm weaponOwnedForm){
 
         playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
         log.info("weapon selected: " + playerService.getWeaponSelected());
+        return "redirect:/choose_city";
+    }
+
+    @GetMapping("/choose_city")
+    public String showCitiesToChoose(Model model){
+
+        model.addAttribute("message4", new MessageDto(applicationProperties.getMessage4()));
+        model.addAttribute("allCities", City.values());
+        model.addAttribute("cityChosenForm", new CityChosenForm());
+
+        return "choose_city";
+    }
+
+    @PostMapping("/choose_city")
+    public String postChosenCity(CityChosenForm cityChosenForm){
+        playerService.setCitySelected(cityChosenForm.getChosenCity());
+        log.info("chosen city: " + playerService.getCitySelected());
         return "redirect:/nav";
     }
+
 
 //    @GetMapping("/game")
 //    public String game() {

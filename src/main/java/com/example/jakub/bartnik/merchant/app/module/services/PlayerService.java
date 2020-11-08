@@ -19,9 +19,10 @@ public class PlayerService {
     private String name;
     private List<Good> listOfGoods = new LinkedList<>();
     private List<Weapon> listOfWeapons = new LinkedList<>();
-//    private String weapon; zobaczymy czy będzie potrzebne do weapon selected
+    private Weapon weaponSelected;
     private int coins;
     private int healthPoints; // = 100
+
 
 
     public void saveGood(Good good){

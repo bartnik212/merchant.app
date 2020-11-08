@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Slf4j
 @Controller
@@ -22,23 +24,23 @@ public class ConfigController {
     private ApplicationProperties applicationProperties;
 
     @GetMapping("/nav")
-    public String getNavBar(){
+    public String getNavBar() {
         return "part_navigator";
     }
 
     @GetMapping("/rules")
-    public String getRules(){
+    public String getRules() {
         return "rules";
     }
 
     @GetMapping("/username")
-    public String getUserForm(){
+    public String getUserForm() {
         return "user_form";
     }
 
 
     @GetMapping("/choose_first_good")
-    public String chooseFirstGood(Model model){
+    public String chooseFirstGood(Model model) {
 
         model.addAttribute("message1", new MessageDto(applicationProperties.getMessage1()));
         model.addAttribute("allGoods", Good.values());
@@ -46,7 +48,7 @@ public class ConfigController {
 
         return "choose_first_good";
     }
-    
+
 
     @PostMapping("/choose_first_good")
     public String postFirstGood(GoodOwnedForm goodOwnedForm) {
@@ -57,7 +59,7 @@ public class ConfigController {
     }
 
     @GetMapping("/choose_first_weapon")
-    public String chooseFirstWeapon (Model model){
+    public String chooseFirstWeapon(Model model) {
 
         model.addAttribute("message2", new MessageDto(applicationProperties.getMessage2()));
         model.addAttribute("allWeapons", Weapon.values());
@@ -67,11 +69,40 @@ public class ConfigController {
     }
 
     @PostMapping("/choose_first_weapon")
-    public String postFirstWeapon (WeaponOwnedForm weaponOwnedForm){
+    public String postFirstWeapon(WeaponOwnedForm weaponOwnedForm) {
 
         playerService.saveWeapon(weaponOwnedForm.getOwnedWeapons());
+        return "redirect:/select_weapon";
+    }
+
+    @GetMapping("/select_weapon")
+    public String showWeaponsToSelect(Model model){
+
+        model.addAttribute("message3", new MessageDto(applicationProperties.getMessage3()));
+        model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
+        model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
+
+//        model.addAttribute("player", new PlayerService());
+
+        return "select_weapon";
+
+    }
+
+    @PostMapping("/select_weapon")
+    public String selectWeapon(WeaponOwnedForm weaponOwnedForm){
+
+        playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
+        log.info("weapon selected: " + playerService.getWeaponSelected());
         return "redirect:/nav";
     }
+
+//    @GetMapping("/game")
+//    public String game() {
+//        if(playerService.gameState == chooseinitialgood){
+//            return "redirect:/choose_initial_good";
+//        } else
+//
+//    }
 
 
 }

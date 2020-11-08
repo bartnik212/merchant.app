@@ -37,7 +37,6 @@ public class ConfigController {
     public String getUserForm(Model model) {
         playerService.setGameState(GameState.ENTER_NAME);
 
-//        model.addAttribute("player", playerService);
         model.addAttribute("nameForm", new NameForm());
         model.addAttribute("username", playerService.getName());
 
@@ -47,7 +46,6 @@ public class ConfigController {
     @PostMapping("/user_form")
     public String postUserForm(String name) {
         playerService.setName(name);
-        log.info("name: " + playerService.getName());
 
         return "redirect:/choose_first_good";
     }

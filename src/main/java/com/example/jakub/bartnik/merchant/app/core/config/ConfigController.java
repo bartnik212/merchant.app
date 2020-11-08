@@ -37,6 +37,19 @@ public class ConfigController {
         return "user_form";
     }
 
+    @GetMapping("/player_status")
+    public String getPlayerStatus(Model model) {
+
+        model.addAttribute("listOfGoods", playerService.getListOfGoods());
+        model.addAttribute("listOfWeapons", playerService.getListOfWeapons());
+        model.addAttribute("weaponSelected", playerService.getWeaponSelected());
+        model.addAttribute("coins", playerService.getCoins());
+        model.addAttribute("healthPoints", playerService.getHealthPoints());
+        model.addAttribute("citySelected", playerService.getCitySelected());
+
+        return "player_status";
+    }
+
 
     @GetMapping("/choose_first_good")
     public String chooseFirstGood(Model model) {
@@ -51,6 +64,8 @@ public class ConfigController {
 
     @PostMapping("/choose_first_good")
     public String postFirstGood(GoodOwnedForm goodOwnedForm) {
+        playerService.setHealthPoints(100);
+        playerService.setCoins(25);
 
         playerService.saveGood(goodOwnedForm.getOwnedGoods());
 
@@ -75,7 +90,7 @@ public class ConfigController {
     }
 
     @GetMapping("/select_weapon")
-    public String showWeaponsToSelect(Model model){
+    public String showWeaponsToSelect(Model model) {
 
         model.addAttribute("message3", new MessageDto(applicationProperties.getMessage3()));
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
@@ -86,7 +101,7 @@ public class ConfigController {
     }
 
     @PostMapping("/select_weapon")
-    public String postSelectWeapon(WeaponOwnedForm weaponOwnedForm){
+    public String postSelectWeapon(WeaponOwnedForm weaponOwnedForm) {
 
         playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
         log.info("weapon selected: " + playerService.getWeaponSelected());
@@ -94,7 +109,7 @@ public class ConfigController {
     }
 
     @GetMapping("/choose_city")
-    public String showCitiesToChoose(Model model){
+    public String showCitiesToChoose(Model model) {
 
         model.addAttribute("message4", new MessageDto(applicationProperties.getMessage4()));
         model.addAttribute("allCities", City.values());
@@ -104,7 +119,8 @@ public class ConfigController {
     }
 
     @PostMapping("/choose_city")
-    public String postChosenCity(CityChosenForm cityChosenForm){
+    public String postChosenCity(CityChosenForm cityChosenForm) {
+
         playerService.setCitySelected(cityChosenForm.getChosenCity());
         log.info("chosen city: " + playerService.getCitySelected());
         return "redirect:/nav";

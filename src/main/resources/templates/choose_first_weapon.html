@@ -26,10 +26,10 @@
 
 <form th:action="@{/choose_first_weapon}" th:object="${weaponOwnedForm}" method="post">
 
-    <th:block th:each="weapons : ${allWeapons}">
+    <th:block th:each="weapon : ${allWeapons}">
 
-        <input type="radio" checked="checked" th:text="${weapons.name}"
-               th:value="${weapons.name}" th:field="*{ownedWeapons}"
+        <input type="radio" checked="checked" th:text="${weapon.name}"
+               th:value="${weapon}" th:field="*{ownedWeapons}"
                aria-label="Radio button for following text input">
 
         <br>

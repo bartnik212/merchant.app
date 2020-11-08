@@ -33,9 +33,23 @@ public class ConfigController {
         return "rules";
     }
 
-    @GetMapping("/username")
-    public String getUserForm() {
+    @GetMapping("/user_form")
+    public String getUserForm(Model model) {
+        playerService.setGameState(GameState.ENTER_NAME);
+
+//        model.addAttribute("player", playerService);
+        model.addAttribute("nameForm", new NameForm());
+        model.addAttribute("username", playerService.getName());
+
         return "user_form";
+    }
+
+    @PostMapping("/user_form")
+    public String postUserForm(String name) {
+        playerService.setName(name);
+        log.info("name: " + playerService.getName());
+
+        return "redirect:/choose_first_good";
     }
 
     @GetMapping("/player_status")
@@ -135,7 +149,9 @@ public class ConfigController {
 
         GameState gameState = playerService.getGameState();
 
-        if (gameState == null) {
+        //wszystkie przesunac o jeden
+
+        if (gameState == GameState.ENTER_NAME) {
             return "redirect:/choose_first_good";
 
         } else if (gameState == GameState.CHOOSE_FIRST_GOOD) {

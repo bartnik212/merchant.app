@@ -44,13 +44,14 @@
 <body class="text-center">
 
 
-<form class="form-signin" >
+<form class="form-signin" th:action="@{/user_form}" th:object="${player}" method="post">
+
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputUserName" class="sr-only">User Name</label>
-    <input type="userName" id="inputUserName" class="form-control" placeholder="Please enter your user name" required autofocus>
+    <input type="text" id="inputUserName" class="form-control" th:value="${username}" th:field="*{name}"  placeholder="Please enter your user name" required autofocus>
 
 
-    <a href="/choose_first_good"><button class="btn btn-lg btn-primary btn-block" type="button">Play!</button></a>
+    <a href="/game"><button class="btn btn-lg btn-primary btn-block" type="button">Play!</button></a>
     <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 </form>
 

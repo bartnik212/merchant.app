@@ -25,9 +25,10 @@ public class PlayerService {
     private int coins;
     private int healthPoints; // = 100
     private City citySelected;
-    private GameState gameState;
+    private GameState gameState = GameState.ENTER_NAME;
 
-
+    //lista city, miasta, w ktorych odiwedzielem warsztat
+    //metody miast, a konkretnie te, ktore sie roznia
 
     public void saveGood(Good good){
         listOfGoods.add(good);

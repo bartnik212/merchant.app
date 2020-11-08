@@ -7,6 +7,10 @@ public enum City {
     ZAKOPANE ("Zakopane");
 
     private String name;
+    private String entertainment;
+
+//    localworkshop good
+    //
 
     City(String name){
         this.name = name;

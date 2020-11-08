@@ -1,4 +1,4 @@
-package com.example.jakub.bartnik.merchant.app.module.goods.enums;
+package com.example.jakub.bartnik.merchant.app.module.enums.goods;
 
 public enum City {
 

@@ -1,9 +1,9 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.City;
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.GameState;
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.Weapon;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.City;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.GameState;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.Good;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.Weapon;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +33,7 @@ public class ConfigController {
         return "rules";
     }
 
-    @GetMapping("/user_form")
-    public String getUserForm(Model model) {
-        playerService.setGameState(GameState.ENTER_NAME);
 
-        model.addAttribute("nameForm", new NameForm());
-        model.addAttribute("username", playerService.getName());
-
-        return "user_form";
-    }
-
-    @PostMapping("/user_form")
-    public String postUserForm(String name) {
-        playerService.setName(name);
-
-        return "redirect:/choose_first_good";
-    }
 
     @GetMapping("/player_status")
     public String getPlayerStatus(Model model) {
@@ -63,11 +48,30 @@ public class ConfigController {
         return "player_status";
     }
 
+    @GetMapping("/user_form")
+    public String getUserForm(Model model) {
+
+        playerService.setGameState(GameState.CHOOSE_FIRST_GOOD);
+
+        model.addAttribute("nameForm", new NameForm());
+        model.addAttribute("username", playerService.getName());
+
+        return "user_form";
+    }
+
+    @PostMapping("/user_form")
+    public String postUserForm(NameForm nameForm) {
+
+        playerService.setName(nameForm.getName());
+        log.info("name: " + playerService.getName());
+
+        return "redirect:/choose_first_good";
+    }
+
 
     @GetMapping("/choose_first_good")
     public String chooseFirstGood(Model model) {
 
-        playerService.setGameState(GameState.CHOOSE_FIRST_GOOD);
 
         model.addAttribute("message1", new MessageDto(applicationProperties.getMessage1()));
         model.addAttribute("allGoods", Good.values());
@@ -79,10 +83,14 @@ public class ConfigController {
 
     @PostMapping("/choose_first_good")
     public String postFirstGood(GoodOwnedForm goodOwnedForm) {
+
+        playerService.setGameState(GameState.CHOOSE_FIRST_WEAPON);
+
         playerService.setHealthPoints(100);
         playerService.setCoins(25);
 
         playerService.saveGood(goodOwnedForm.getOwnedGoods());
+
 
         return "redirect:/choose_first_weapon";
     }
@@ -100,6 +108,7 @@ public class ConfigController {
     @PostMapping("/choose_first_weapon")
     public String postFirstWeapon(WeaponOwnedForm weaponOwnedForm) {
 
+        playerService.setGameState(GameState.SELECT_WEAPON);
         playerService.saveWeapon(weaponOwnedForm.getOwnedWeapons());
         return "redirect:/select_weapon";
     }
@@ -118,8 +127,10 @@ public class ConfigController {
     @PostMapping("/select_weapon")
     public String postSelectWeapon(WeaponOwnedForm weaponOwnedForm) {
 
+        playerService.setGameState(GameState.CHOOSE_CITY);
         playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
         log.info("weapon selected: " + playerService.getWeaponSelected());
+
         return "redirect:/choose_city";
     }
 
@@ -147,22 +158,22 @@ public class ConfigController {
 
         GameState gameState = playerService.getGameState();
 
-        //wszystkie przesunac o jeden
-
         if (gameState == GameState.ENTER_NAME) {
-            return "redirect:/choose_first_good";
+            return "redirect:/user_form";
 
         } else if (gameState == GameState.CHOOSE_FIRST_GOOD) {
-            return "redirect:/choose_first_weapon";
+            return "redirect:/choose_first_good";
 
         } else if (gameState == GameState.CHOOSE_FIRST_WEAPON) {
-            return "redirect:/select_weapon";
+            return "redirect:/choose_first_weapon";
 
         } else if (gameState == GameState.SELECT_WEAPON) {
-            return "redirect:/choose_city";
-        }
+            return "redirect:/select_weapon";
 
-        return "/user_form";
+        } else if (gameState == GameState.CHOOSE_CITY)
+            return "redirect:/choose_city";
+
+        return "/game";
 
     }
 }

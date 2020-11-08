@@ -1,9 +1,9 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.City;
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.GameState;
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
-import com.example.jakub.bartnik.merchant.app.module.goods.enums.Weapon;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.City;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.GameState;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.Good;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.Weapon;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

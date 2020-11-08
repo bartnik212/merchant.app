@@ -4,7 +4,8 @@ import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
 import lombok.Data;
 
 @Data
-public class GoodInitialForm {
+public class GoodOwnedForm {
 
-    private Good goodDto;
+    private Good ownedGoods;
+
 }

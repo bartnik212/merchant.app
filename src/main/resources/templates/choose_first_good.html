@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Game</title>
+    <title>First Good</title>
 
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -24,13 +24,13 @@
 <br>
 
 
-<form th:action="@{/initialmessage}" th:object="${initialGoodForm}" method="post">
+<form th:action="@{/choose_first_good}" th:object="${goodOwnedForm}" method="post">
 
     <th:block th:each="goods : ${allGoods}">
 
 
         <input type="radio" checked="checked" th:text="${goods.name}"
-               th:value="${goods.name}" th:field="*{getGoodDto}"
+               th:value="${goods.name}" th:field="*{ownedGoods}"
                aria-label="Radio button for following text input">
         <br>
     </th:block>

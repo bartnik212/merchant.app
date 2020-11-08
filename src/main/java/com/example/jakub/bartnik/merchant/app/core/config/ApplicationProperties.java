@@ -11,7 +11,7 @@ public class ApplicationProperties {
     @Value("${message1}")
     private String message1;
 
-    public String getMessage1() {
-        return message1;
-    }
+    @Value("${message2}")
+    private String message2;
+
 }

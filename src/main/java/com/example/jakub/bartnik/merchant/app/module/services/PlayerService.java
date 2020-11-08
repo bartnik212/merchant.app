@@ -1,4 +1,4 @@
-package com.example.jakub.bartnik.merchant.app.core.config;
+package com.example.jakub.bartnik.merchant.app.module.services;
 
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Good;
 import com.example.jakub.bartnik.merchant.app.module.goods.enums.Weapon;
@@ -31,4 +31,8 @@ public class PlayerService {
     }
 
 
+    public void saveWeapon(Weapon weapon) {
+        listOfWeapons.add(weapon);
+        log.info("chosen weapon: " + listOfWeapons);
+    }
 }

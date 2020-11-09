@@ -31,7 +31,6 @@ public class ConfigController {
     }
 
 
-
     @GetMapping("/player_status")
     public String getPlayerStatus(Model model) {
 
@@ -148,11 +147,12 @@ public class ConfigController {
         playerService.setGameState(GameState.CITY_SELECTED);
         playerService.setCitySelected(cityChosenForm.getChosenCity());
         log.info("chosen city: " + playerService.getCitySelected());
-        return "redirect:/city";
+
+        return "redirect:/city_actions";
     }
 
-    @GetMapping("/city")
-    public String showCityActions(Model model){
+    @GetMapping("/city_actions")
+    public String showCityActions(Model model) {
 
         model.addAttribute("goodMerchant", applicationProperties.getGoodMerchantDialog());
         model.addAttribute("goOnVacation", applicationProperties.getGoOnVacationDialog());
@@ -164,16 +164,15 @@ public class ConfigController {
 
         model.addAttribute("cityActionForm", new CityActionForm());
 
-//        model.addAttribute("player", playerService.meetWoodMerchant());
-
-        return "/city";
+        return "city_actions";
     }
 
-    @PostMapping("city")
-    public String postCityAction(CityActionForm cityActionForm){
+    @PostMapping("city_actions")
+    public String postCityAction(CityActionForm cityActionForm) {
 
         playerService.setCityActionSelected(cityActionForm.getActionSelected());
         log.info("city action selected: " + playerService.getCityActionSelected());
+
         return "redirect:/nav";
     }
 
@@ -184,7 +183,7 @@ public class ConfigController {
         model.addAttribute("allAnswers", Answer.values());
         model.addAttribute("woodMerchantDialog", applicationProperties.getWoodMerchantDialog());
 
-        if(playerService.getListOfGoods().contains(Good.WOOD)) {
+        if (playerService.getListOfGoods().contains(Good.WOOD)) {
             return "wood_owned";
         }
 
@@ -192,7 +191,7 @@ public class ConfigController {
     }
 
     @PostMapping("/meet_wood_merchant")
-    public String postAnswerWoodMerchant(AnswerForm answerForm){
+    public String postAnswerWoodMerchant(AnswerForm answerForm) {
 
         playerService.setAnswer(answerForm.getAnswerSelected());
         log.info("answer selected: " + playerService.getAnswer());
@@ -220,8 +219,8 @@ public class ConfigController {
         } else if (gameState == GameState.CHOOSE_CITY) {
             return "redirect:/choose_city";
 
-        } else if(gameState == GameState.CITY_SELECTED){
-            return "redirect:/city";
+        } else if (gameState == GameState.CITY_SELECTED) {
+            return "redirect:/city_actions";
         }
 
         return "/game";

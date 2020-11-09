@@ -153,6 +153,14 @@ public class ConfigController {
         return "redirect:/nav";
     }
 
+    @GetMapping("/city")
+    public String showCityActions(Model model){
+
+        model.addAttribute("message5", applicationProperties.getMessage5());
+
+        return "/city";
+    }
+
 
     @GetMapping("/game")
     public String game() {
@@ -177,4 +185,6 @@ public class ConfigController {
         return "/game";
 
     }
+
+
 }

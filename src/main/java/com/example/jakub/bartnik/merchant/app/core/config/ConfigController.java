@@ -156,11 +156,21 @@ public class ConfigController {
     @GetMapping("/city")
     public String showCityActions(Model model){
 
-        model.addAttribute("cityActions", applicationProperties.getCityActionsDialogs());
+
+        model.addAttribute("goodMerchant", applicationProperties.getGoodMerchantDialog());
+        model.addAttribute("cityActionForm", new CityActionForm());
+
 
         return "/city";
     }
 
+    @PostMapping("city")
+    public String postCityAction(CityActionForm cityActionForm){
+
+        playerService.setCityActionSelected(cityActionForm.getActionSelected());
+        log.info("city action selected: " + playerService.getCityActionSelected());
+        return "redirect:/nav";
+    }
 
     @GetMapping("/game")
     public String game() {

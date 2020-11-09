@@ -20,18 +20,42 @@
 </head>
 <body>
 
-<form th:action="@{/city}" th:object="${goodOwnedForm}" method="post">
-
-    <th:block th:each="cityAction : ${cityActions}">
+<form th:action="@{/city}" th:object="${cityActionForm}" method="post">
 
 
-        <input type="radio" checked="checked" th:text="${cityAction}"
-               th:value="${goods}" th:field="*{ownedGoods}"
-               aria-label="Radio button for following text input">
-        <br>
-    </th:block>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
+    <br>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
+    <br>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
 
     <br>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
+
+    <br>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
+
+    <br>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
+
+    <br>
+    <input type="radio" checked="checked" th:text="${goodMerchant}"
+           th:value="${goodMerchant}" th:field="*{actionSelected}"
+           aria-label="Radio button for following text input">
+    <br>
+
 
     <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
 </form>

@@ -22,8 +22,6 @@ public class ApplicationProperties {
     @Value("${message4}")
     private String message4;
 
-    @Value("${message5}")
-    private String message5;
 
     @Value("${meetWithGoodMerchant}")
     private String goodMerchantDialog;
@@ -46,11 +44,12 @@ public class ApplicationProperties {
     @Value("${chooseWeaponToFight}")
     private String chooseWeaponToFightDialog;
 
-    private List<String> cityActionsDialogs = List.of(goodMerchantDialog,
-            goOnVacationDialog,
-            changeTheCityDialog,
-            randomActionDialog,
-            goToLocalCompanyDialog,
-            goToWeaponStoreDialog,
-            chooseWeaponToFightDialog);
+//    @Value("${listOfCityActionsDialogs")
+//    private List<String> cityActionsDialogs = List.of(goodMerchantDialog,
+//            goOnVacationDialog,
+//            changeTheCityDialog,
+//            randomActionDialog,
+//            goToLocalCompanyDialog,
+//            goToWeaponStoreDialog,
+//            chooseWeaponToFightDialog);
 }

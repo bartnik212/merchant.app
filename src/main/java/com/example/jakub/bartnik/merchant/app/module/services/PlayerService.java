@@ -27,6 +27,8 @@ public class PlayerService {
     private City citySelected;
     private GameState gameState = GameState.ENTER_NAME;
 
+    private String cityActionSelected;
+
 
 
     //lista city, miasta, w ktorych odiwedzielem warsztat

@@ -148,9 +148,10 @@ public class ConfigController {
     @PostMapping("/choose_city")
     public String postChosenCity(CityChosenForm cityChosenForm) {
 
+        playerService.setGameState(GameState.CITY_SELECTED);
         playerService.setCitySelected(cityChosenForm.getChosenCity());
         log.info("chosen city: " + playerService.getCitySelected());
-        return "redirect:/nav";
+        return "redirect:/city";
     }
 
     @GetMapping("/city")
@@ -194,12 +195,15 @@ public class ConfigController {
         } else if (gameState == GameState.SELECT_WEAPON) {
             return "redirect:/select_weapon";
 
-        } else if (gameState == GameState.CHOOSE_CITY)
+        } else if (gameState == GameState.CHOOSE_CITY) {
             return "redirect:/choose_city";
+
+        } else if(gameState == GameState.CITY_SELECTED){
+            return "redirect:/city";
+        }
 
         return "/game";
 
     }
-
 
 }

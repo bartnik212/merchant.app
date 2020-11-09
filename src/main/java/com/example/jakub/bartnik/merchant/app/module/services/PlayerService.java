@@ -1,9 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.City;
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.GameState;
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.Good;
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.Weapon;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,6 +23,7 @@ public class PlayerService {
     private int healthPoints; // = 100
     private City citySelected;
     private GameState gameState = GameState.ENTER_NAME;
+    private ChosenCity chosenCity;
 
     private String cityActionSelected;
 

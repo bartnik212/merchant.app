@@ -6,7 +6,8 @@ public enum GameState {
     CHOOSE_FIRST_GOOD,
     CHOOSE_FIRST_WEAPON,
     SELECT_WEAPON,
-    CHOOSE_CITY;
+    CHOOSE_CITY,
+    CITY_SELECTED;
 
 
 }

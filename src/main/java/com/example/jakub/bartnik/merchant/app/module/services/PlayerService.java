@@ -26,6 +26,7 @@ public class PlayerService {
     private City citySelected;
     private GameState gameState = GameState.ENTER_NAME;
     private ChosenCity chosenCity;
+    private Answer answer;
 
     private String cityActionSelected;
 

@@ -1,9 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.City;
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.GameState;
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.Good;
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.Weapon;
+import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -180,9 +177,11 @@ public class ConfigController {
         return "redirect:/nav";
     }
 
-    @GetMapping("/meetWoodMerchant")
+    @GetMapping("/meet_wood_merchant")
     public String meetWoodMerchant(Model model) {
 
+        model.addAttribute("answerForm", new AnswerForm());
+        model.addAttribute("allAnswers", Answer.values());
         model.addAttribute("woodMerchantDialog", applicationProperties.getWoodMerchantDialog());
 
         if(playerService.getListOfGoods().contains(Good.WOOD)) {
@@ -191,6 +190,15 @@ public class ConfigController {
 
         return "";
     }
+
+    @PostMapping("/meet_wood_merchant")
+    public String postAnswerWoodMerchant(AnswerForm answerForm){
+
+        playerService.setAnswer(answerForm.getAnswerSelected());
+        log.info("answer selected: " + playerService.getAnswer());
+        return "redirect:/nav";
+    }
+
 
     @GetMapping("/game")
     public String game() {

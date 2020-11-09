@@ -20,15 +20,18 @@
 </head>
 <body>
 
-<h1 th:utext="${woodMerchantDialog}"></h1>
 
-<form >
+<form th:action="@{/meet_wood_merchant}" th:object="${answerForm}" method="post">
 
-<input type="radio" checked="checked" id="yes" name="answer" th:text="Yes"
-       aria-label="Radio button for following text input">
+    <th:block th:each="answer : ${allAnswers}">
 
-<input type="radio" checked="checked" id="no" name="answer" th:text="No"
-       aria-label="Radio button for following text input">
+
+        <input type="radio" checked="checked" th:text="${answer.name}"
+               th:value="${answer}" th:field="*{answerSelected}"
+               aria-label="Radio button for following text input">
+        <br>
+    </th:block>
+
 
     <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
 

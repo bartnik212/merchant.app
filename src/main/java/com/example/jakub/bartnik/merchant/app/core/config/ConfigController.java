@@ -74,7 +74,7 @@ public class ConfigController {
     public String chooseFirstGood(Model model) {
 
 
-        model.addAttribute("message1", new MessageDto(applicationProperties.getMessage1()));
+        model.addAttribute("message1", applicationProperties.getMessage1());
         model.addAttribute("allGoods", Good.values());
         model.addAttribute("goodOwnedForm", new GoodOwnedForm());
 
@@ -99,7 +99,7 @@ public class ConfigController {
     @GetMapping("/choose_first_weapon")
     public String chooseFirstWeapon(Model model) {
 
-        model.addAttribute("message2", new MessageDto(applicationProperties.getMessage2()));
+        model.addAttribute("message2", applicationProperties.getMessage2());
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
@@ -117,7 +117,7 @@ public class ConfigController {
     @GetMapping("/select_weapon")
     public String showWeaponsToSelect(Model model) {
 
-        model.addAttribute("message3", new MessageDto(applicationProperties.getMessage3()));
+        model.addAttribute("message3", applicationProperties.getMessage3());
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
@@ -138,7 +138,7 @@ public class ConfigController {
     @GetMapping("/choose_city")
     public String showCitiesToChoose(Model model) {
 
-        model.addAttribute("message4", new MessageDto(applicationProperties.getMessage4()));
+        model.addAttribute("message4", applicationProperties.getMessage4());
         model.addAttribute("allCities", City.values());
         model.addAttribute("cityChosenForm", new CityChosenForm());
 

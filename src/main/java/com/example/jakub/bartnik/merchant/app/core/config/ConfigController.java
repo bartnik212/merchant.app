@@ -44,6 +44,7 @@ public class ConfigController {
         model.addAttribute("coins", playerService.getCoins());
         model.addAttribute("healthPoints", playerService.getHealthPoints());
         model.addAttribute("citySelected", playerService.getCitySelected());
+        model.addAttribute("palyerName", playerService.getName());
 
         return "player_status";
     }

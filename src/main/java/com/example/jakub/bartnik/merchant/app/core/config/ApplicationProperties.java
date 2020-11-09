@@ -52,4 +52,7 @@ public class ApplicationProperties {
 //            goToLocalCompanyDialog,
 //            goToWeaponStoreDialog,
 //            chooseWeaponToFightDialog);
+
+    @Value("${woodMerchantDialog}")
+    private String woodMerchantDialog;
 }

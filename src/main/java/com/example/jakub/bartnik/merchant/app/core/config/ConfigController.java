@@ -167,6 +167,8 @@ public class ConfigController {
 
         model.addAttribute("cityActionForm", new CityActionForm());
 
+//        model.addAttribute("player", playerService.meetWoodMerchant());
+
         return "/city";
     }
 
@@ -176,6 +178,18 @@ public class ConfigController {
         playerService.setCityActionSelected(cityActionForm.getActionSelected());
         log.info("city action selected: " + playerService.getCityActionSelected());
         return "redirect:/nav";
+    }
+
+    @GetMapping("/meetWoodMerchant")
+    public String meetWoodMerchant(Model model) {
+
+        model.addAttribute("woodMerchantDialog", applicationProperties.getWoodMerchantDialog());
+
+        if(playerService.getListOfGoods().contains(Good.WOOD)) {
+            return "wood_owned";
+        }
+
+        return "";
     }
 
     @GetMapping("/game")

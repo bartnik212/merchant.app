@@ -156,7 +156,7 @@ public class ConfigController {
     @GetMapping("/city")
     public String showCityActions(Model model){
 
-        model.addAttribute("message5", applicationProperties.getMessage5());
+        model.addAttribute("cityActions", applicationProperties.getCityActionsDialogs());
 
         return "/city";
     }

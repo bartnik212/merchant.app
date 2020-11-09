@@ -27,6 +27,8 @@ public class PlayerService {
     private City citySelected;
     private GameState gameState = GameState.ENTER_NAME;
 
+
+
     //lista city, miasta, w ktorych odiwedzielem warsztat
     //metody miast, a konkretnie te, ktore sie roznia
 

@@ -20,6 +20,21 @@
 </head>
 <body>
 
-<p th:utext="${message5}"></p>
+<form th:action="@{/city}" th:object="${goodOwnedForm}" method="post">
+
+    <th:block th:each="cityAction : ${cityActions}">
+
+
+        <input type="radio" checked="checked" th:text="${cityAction}"
+               th:value="${goods}" th:field="*{ownedGoods}"
+               aria-label="Radio button for following text input">
+        <br>
+    </th:block>
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
+</form>
+
 </body>
 </html>

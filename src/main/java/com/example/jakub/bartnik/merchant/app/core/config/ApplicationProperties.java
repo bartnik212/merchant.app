@@ -22,27 +22,8 @@ public class ApplicationProperties {
     @Value("${message4}")
     private String message4;
 
-
-    @Value("${meetWithGoodMerchant}")
-    private String goodMerchantDialog;
-
-    @Value("${goOnVacation}")
-    private String goOnVacationDialog;
-
-    @Value("${changeTheCity}")
-    private String changeTheCityDialog;
-
-    @Value("${randomAction}")
-    private String randomActionDialog;
-
-    @Value("${goToLocalCompany}")
-    private String goToLocalCompanyDialog;
-
-    @Value(("${goToWeaponStore}"))
-    private String goToWeaponStoreDialog;
-
-    @Value("${chooseWeaponToFight}")
-    private String chooseWeaponToFightDialog;
+    @Value("${message5}")
+    private String message5;
 
 //    @Value("${listOfCityActionsDialogs")
 //    private List<String> cityActionsDialogs = List.of(goodMerchantDialog,

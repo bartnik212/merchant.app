@@ -28,7 +28,7 @@ public class PlayerService {
     private ChosenCity chosenCity;
     private Answer answer;
 
-    private String cityActionSelected;
+    private CityAction cityActionSelected;
 
 
     //lista city, miasta, w ktorych odiwedzielem warsztat

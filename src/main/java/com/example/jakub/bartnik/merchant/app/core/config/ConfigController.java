@@ -154,14 +154,8 @@ public class ConfigController {
     @GetMapping("/city_actions")
     public String showCityActions(Model model) {
 
-        model.addAttribute("goodMerchant", applicationProperties.getGoodMerchantDialog());
-        model.addAttribute("goOnVacation", applicationProperties.getGoOnVacationDialog());
-        model.addAttribute("changeTheCity", applicationProperties.getChangeTheCityDialog());
-        model.addAttribute("randomAction", applicationProperties.getRandomActionDialog());
-        model.addAttribute("goToLocalCompany", applicationProperties.getGoToLocalCompanyDialog());
-        model.addAttribute("goToWeaponStore", applicationProperties.getGoToWeaponStoreDialog());
-        model.addAttribute("chooseWeaponToFight", applicationProperties.getChooseWeaponToFightDialog());
-
+        model.addAttribute("message5", applicationProperties.getMessage5());
+        model.addAttribute("allCityActions", CityAction.values());
         model.addAttribute("cityActionForm", new CityActionForm());
 
         return "city_actions";

@@ -88,4 +88,27 @@ public class PlayerService {
 
         return vacationPlace;
     }
+
+    public City getCurrentlyVisitingLocalCompany() {
+        PlayerService playerService = new PlayerService();
+
+        City localCompany = null;
+
+        if (playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.GO_TO_LOCAL_COMPANY) {
+
+            localCompany = City.GDANSK;
+
+        } else if (playerService.getCitySelected() == City.WARSAW &&
+                playerService.getCityActionSelected() == CityAction.GO_TO_LOCAL_COMPANY) {
+            localCompany = City.WARSAW;
+
+        } else if (playerService.getCitySelected() == City.ZAKOPANE &&
+                playerService.getCityActionSelected() == CityAction.GO_TO_LOCAL_COMPANY) {
+            localCompany = City.ZAKOPANE;
+        }
+
+        return localCompany;
+    }
 }
+

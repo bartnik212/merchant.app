@@ -250,6 +250,18 @@ public class ConfigController {
     @GetMapping("/go_to_local_company")
     public String goToLocalCompany(Model model) {
 
+        City localCompany = playerService.getCurrentlyVisitingLocalCompany();
+
+        switch (localCompany) {
+
+            case GDANSK:
+                model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
+            case WARSAW:
+                model.addAttribute("localCompanyDialog", applicationProperties.getIronWorksDialog());
+            case ZAKOPANE:
+                model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
+        }
+
         return "go_to_local_company";
     }
 

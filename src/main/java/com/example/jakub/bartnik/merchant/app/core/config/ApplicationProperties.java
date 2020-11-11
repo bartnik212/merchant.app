@@ -41,4 +41,13 @@ public class ApplicationProperties {
 
     @Value("${gubalowkaDialog}")
     private String gubalowkaDialog;
+
+    @Value("${copperSmelterDialog}")
+    private String copperSmelterDialog;
+
+    @Value("${ironWorksDialog}")
+    private String ironWorksDialog;
+
+    @Value("${sawmillDialog}")
+    private String sawmillDialog;
 }

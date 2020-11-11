@@ -19,7 +19,7 @@ public class PlayerService {
     private List<Good> listOfGoods = new LinkedList<>();
     private List<Weapon> listOfWeapons = new LinkedList<>();
     private Weapon weaponSelected;
-    private int coins;
+    private int coins; // = 25
     private int healthPoints; // = 100
     private City citySelected;
     private GameState gameState = GameState.ENTER_NAME;

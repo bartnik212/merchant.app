@@ -60,6 +60,8 @@ public class ConfigController {
     @PostMapping("/user_form")
     public String postUserForm(NameForm nameForm) {
 
+        playerService.setHealthPoints(100);
+        playerService.setCoins(25);
         playerService.setName(nameForm.getName());
         log.info("name: " + playerService.getName());
 
@@ -83,9 +85,6 @@ public class ConfigController {
     public String postFirstGood(GoodOwnedForm goodOwnedForm) {
 
         playerService.setGameState(GameState.CHOOSE_FIRST_WEAPON);
-
-        playerService.setHealthPoints(100);
-        playerService.setCoins(25);
 
         playerService.saveGood(goodOwnedForm.getOwnedGoods());
 
@@ -168,7 +167,7 @@ public class ConfigController {
         playerService.setCityActionSelected(cityActionForm.getActionSelected());
         log.info("city action selected: " + playerService.getCityActionSelected());
 
-        return "redirect:/nav";
+        return "redirect:/game";
     }
 
     @GetMapping("/meet_merchant")
@@ -243,6 +242,8 @@ public class ConfigController {
     }
 
 
+
+
     @GetMapping("/game")
     public String game() {
 
@@ -261,7 +262,7 @@ public class ConfigController {
         } else if (gameState == GameState.SELECT_WEAPON) {
             return "redirect:/select_weapon";
 
-        } else if (gameState == GameState.CHOOSE_CITY) {
+        } else if (gameState == GameState.CHOOSE_CITY || cityActionSelected == CityAction.CHANGE_THE_CITY) {
             return "redirect:/choose_city";
 
         } else if (gameState == GameState.CITY_SELECTED) {
@@ -269,6 +270,10 @@ public class ConfigController {
 
         } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
             return "redirect:/meet_merchant";
+
+        } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
+            return "redirect:/go_on_vacation";
+
         }
 
         return "/game";

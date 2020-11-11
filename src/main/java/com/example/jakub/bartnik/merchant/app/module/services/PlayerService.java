@@ -1,11 +1,9 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
-import com.example.jakub.bartnik.merchant.app.core.config.ApplicationProperties;
 import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.LinkedList;
@@ -25,7 +23,6 @@ public class PlayerService {
     private int healthPoints; // = 100
     private City citySelected;
     private GameState gameState = GameState.ENTER_NAME;
-    private ChosenCity chosenCity;
     private Answer answer;
 
     private CityAction cityActionSelected;
@@ -68,5 +65,27 @@ public class PlayerService {
         }
 
         return goodType;
+    }
+
+    public String getCurrentlyVisitingVacationPlace() {
+        PlayerService playerService = new PlayerService();
+
+        String vacationPlace = "";
+
+        if (playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.GO_ON_VACATION) {
+
+            vacationPlace = "motlawa";
+
+        } else if (playerService.getCitySelected() == City.WARSAW &&
+                playerService.getCityActionSelected() == CityAction.GO_ON_VACATION) {
+            vacationPlace = "vistula";
+
+        } else if (playerService.getCitySelected() == City.ZAKOPANE &&
+                playerService.getCityActionSelected() == CityAction.GO_ON_VACATION) {
+            vacationPlace = "gubalowka";
+        }
+
+        return vacationPlace;
     }
 }

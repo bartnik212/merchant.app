@@ -4,7 +4,6 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
 
 @Data
 @Configuration
@@ -33,4 +32,13 @@ public class ApplicationProperties {
 
     @Value("${copperMerchantDialog")
     private String copperMerchantDialog;
+
+    @Value("${motlawaDialog}")
+    private String motlawaDialog;
+
+    @Value("${vistulaDialog}")
+    private String vistulaDialog;
+
+    @Value("${gubalowkaDialog}")
+    private String gubalowkaDialog;
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -173,7 +172,7 @@ public class ConfigController {
     }
 
     @GetMapping("/meet_merchant")
-    public String meetMerchant (Model model) {
+    public String meetMerchant(Model model) {
 
         Good goodType = playerService.getCurrentlyVisitingMerchantGood();
 
@@ -194,7 +193,7 @@ public class ConfigController {
 
         return "meet_merchant_test";
 
-        }
+    }
 
 
 //    @GetMapping("/meet_wood_merchant")
@@ -221,10 +220,34 @@ public class ConfigController {
 //    }
 
 
+    @GetMapping("/go_on_vacation")
+    public String goOnVacation(Model model) {
+
+        String vacationPlace = playerService.getCurrentlyVisitingVacationPlace();
+
+        switch (vacationPlace) {
+
+            case "motlawa":
+                model.addAttribute("dialog", applicationProperties.getMotlawaDialog());
+
+            case "vistula":
+                model.addAttribute("dialog", applicationProperties.getVistulaDialog());
+
+            case "gubalowka":
+                model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
+        }
+
+        playerService.setHealthPoints(100);
+
+        return "go_on_vacation";
+    }
+
+
     @GetMapping("/game")
     public String game() {
 
         GameState gameState = playerService.getGameState();
+        CityAction cityActionSelected = playerService.getCityActionSelected();
 
         if (gameState == GameState.ENTER_NAME) {
             return "redirect:/user_form";
@@ -243,6 +266,9 @@ public class ConfigController {
 
         } else if (gameState == GameState.CITY_SELECTED) {
             return "redirect:/city_actions";
+
+        } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+            return "redirect:/meet_merchant";
         }
 
         return "/game";

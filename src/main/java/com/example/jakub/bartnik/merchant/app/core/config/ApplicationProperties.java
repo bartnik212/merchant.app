@@ -50,4 +50,7 @@ public class ApplicationProperties {
 
     @Value("${sawmillDialog}")
     private String sawmillDialog;
+
+    @Value("${weaponStoreDialog}")
+    private String weaponStoreDialog;
 }

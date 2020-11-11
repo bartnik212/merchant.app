@@ -1,5 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
+import com.example.jakub.bartnik.merchant.app.core.config.WeaponOwnedForm;
 import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -110,5 +111,7 @@ public class PlayerService {
 
         return localCompany;
     }
+
+
 }
 

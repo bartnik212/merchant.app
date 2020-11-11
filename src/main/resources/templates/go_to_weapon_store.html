@@ -22,5 +22,26 @@
 
 <h1>TO BE FINISHED (GO TO WEAPON STORE)</h1>
 
+<h1 th:utext="${weaponStoreDialog}"></h1>
+<br>
+
+<form th:action="@{/go_to_weapon_store}" th:object="${weaponOwnedForm}" method="post">
+
+    <th:block th:each="weapon : ${allWeapons}">
+
+        <input type="radio" checked="checked" th:text="${weapon.name}"
+               th:value="${weapon}" th:field="*{ownedWeapons}"
+               aria-label="Radio button for following text input">
+
+        <br>
+    </th:block>
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
+
+</form>
+
+
 </body>
 </html>

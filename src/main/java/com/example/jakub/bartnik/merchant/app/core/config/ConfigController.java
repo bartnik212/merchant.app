@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Slf4j
 @Controller
@@ -266,15 +268,39 @@ public class ConfigController {
     }
 
     @GetMapping("/go_to_weapon_store")
-    public String goToWeaponStore() {
+    public String goToWeaponStore(Model model) {
+
+        //trzeba zrobić to samo co w meet_merchant_test, bo również są 3 możliwości
+
+        model.addAttribute("weaponStoreDialog", applicationProperties.getWeaponStoreDialog());
+        model.addAttribute("allWeapons", Weapon.values());
+        model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
         return "go_to_weapon_store";
     }
 
+
     @GetMapping("/choose_weapon_to_fight")
-    public String chooseWeaponToFight() {
+    public String chooseWeaponToFight(Model model) {
+
+        // trzeba zrobić podobnie, jak we wcześniejszych przypadkach -
+        // i zaimplementować kolejnego switcha w "/select_weapon"
+        // żeby nie tworzyć choose_weapon_to_fight
+
+        model.addAttribute("message3", applicationProperties.getMessage3());
+        model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
+        model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
         return "choose_weapon_to_fight";
+    }
+
+    @PostMapping("/choose_weapon_to_fight")
+    public String postChooseWeaponTofight (WeaponOwnedForm weaponOwnedForm) {
+
+        playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
+        log.info("weapon selected: " + playerService.getWeaponSelected());
+
+        return "redirect:/city_actions";
     }
 
 

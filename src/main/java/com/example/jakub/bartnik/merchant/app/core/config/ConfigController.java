@@ -259,6 +259,12 @@ public class ConfigController {
         return "go_to_weapon_store";
     }
 
+    @GetMapping("/choose_weapon_to_fight")
+    public String chooseWeaponToFight() {
+
+        return "choose_weapon_to_fight";
+    }
+
 
     @GetMapping("/game")
     public String game() {
@@ -310,8 +316,11 @@ public class ConfigController {
         } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
             return "redirect:/go_to_local_company";
 
-        } else if(cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
+        } else if (cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
             return "redirect:/go_to_weapon_store";
+
+        } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
+            return "redirect:/choose_weapon_to_fight";
         }
 
         return "/game2";

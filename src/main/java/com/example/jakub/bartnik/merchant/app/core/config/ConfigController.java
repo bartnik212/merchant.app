@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -41,6 +42,7 @@ public class ConfigController {
         model.addAttribute("healthPoints", playerService.getHealthPoints());
         model.addAttribute("citySelected", playerService.getCitySelected());
         model.addAttribute("palyerName", playerService.getName());
+        model.addAttribute("cityActionSelected", playerService.getCityActionSelected());
 
         return "player_status";
     }
@@ -161,7 +163,7 @@ public class ConfigController {
         return "city_actions";
     }
 
-    @PostMapping("city_actions")
+    @PostMapping("/city_actions")
     public String postCityAction(CityActionForm cityActionForm) {
 
         playerService.setCityActionSelected(cityActionForm.getActionSelected());
@@ -170,27 +172,53 @@ public class ConfigController {
         return "redirect:/nav";
     }
 
-    @GetMapping("/meet_wood_merchant")
-    public String meetWoodMerchant(Model model) {
+    @GetMapping("/meet_merchant")
+    public String meetMerchant (Model model) {
+
+        Good goodType = playerService.getCurrentlyVisitingMerchantGood();
 
         model.addAttribute("answerForm", new AnswerForm());
         model.addAttribute("allAnswers", Answer.values());
-        model.addAttribute("woodMerchantDialog", applicationProperties.getWoodMerchantDialog());
 
-        if (playerService.getListOfGoods().contains(Good.WOOD)) {
-            return "wood_owned";
+
+        switch (goodType) {
+            case WOOD:
+                model.addAttribute("merchantDialog", applicationProperties.getWoodMerchantDialog());
+
+            case IRON:
+                model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
+
+            case COPPER:
+                model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
         }
 
-        return "";
-    }
+        return "meet_merchant_test";
 
-    @PostMapping("/meet_wood_merchant")
-    public String postAnswerWoodMerchant(AnswerForm answerForm) {
+        }
 
-        playerService.setAnswer(answerForm.getAnswerSelected());
-        log.info("answer selected: " + playerService.getAnswer());
-        return "redirect:/nav";
-    }
+
+//    @GetMapping("/meet_wood_merchant")
+//    public String meetWoodMerchant(Model model) {
+//
+//
+//        model.addAttribute("answerForm", new AnswerForm());
+//        model.addAttribute("allAnswers", Answer.values());
+//        model.addAttribute("woodMerchantDialog", applicationProperties.getWoodMerchantDialog());
+//
+//        if (playerService.getListOfGoods().contains(Good.WOOD)) {
+//            return "wood_owned";
+//        }
+//
+//        return "";
+//    }
+
+//    @PostMapping("/meet_wood_merchant")
+//    public String postAnswerWoodMerchant(AnswerForm answerForm) {
+//
+//        playerService.setAnswer(answerForm.getAnswerSelected());
+//        log.info("answer selected: " + playerService.getAnswer());
+//        return "redirect:/nav";
+//    }
 
 
     @GetMapping("/game")

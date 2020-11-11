@@ -25,15 +25,12 @@ public class ApplicationProperties {
     @Value("${message5}")
     private String message5;
 
-//    @Value("${listOfCityActionsDialogs")
-//    private List<String> cityActionsDialogs = List.of(goodMerchantDialog,
-//            goOnVacationDialog,
-//            changeTheCityDialog,
-//            randomActionDialog,
-//            goToLocalCompanyDialog,
-//            goToWeaponStoreDialog,
-//            chooseWeaponToFightDialog);
-
     @Value("${woodMerchantDialog}")
     private String woodMerchantDialog;
+
+    @Value("${ironMerchantDialog")
+    private String ironMerchantDialog;
+
+    @Value("${copperMerchantDialog")
+    private String copperMerchantDialog;
 }

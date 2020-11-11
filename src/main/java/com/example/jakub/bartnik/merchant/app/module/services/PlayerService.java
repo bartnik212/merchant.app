@@ -46,5 +46,27 @@ public class PlayerService {
         log.info("chosen weapon: " + listOfWeapons);
     }
 
+    public Good getCurrentlyVisitingMerchantGood() {
+        PlayerService playerService = new PlayerService();
 
+        Good goodType = null;
+
+        if (playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+
+            goodType = Good.WOOD;
+
+        } else if (playerService.getCitySelected() == City.WARSAW &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+
+            goodType = Good.IRON;
+
+        } else if (playerService.getCitySelected() == City.ZAKOPANE &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+
+            goodType = Good.COPPER;
+        }
+
+        return goodType;
+    }
 }

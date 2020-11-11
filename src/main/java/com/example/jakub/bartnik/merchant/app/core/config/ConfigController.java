@@ -167,7 +167,7 @@ public class ConfigController {
         playerService.setCityActionSelected(cityActionForm.getActionSelected());
         log.info("city action selected: " + playerService.getCityActionSelected());
 
-        return "redirect:/game";
+        return "redirect:/game2";
     }
 
     @GetMapping("/meet_merchant")
@@ -241,14 +241,17 @@ public class ConfigController {
         return "go_on_vacation";
     }
 
+    @GetMapping("/random_action")
+    public String getRandomAction(Model model) {
 
+        return "random_action";
+    }
 
 
     @GetMapping("/game")
     public String game() {
 
         GameState gameState = playerService.getGameState();
-        CityAction cityActionSelected = playerService.getCityActionSelected();
 
         if (gameState == GameState.ENTER_NAME) {
             return "redirect:/user_form";
@@ -262,11 +265,25 @@ public class ConfigController {
         } else if (gameState == GameState.SELECT_WEAPON) {
             return "redirect:/select_weapon";
 
-        } else if (gameState == GameState.CHOOSE_CITY || cityActionSelected == CityAction.CHANGE_THE_CITY) {
+        } else if (gameState == GameState.CHOOSE_CITY) {
             return "redirect:/choose_city";
 
         } else if (gameState == GameState.CITY_SELECTED) {
             return "redirect:/city_actions";
+
+        }
+
+        return "/game";
+
+    }
+
+    @GetMapping("/game2")
+    public String game2() {
+
+        CityAction cityActionSelected = playerService.getCityActionSelected();
+
+        if (cityActionSelected == CityAction.CHANGE_THE_CITY) {
+            return "redirect:/choose_city";
 
         } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
             return "redirect:/meet_merchant";
@@ -274,10 +291,11 @@ public class ConfigController {
         } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
             return "redirect:/go_on_vacation";
 
+        } else if (cityActionSelected == CityAction.RANDOM_ACTION) {
+            return "redirect:/random_action";
         }
 
-        return "/game";
-
+        return "/game2";
     }
 
 }

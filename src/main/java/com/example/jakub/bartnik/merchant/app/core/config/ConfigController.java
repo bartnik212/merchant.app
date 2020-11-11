@@ -247,6 +247,18 @@ public class ConfigController {
         return "random_action";
     }
 
+    @GetMapping("/go_to_local_company")
+    public String goToLocalCompany(Model model) {
+
+        return "go_to_local_company";
+    }
+
+    @GetMapping("/go_to_weapon_store")
+    public String goToWeaponStore() {
+
+        return "go_to_weapon_store";
+    }
+
 
     @GetMapping("/game")
     public String game() {
@@ -269,11 +281,12 @@ public class ConfigController {
             return "redirect:/choose_city";
 
         } else if (gameState == GameState.CITY_SELECTED) {
+            playerService.setGameState(null);
             return "redirect:/city_actions";
 
         }
 
-        return "/game";
+        return "redirect:/game2";
 
     }
 
@@ -293,9 +306,16 @@ public class ConfigController {
 
         } else if (cityActionSelected == CityAction.RANDOM_ACTION) {
             return "redirect:/random_action";
+
+        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
+            return "redirect:/go_to_local_company";
+
+        } else if(cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
+            return "redirect:/go_to_weapon_store";
         }
 
         return "/game2";
     }
 
 }
+

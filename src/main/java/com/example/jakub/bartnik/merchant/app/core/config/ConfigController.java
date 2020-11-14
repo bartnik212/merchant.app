@@ -124,11 +124,21 @@ public class ConfigController {
     @PostMapping("/select_weapon")
     public String postSelectWeapon(WeaponOwnedForm weaponOwnedForm) {
 
-        playerService.setGameState(GameState.CHOOSE_CITY);
-        playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
-        log.info("weapon selected: " + playerService.getWeaponSelected());
+        boolean isInitializingSelectWeapon = playerService.checkIfItsInitializingSelectWeapon();
+        String redirect = "";
 
-        return "redirect:/choose_city";
+        if (isInitializingSelectWeapon) {
+            playerService.setGameState(GameState.CHOOSE_CITY);
+            redirect = "redirect:/choose_city";
+        } else {
+            playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+            redirect = "redirect:/city_actions";
+        }
+
+        log.info("weapon selected: " + playerService.getWeaponSelected());
+        playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
+
+        return redirect;
     }
 
     @GetMapping("/choose_city")
@@ -328,8 +338,6 @@ public class ConfigController {
     @GetMapping("/go_to_weapon_store")
     public String goToWeaponStore(Model model) {
 
-        //trzeba zrobić to samo co w meet_merchant_test, bo również są 3 możliwości
-
         model.addAttribute("weaponStoreDialog", applicationProperties.getWeaponStoreDialog());
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
@@ -340,9 +348,9 @@ public class ConfigController {
     }
 
     @PostMapping("/go_to_weapon_store")
-    public String postWeaponStore(WeaponOwnedForm weaponOwnedForm, Model model) {
+    public String postWeaponStore(WeaponOwnedForm weaponOwnedForm) {
 
-        if(playerService.getListOfWeapons().contains(weaponOwnedForm.getOwnedWeapons())){
+        if (playerService.getListOfWeapons().contains(weaponOwnedForm.getOwnedWeapons())) {
             return "redirect:/duplicated_weapon";
         } else {
             playerService.saveWeapon(weaponOwnedForm.getOwnedWeapons());
@@ -352,7 +360,7 @@ public class ConfigController {
     }
 
     @GetMapping("/duplicated_weapon")
-    public String duplicatedWeapon(Model model){
+    public String duplicatedWeapon(Model model) {
         model.addAttribute("duplicatedWeapon", applicationProperties.getDuplicatedWeapon());
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
@@ -360,7 +368,7 @@ public class ConfigController {
     }
 
     @GetMapping("weapon_bought")
-    public String weaponBought(Model model){
+    public String weaponBought(Model model) {
         model.addAttribute("weaponBought", applicationProperties.getWeaponBought());
         playerService.setCoins(playerService.getCoins() - 10);
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
@@ -369,28 +377,6 @@ public class ConfigController {
     }
 
 
-    @GetMapping("/choose_weapon_to_fight")
-    public String chooseWeaponToFight(Model model) {
-
-        // trzeba zrobić podobnie, jak we wcześniejszych przypadkach -
-        // i zaimplementować kolejnego switcha w "/select_weapon"
-        // żeby nie tworzyć choose_weapon_to_fight
-
-        model.addAttribute("message3", applicationProperties.getMessage3());
-        model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
-        model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
-
-        return "choose_weapon_to_fight";
-    }
-
-    @PostMapping("/choose_weapon_to_fight")
-    public String postChooseWeaponTofight(WeaponOwnedForm weaponOwnedForm) {
-
-        playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
-        log.info("weapon selected: " + playerService.getWeaponSelected());
-
-        return "redirect:/city_actions";
-    }
 
 
     @GetMapping("/game")
@@ -450,7 +436,7 @@ public class ConfigController {
             return "redirect:/go_to_weapon_store";
 
         } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
-            return "redirect:/choose_weapon_to_fight";
+            return "redirect:/select_weapon";
 
         } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
             return "redirect:/city_actions";

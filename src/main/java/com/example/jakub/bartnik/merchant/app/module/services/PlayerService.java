@@ -131,9 +131,11 @@ public class PlayerService {
         return positiveAnswerAction;
     }
 
+    public Boolean checkIfItsInitializingSelectWeapon() {
 
+        return gameState == GameState.SELECT_WEAPON;
 
-
+    }
 
 }
 

@@ -154,8 +154,17 @@ public class ConfigController {
     @GetMapping("/city_actions")
     public String showCityActions(Model model) {
 
+        CityAction[] cityActionsToShow = {CityAction.MEET_WITH_GOOD_MERCHANT,
+                CityAction.CHANGE_THE_CITY,
+                CityAction.GO_TO_LOCAL_COMPANY,
+                CityAction.GO_ON_VACATION,
+                CityAction.GO_TO_WEAPON_STORE,
+                CityAction.CHOOSE_WEAPON_TO_FIGHT,
+                CityAction.RANDOM_ACTION};
+
+
         model.addAttribute("message5", applicationProperties.getMessage5());
-        model.addAttribute("allCityActions", CityAction.values());
+        model.addAttribute("cityActionsToShow", cityActionsToShow);
         model.addAttribute("cityActionForm", new CityActionForm());
 
         return "city_actions";
@@ -266,30 +275,6 @@ public class ConfigController {
         return "negative_answer";
 
     }
-
-
-//    @GetMapping("/meet_wood_merchant")
-//    public String meetWoodMerchant(Model model) {
-//
-//
-//        model.addAttribute("answerForm", new AnswerForm());
-//        model.addAttribute("allAnswers", Answer.values());
-//        model.addAttribute("woodMerchantDialog", applicationProperties.getWoodMerchantDialog());
-//
-//        if (playerService.getListOfGoods().contains(Good.WOOD)) {
-//            return "wood_owned";
-//        }
-//
-//        return "";
-//    }
-
-//    @PostMapping("/meet_wood_merchant")
-//    public String postAnswerWoodMerchant(AnswerForm answerForm) {
-//
-//        playerService.setAnswer(answerForm.getAnswerSelected());
-//        log.info("answer selected: " + playerService.getAnswer());
-//        return "redirect:/nav";
-//    }
 
 
     @GetMapping("/go_on_vacation")
@@ -434,7 +419,7 @@ public class ConfigController {
         } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
             return "redirect:/choose_weapon_to_fight";
 
-        } else if(cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
+        } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
             return "redirect:/city_actions";
         }
 

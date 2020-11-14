@@ -27,10 +27,10 @@ public class ApplicationProperties {
     @Value("${woodMerchantDialog}")
     private String woodMerchantDialog;
 
-    @Value("${ironMerchantDialog")
+    @Value("${ironMerchantDialog}")
     private String ironMerchantDialog;
 
-    @Value("${copperMerchantDialog")
+    @Value("${copperMerchantDialog}")
     private String copperMerchantDialog;
 
     @Value("${motlawaDialog}")

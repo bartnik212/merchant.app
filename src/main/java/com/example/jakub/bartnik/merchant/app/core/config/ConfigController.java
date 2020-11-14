@@ -180,16 +180,18 @@ public class ConfigController {
         model.addAttribute("answerForm", new AnswerForm());
         model.addAttribute("allAnswers", Answer.values());
 
-
         switch (goodType) {
             case WOOD:
                 model.addAttribute("merchantDialog", applicationProperties.getWoodMerchantDialog());
+                break;
 
             case IRON:
                 model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
+                break;
 
             case COPPER:
-                model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
+                model.addAttribute("merchantDialog", applicationProperties.getCopperMerchantDialog());
+                break;
         }
 
         return "meet_merchant_test";
@@ -224,17 +226,17 @@ public class ConfigController {
     @GetMapping("/go_on_vacation")
     public String goOnVacation(Model model) {
 
-        String vacationPlace = playerService.getCurrentlyVisitingVacationPlace();
+        VacationPlace vacationPlace = playerService.getCurrentlyVisitingVacationPlace();
 
         switch (vacationPlace) {
 
-            case "motlawa":
+            case MOTLAWA:
                 model.addAttribute("dialog", applicationProperties.getMotlawaDialog());
 
-            case "vistula":
+            case VISTULA:
                 model.addAttribute("dialog", applicationProperties.getVistulaDialog());
 
-            case "gubalowka":
+            case GUBALOWKA:
                 model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
         }
 
@@ -331,6 +333,9 @@ public class ConfigController {
         }
 
         return "redirect:/game2";
+        //wywolaj bezposrednio metode
+        //zdjac endpointa z game2
+        //gamestate zmienic game initialization state
 
     }
 

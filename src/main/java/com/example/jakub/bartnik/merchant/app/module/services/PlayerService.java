@@ -45,22 +45,21 @@ public class PlayerService {
     }
 
     public Good getCurrentlyVisitingMerchantGood() {
-        PlayerService playerService = new PlayerService();
 
         Good goodType = null;
 
-        if (playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+        if (citySelected == City.GDANSK &&
+                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
             goodType = Good.WOOD;
 
-        } else if (playerService.getCitySelected() == City.WARSAW &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+        } else if (citySelected == City.WARSAW &&
+                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
             goodType = Good.IRON;
 
-        } else if (playerService.getCitySelected() == City.ZAKOPANE &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+        } else if (citySelected == City.ZAKOPANE &&
+                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
             goodType = Good.COPPER;
         }
@@ -68,44 +67,42 @@ public class PlayerService {
         return goodType;
     }
 
-    public String getCurrentlyVisitingVacationPlace() {
-        PlayerService playerService = new PlayerService();
+    public VacationPlace getCurrentlyVisitingVacationPlace() {
 
-        String vacationPlace = "";
+        VacationPlace vacationPlace = null;
 
-        if (playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.GO_ON_VACATION) {
+        if (citySelected == City.GDANSK &&
+                cityActionSelected == CityAction.GO_ON_VACATION) {
 
-            vacationPlace = "motlawa";
+            vacationPlace = VacationPlace.MOTLAWA;
 
-        } else if (playerService.getCitySelected() == City.WARSAW &&
-                playerService.getCityActionSelected() == CityAction.GO_ON_VACATION) {
-            vacationPlace = "vistula";
+        } else if (citySelected == City.WARSAW &&
+                cityActionSelected == CityAction.GO_ON_VACATION) {
+            vacationPlace = VacationPlace.VISTULA;
 
-        } else if (playerService.getCitySelected() == City.ZAKOPANE &&
-                playerService.getCityActionSelected() == CityAction.GO_ON_VACATION) {
-            vacationPlace = "gubalowka";
+        } else if (citySelected == City.ZAKOPANE &&
+                cityActionSelected == CityAction.GO_ON_VACATION) {
+            vacationPlace = VacationPlace.GUBALOWKA;
         }
 
         return vacationPlace;
     }
 
     public City getCurrentlyVisitingLocalCompany() {
-        PlayerService playerService = new PlayerService();
 
         City localCompany = null;
 
-        if (playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.GO_TO_LOCAL_COMPANY) {
+        if (citySelected == City.GDANSK &&
+                cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
 
             localCompany = City.GDANSK;
 
-        } else if (playerService.getCitySelected() == City.WARSAW &&
-                playerService.getCityActionSelected() == CityAction.GO_TO_LOCAL_COMPANY) {
+        } else if (citySelected == City.WARSAW &&
+                cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
             localCompany = City.WARSAW;
 
-        } else if (playerService.getCitySelected() == City.ZAKOPANE &&
-                playerService.getCityActionSelected() == CityAction.GO_TO_LOCAL_COMPANY) {
+        } else if (citySelected == City.ZAKOPANE &&
+                cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
             localCompany = City.ZAKOPANE;
         }
 

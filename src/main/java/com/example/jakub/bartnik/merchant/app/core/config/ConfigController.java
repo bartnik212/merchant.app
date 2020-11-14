@@ -180,21 +180,38 @@ public class ConfigController {
         model.addAttribute("answerForm", new AnswerForm());
         model.addAttribute("allAnswers", Answer.values());
 
-        switch (goodType) {
-            case WOOD:
-                model.addAttribute("merchantDialog", applicationProperties.getWoodMerchantDialog());
-                break;
 
-            case IRON:
-                model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
-                break;
+        if (goodType == null) {
+           return "redirect:/no_good_merchant";
 
-            case COPPER:
-                model.addAttribute("merchantDialog", applicationProperties.getCopperMerchantDialog());
-                break;
+        } else {
+
+            switch (goodType) {
+                case WOOD:
+                    model.addAttribute("merchantDialog", applicationProperties.getWoodMerchantDialog());
+                    break;
+
+                case IRON:
+                    model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
+                    break;
+
+                case COPPER:
+                    model.addAttribute("merchantDialog", applicationProperties.getCopperMerchantDialog());
+                    break;
+
+            }
         }
 
         return "meet_merchant_test";
+
+    }
+
+    @GetMapping("/no_good_merchant")
+    public String noGoodMerchant(Model model) {
+
+        model.addAttribute("noGoodDialog", applicationProperties.getNoGoodDialog());
+
+        return "no_good_merchant";
 
     }
 
@@ -207,10 +224,10 @@ public class ConfigController {
     }
 
     @GetMapping("/positive_answer")
-    public String positiveAnswer(Model model){
+    public String positiveAnswer(Model model) {
 
-        if(playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT){
+        if (playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
             playerService.getListOfGoods().remove(Good.WOOD);
             playerService.setCoins(playerService.getCoins() + 20);
@@ -223,10 +240,10 @@ public class ConfigController {
     }
 
     @GetMapping("/negative_answer")
-    public String negativeAnswer (Model model) {
+    public String negativeAnswer(Model model) {
 
-        if(playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT){
+        if (playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
             model.addAttribute("negativeAnswer", applicationProperties.getMerchantNegativeAnswer());
 
@@ -235,8 +252,6 @@ public class ConfigController {
         return "negative_answer";
 
     }
-
-
 
 
 //    @GetMapping("/meet_wood_merchant")

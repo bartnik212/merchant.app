@@ -48,6 +48,9 @@ public class ApplicationProperties {
     @Value("${ironWorksDialog}")
     private String ironWorksDialog;
 
+    @Value("${noGoodDialog}")
+    private String noGoodDialog;
+
     @Value("${sawmillDialog}")
     private String sawmillDialog;
 

@@ -49,17 +49,20 @@ public class PlayerService {
         Good goodType = null;
 
         if (citySelected == City.GDANSK &&
-                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT &&
+                listOfGoods.contains(Good.WOOD)) {
 
             goodType = Good.WOOD;
 
         } else if (citySelected == City.WARSAW &&
-                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT &&
+                listOfGoods.contains(Good.IRON)) {
 
             goodType = Good.IRON;
 
         } else if (citySelected == City.ZAKOPANE &&
-                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+                cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT &&
+                listOfGoods.contains(Good.COPPER)) {
 
             goodType = Good.COPPER;
         }

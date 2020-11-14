@@ -235,7 +235,7 @@ public class ConfigController {
     public String noGoodMerchant(Model model) {
 
         model.addAttribute("noGoodDialog", applicationProperties.getNoGoodDialog());
-
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "no_good_merchant";
 
     }
@@ -332,6 +332,8 @@ public class ConfigController {
             case ZAKOPANE:
                 model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
         }
+
+        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY);
 
         return "go_to_local_company";
     }

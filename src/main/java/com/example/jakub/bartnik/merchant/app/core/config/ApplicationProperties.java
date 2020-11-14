@@ -68,4 +68,10 @@ public class ApplicationProperties {
 
     @Value("${merchantNegativeAnswer}")
     private String merchantNegativeAnswer;
+
+    @Value("${duplicatedWeapon}")
+    private String duplicatedWeapon;
+
+    @Value("${weaponBought}")
+    private String weaponBought;
 }

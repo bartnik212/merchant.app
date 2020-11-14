@@ -272,6 +272,7 @@ public class ConfigController {
 
         }
 
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "negative_answer";
 
     }
@@ -295,6 +296,7 @@ public class ConfigController {
         }
 
         playerService.setHealthPoints(100);
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         return "go_on_vacation";
     }
@@ -332,7 +334,38 @@ public class ConfigController {
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
+        playerService.setCityActionSelected(CityAction.GO_TO_WEAPON_STORE);
+
         return "go_to_weapon_store";
+    }
+
+    @PostMapping("/go_to_weapon_store")
+    public String postWeaponStore(WeaponOwnedForm weaponOwnedForm, Model model) {
+
+        if(playerService.getListOfWeapons().contains(weaponOwnedForm.getOwnedWeapons())){
+            return "redirect:/duplicated_weapon";
+        } else {
+            playerService.saveWeapon(weaponOwnedForm.getOwnedWeapons());
+        }
+
+        return "redirect:/weapon_bought";
+    }
+
+    @GetMapping("/duplicated_weapon")
+    public String duplicatedWeapon(Model model){
+        model.addAttribute("duplicatedWeapon", applicationProperties.getDuplicatedWeapon());
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+
+        return "duplicated_weapon";
+    }
+
+    @GetMapping("weapon_bought")
+    public String weaponBought(Model model){
+        model.addAttribute("weaponBought", applicationProperties.getWeaponBought());
+        playerService.setCoins(playerService.getCoins() - 10);
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+
+        return "weapon_bought";
     }
 
 

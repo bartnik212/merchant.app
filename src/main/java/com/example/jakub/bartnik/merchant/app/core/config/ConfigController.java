@@ -198,6 +198,46 @@ public class ConfigController {
 
     }
 
+    @PostMapping("/meet_merchant")
+    public String postMeetMerchant(AnswerForm answerForm) {
+
+        return answerForm.getAnswerSelected() == Answer.YES ? "redirect:/positive_answer" :
+                "redirect:/negative_answer";
+
+    }
+
+    @GetMapping("/positive_answer")
+    public String positiveAnswer(Model model){
+
+        if(playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT){
+
+            playerService.getListOfGoods().remove(Good.WOOD);
+            playerService.setCoins(playerService.getCoins() + 20);
+
+            model.addAttribute("positiveAnswer", applicationProperties.getWoodMerchantPositiveAnswer());
+        }
+
+        return "positive_answer";
+
+    }
+
+    @GetMapping("/negative_answer")
+    public String negativeAnswer (Model model) {
+
+        if(playerService.getCitySelected() == City.GDANSK &&
+                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT){
+
+            model.addAttribute("negativeAnswer", applicationProperties.getMerchantNegativeAnswer());
+
+        }
+
+        return "negative_answer";
+
+    }
+
+
+
 
 //    @GetMapping("/meet_wood_merchant")
 //    public String meetWoodMerchant(Model model) {
@@ -297,7 +337,7 @@ public class ConfigController {
     }
 
     @PostMapping("/choose_weapon_to_fight")
-    public String postChooseWeaponTofight (WeaponOwnedForm weaponOwnedForm) {
+    public String postChooseWeaponTofight(WeaponOwnedForm weaponOwnedForm) {
 
         playerService.setWeaponSelected(weaponOwnedForm.getOwnedWeapons());
         log.info("weapon selected: " + playerService.getWeaponSelected());

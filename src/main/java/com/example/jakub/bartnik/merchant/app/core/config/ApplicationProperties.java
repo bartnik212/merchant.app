@@ -53,4 +53,10 @@ public class ApplicationProperties {
 
     @Value("${weaponStoreDialog}")
     private String weaponStoreDialog;
+
+    @Value("${woodMerchantPositiveAnswer}")
+    private String woodMerchantPositiveAnswer;
+
+    @Value("${merchantNegativeAnswer}")
+    private String merchantNegativeAnswer;
 }

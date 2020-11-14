@@ -305,6 +305,7 @@ public class ConfigController {
                 model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
         }
 
+        playerService.setCoins(playerService.getCoins() - 5);
         playerService.setHealthPoints(100);
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 

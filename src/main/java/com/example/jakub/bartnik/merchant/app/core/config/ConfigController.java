@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
 
 @Slf4j
 @Controller
@@ -182,7 +180,7 @@ public class ConfigController {
 
 
         if (goodType == null) {
-           return "redirect:/no_good_merchant";
+            return "redirect:/no_good_merchant";
 
         } else {
 
@@ -206,6 +204,14 @@ public class ConfigController {
 
     }
 
+    @PostMapping("/meet_merchant")
+    public String postMeetMerchant(AnswerForm answerForm) {
+
+        return answerForm.getAnswerSelected() == Answer.YES ? "redirect:/positive_answer" :
+                "redirect:/negative_answer";
+
+    }
+
     @GetMapping("/no_good_merchant")
     public String noGoodMerchant(Model model) {
 
@@ -215,26 +221,34 @@ public class ConfigController {
 
     }
 
-    @PostMapping("/meet_merchant")
-    public String postMeetMerchant(AnswerForm answerForm) {
-
-        return answerForm.getAnswerSelected() == Answer.YES ? "redirect:/positive_answer" :
-                "redirect:/negative_answer";
-
-    }
-
     @GetMapping("/positive_answer")
     public String positiveAnswer(Model model) {
 
-        if (playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
+        PositiveAnswerAction positiveAnswerAction = playerService.getPositiveAnswer();
 
-            playerService.getListOfGoods().remove(Good.WOOD);
-            playerService.setCoins(playerService.getCoins() + 20);
+        switch (positiveAnswerAction) {
 
-            model.addAttribute("positiveAnswer", applicationProperties.getWoodMerchantPositiveAnswer());
+            case GOOD_MERCHANT_GDANSK:
+                playerService.getListOfGoods().remove(Good.WOOD);
+                playerService.setCoins(playerService.getCoins() + 20);
+
+                model.addAttribute("positiveAnswer", applicationProperties.getWoodMerchantPositiveAnswer());
+
+            case GOOD_MERCHANT_WARSAW:
+                playerService.getListOfGoods().remove(Good.IRON);
+                playerService.setCoins(playerService.getCoins() + 20);
+
+                model.addAttribute("positiveAnswer", applicationProperties.getIronMerchantPositiveAnswer());
+
+            case GOOD_MERCHANT_ZAKOPANE:
+                playerService.getListOfGoods().remove(Good.COPPER);
+                playerService.setCoins(playerService.getCoins() + 20);
+
+                model.addAttribute("positiveAnswer", applicationProperties.getCopperMerchantPositiveAnswer());
+
         }
 
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "positive_answer";
 
     }
@@ -419,6 +433,9 @@ public class ConfigController {
 
         } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
             return "redirect:/choose_weapon_to_fight";
+
+        } else if(cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
+            return "redirect:/city_actions";
         }
 
         return "/game2";

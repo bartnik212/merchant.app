@@ -60,6 +60,12 @@ public class ApplicationProperties {
     @Value("${woodMerchantPositiveAnswer}")
     private String woodMerchantPositiveAnswer;
 
+    @Value("${ironMerchantPositiveAnswer}")
+    private String ironMerchantPositiveAnswer;
+
+    @Value("${copperMerchantPositiveAnswer}")
+    private String copperMerchantPositiveAnswer;
+
     @Value("${merchantNegativeAnswer}")
     private String merchantNegativeAnswer;
 }

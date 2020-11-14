@@ -1,6 +1,5 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
-import com.example.jakub.bartnik.merchant.app.core.config.WeaponOwnedForm;
 import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -111,6 +110,27 @@ public class PlayerService {
 
         return localCompany;
     }
+
+    public PositiveAnswerAction getPositiveAnswer () {
+
+        PositiveAnswerAction positiveAnswerAction = null;
+
+        if (citySelected == City.GDANSK && cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT){
+
+            positiveAnswerAction = PositiveAnswerAction.GOOD_MERCHANT_GDANSK;
+
+        } else if (citySelected == City.WARSAW && cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+
+            positiveAnswerAction = PositiveAnswerAction.GOOD_MERCHANT_WARSAW;
+
+        } else if (citySelected == City.ZAKOPANE && cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+
+            positiveAnswerAction = PositiveAnswerAction.GOOD_MERCHANT_ZAKOPANE;
+        }
+
+        return positiveAnswerAction;
+    }
+
 
 
 }

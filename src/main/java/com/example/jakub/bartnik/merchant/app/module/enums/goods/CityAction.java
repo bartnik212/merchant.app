@@ -2,6 +2,7 @@ package com.example.jakub.bartnik.merchant.app.module.enums.goods;
 
 public enum CityAction {
 
+    SHOW_CITY_ACTIONS("Show city actions"),
     MEET_WITH_GOOD_MERCHANT ("Meet with goods merchant"),
     GO_ON_VACATION ("Go on a one-day vacation"),
     CHANGE_THE_CITY ("Change the city"),

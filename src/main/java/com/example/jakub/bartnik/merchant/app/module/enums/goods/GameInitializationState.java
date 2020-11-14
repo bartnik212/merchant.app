@@ -1,6 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.module.enums.goods;
 
-public enum GameState {
+public enum GameInitializationState {
 
     ENTER_NAME,
     CHOOSE_FIRST_GOOD,

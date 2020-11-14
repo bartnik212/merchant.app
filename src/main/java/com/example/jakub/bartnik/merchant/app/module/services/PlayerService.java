@@ -22,7 +22,7 @@ public class PlayerService {
     private int coins; // = 25
     private int healthPoints; // = 100
     private City citySelected;
-    private GameState gameState = GameState.ENTER_NAME;
+    private GameInitializationState gameInitializationState = GameInitializationState.ENTER_NAME;
     private Answer answer;
 
     private CityAction cityActionSelected;
@@ -133,7 +133,7 @@ public class PlayerService {
 
     public Boolean checkIfItsInitializingSelectWeapon() {
 
-        return gameState == GameState.SELECT_WEAPON;
+        return gameInitializationState == GameInitializationState.SELECT_WEAPON;
 
     }
 

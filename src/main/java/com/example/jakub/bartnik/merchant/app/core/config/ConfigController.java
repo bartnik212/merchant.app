@@ -49,7 +49,7 @@ public class ConfigController {
     @GetMapping("/user_form")
     public String getUserForm(Model model) {
 
-        playerService.setGameState(GameState.CHOOSE_FIRST_GOOD);
+        playerService.setGameInitializationState(GameInitializationState.CHOOSE_FIRST_GOOD);
 
         model.addAttribute("nameForm", new NameForm());
         model.addAttribute("username", playerService.getName());
@@ -84,7 +84,7 @@ public class ConfigController {
     @PostMapping("/choose_first_good")
     public String postFirstGood(GoodOwnedForm goodOwnedForm) {
 
-        playerService.setGameState(GameState.CHOOSE_FIRST_WEAPON);
+        playerService.setGameInitializationState(GameInitializationState.CHOOSE_FIRST_WEAPON);
 
         playerService.saveGood(goodOwnedForm.getOwnedGoods());
 
@@ -105,7 +105,7 @@ public class ConfigController {
     @PostMapping("/choose_first_weapon")
     public String postFirstWeapon(WeaponOwnedForm weaponOwnedForm) {
 
-        playerService.setGameState(GameState.SELECT_WEAPON);
+        playerService.setGameInitializationState(GameInitializationState.SELECT_WEAPON);
         playerService.saveWeapon(weaponOwnedForm.getOwnedWeapons());
         return "redirect:/select_weapon";
     }
@@ -128,7 +128,7 @@ public class ConfigController {
         String redirect = "";
 
         if (isInitializingSelectWeapon) {
-            playerService.setGameState(GameState.CHOOSE_CITY);
+            playerService.setGameInitializationState(GameInitializationState.CHOOSE_CITY);
             redirect = "redirect:/choose_city";
         } else {
             playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
@@ -154,7 +154,7 @@ public class ConfigController {
     @PostMapping("/choose_city")
     public String postChosenCity(CityChosenForm cityChosenForm) {
 
-        playerService.setGameState(GameState.CITY_SELECTED);
+        playerService.setGameInitializationState(GameInitializationState.CITY_SELECTED);
         playerService.setCitySelected(cityChosenForm.getChosenCity());
         log.info("chosen city: " + playerService.getCitySelected());
 
@@ -385,25 +385,25 @@ public class ConfigController {
     @GetMapping("/game")
     public String game() {
 
-        GameState gameState = playerService.getGameState();
+        GameInitializationState gameInitializationState = playerService.getGameInitializationState();
 
-        if (gameState == GameState.ENTER_NAME) {
+        if (gameInitializationState == GameInitializationState.ENTER_NAME) {
             return "redirect:/user_form";
 
-        } else if (gameState == GameState.CHOOSE_FIRST_GOOD) {
+        } else if (gameInitializationState == GameInitializationState.CHOOSE_FIRST_GOOD) {
             return "redirect:/choose_first_good";
 
-        } else if (gameState == GameState.CHOOSE_FIRST_WEAPON) {
+        } else if (gameInitializationState == GameInitializationState.CHOOSE_FIRST_WEAPON) {
             return "redirect:/choose_first_weapon";
 
-        } else if (gameState == GameState.SELECT_WEAPON) {
+        } else if (gameInitializationState == GameInitializationState.SELECT_WEAPON) {
             return "redirect:/select_weapon";
 
-        } else if (gameState == GameState.CHOOSE_CITY) {
+        } else if (gameInitializationState == GameInitializationState.CHOOSE_CITY) {
             return "redirect:/choose_city";
 
-        } else if (gameState == GameState.CITY_SELECTED) {
-            playerService.setGameState(null);
+        } else if (gameInitializationState == GameInitializationState.CITY_SELECTED) {
+            playerService.setGameInitializationState(null);
             return "redirect:/city_actions";
 
         }

@@ -1,6 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.Answer;
+import com.example.jakub.bartnik.merchant.app.module.enums.Answer;
 import lombok.Data;
 
 @Data

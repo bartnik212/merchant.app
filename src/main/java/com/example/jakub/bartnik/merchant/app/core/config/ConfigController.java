@@ -1,6 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
+import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+// enum Enemy - kazdy w zaleznosci od rodzaju broni
+// pole weapon do kazdego z wojownika
+//
 
 @Slf4j
 @Controller
@@ -71,7 +74,8 @@ public class ConfigController {
 
     @GetMapping("/choose_first_good")
     public String chooseFirstGood(Model model) {
-
+        //if playerservice.getGameStateinitializatio != choosefirstGood {
+        // return redirect ... }
 
         model.addAttribute("message1", applicationProperties.getMessage1());
         model.addAttribute("allGoods", Good.values());

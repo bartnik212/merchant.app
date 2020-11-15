@@ -1,6 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
-import com.example.jakub.bartnik.merchant.app.module.enums.goods.*;
+import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -90,7 +90,22 @@ public class PlayerService {
         return vacationPlace;
     }
 
+    // enum Enemy z każdym rodzajem broni
+
+    // stworz metode getCurrentEnemy
+    // musi ustalac w ktorym miescie jestesmy (mamy odzytane cityselected)
+    // jesli cityselected to gdansk to enemy jest z huty miedzi
+
+    // nastepnie, druga metoda fight
+
+    // nastepnie trzecia metoda wdajSieWbojkeZZakladem (w controllerze)
+    // 1 Krok = getCurrentEnemy
+    // 2 krok = fight (papier kamien nozyce)
+    // 3 krok = aktualizacja stanu gracza (zasoby, hp na podstawie bójki)
+
     public City getCurrentlyVisitingLocalCompany() {
+
+        // zrefaktorowac to
 
         City localCompany = null;
 

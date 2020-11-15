@@ -45,6 +45,12 @@ public class ApplicationProperties {
     @Value("${copperSmelterDialog}")
     private String copperSmelterDialog;
 
+    @Value("${workerCopperSmelterDialog}")
+    private String workerCopperSmelterDialog;
+
+    @Value("${workerCopperSmelterDialog2}")
+    private String workerCopperSmelterDialog2;
+
     @Value("${ironWorksDialog}")
     private String ironWorksDialog;
 
@@ -74,4 +80,11 @@ public class ApplicationProperties {
 
     @Value("${weaponBought}")
     private String weaponBought;
+
+    @Value("${winDialog}")
+    private String winDialog;
+
+
+
+
 }

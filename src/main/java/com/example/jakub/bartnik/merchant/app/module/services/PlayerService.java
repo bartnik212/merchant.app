@@ -1,5 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
+import com.example.jakub.bartnik.merchant.app.core.config.ApplicationProperties;
 import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -105,26 +106,40 @@ public class PlayerService {
 
     public City getCurrentlyVisitingLocalCompany() {
 
-        // zrefaktorowac to
 
-        City localCompany = null;
+        return cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY ? citySelected : null;
 
-        if (citySelected == City.GDANSK &&
-                cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
 
-            localCompany = City.GDANSK;
 
-        } else if (citySelected == City.WARSAW &&
-                cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
-            localCompany = City.WARSAW;
+//        City localCompany = null;
+//
+//        if(cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY){
+//            localCompany = citySelected;
+//        }
+//
+//        return localCompany;
+    }
 
-        } else if (citySelected == City.ZAKOPANE &&
-                cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
-            localCompany = City.ZAKOPANE;
+    public Enemy fightWithWorkerOfLocalCompany() {
+
+        City citySelected = getCurrentlyVisitingLocalCompany();
+        Enemy enemy = null;
+
+        if (citySelected == City.GDANSK) {
+            enemy = Enemy.FIREARMER;
+
+        } else if(citySelected == City.WARSAW) {
+            enemy = Enemy.TWOHANDEDSWORDER;
+
+        } else if(citySelected == City.ZAKOPANE){
+            enemy = Enemy.SWORDSHIELDER;
         }
 
-        return localCompany;
+        return enemy;
+
     }
+
+
 
     public PositiveAnswerAction getPositiveAnswer () {
 
@@ -152,5 +167,16 @@ public class PlayerService {
 
     }
 
+    public FightResult paperScissorsRock(Enemy enemy) {
+
+        FightResult fightResult = null;
+
+        if(weaponSelected == Weapon.SWORDSHIELD && enemy == Enemy.FIREARMER){
+            fightResult = FightResult.WIN;
+
+        }
+
+        return fightResult;
+    }
 }
 

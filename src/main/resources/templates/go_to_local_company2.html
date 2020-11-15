@@ -20,10 +20,26 @@
 </head>
 <body>
 
-<h1 th:utext="${localCompanyDialog}"></h1>
+<h1 th:utext="${workerLocalCompanyDialog}"></h1>
 
-<a href="/go_to_local_company2"><button class="btn btn-lg btn-primary btn-block" type="button">NEXT</button></a>
+<br>
 
+
+<form th:action="@{/go_to_local_company2}" th:object="${answerForm}" method="post">
+
+    <th:block th:each="answer : ${allAnswers}">
+
+
+        <input type="radio" checked="checked" th:text="${answer.name}"
+               th:value="${answer}" th:field="*{answerSelected}"
+               aria-label="Radio button for following text input">
+        <br>
+    </th:block>
+
+    <br>
+
+    <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
+</form>
 
 
 </body>

@@ -9,9 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-// enum Enemy - kazdy w zaleznosci od rodzaju broni
-// pole weapon do kazdego z wojownika
-//
 
 @Slf4j
 @Controller
@@ -74,8 +71,7 @@ public class ConfigController {
 
     @GetMapping("/choose_first_good")
     public String chooseFirstGood(Model model) {
-        //if playerservice.getGameStateinitializatio != choosefirstGood {
-        // return redirect ... }
+
 
         model.addAttribute("message1", applicationProperties.getMessage1());
         model.addAttribute("allGoods", Good.values());
@@ -353,6 +349,64 @@ public class ConfigController {
         return "go_to_local_company";
     }
 
+    @GetMapping("/go_to_local_company2")
+    public String goToLocalCompany2(Model model) {
+
+        model.addAttribute("answerForm", new AnswerForm());
+        model.addAttribute("allAnswers", Answer.values());
+        Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
+
+        switch (enemy) {
+            case FIREARMER:
+                model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerCopperSmelterDialog());
+                break;
+
+        }
+
+
+        return "go_to_local_company2";
+    }
+
+    @PostMapping("/go_to_local_company2")
+    public String postGoToLocalCompany2(AnswerForm answerForm) {
+
+        //TODO
+
+        return answerForm.getAnswerSelected() == Answer.YES ? "redirect:/go_to_local_company3" :
+                "redirect:/leave";
+
+    }
+
+    @GetMapping("/go_to_local_company3")
+    public String goToLocalCompany3(Model model) {
+        Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
+
+        switch (enemy) {
+
+            case FIREARMER:
+                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerCopperSmelterDialog2());
+                break;
+
+        }
+
+        return "go_to_local_company3";
+    }
+
+    @GetMapping("/go_to_local_company4")
+    public String goToLocalCompany4 (Model model) {
+        Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
+        FightResult fightResult = playerService.paperScissorsRock(enemy);
+
+        switch (fightResult) {
+
+            case WIN:
+                model.addAttribute("winDialog", applicationProperties.getWinDialog());
+                playerService.saveGood(Good.COPPER);
+        }
+
+        return "/go_to_local_company4";
+    }
+
     @GetMapping("/go_to_weapon_store")
     public String goToWeaponStore(Model model) {
 
@@ -393,8 +447,6 @@ public class ConfigController {
 
         return "weapon_bought";
     }
-
-
 
 
     @GetMapping("/game")

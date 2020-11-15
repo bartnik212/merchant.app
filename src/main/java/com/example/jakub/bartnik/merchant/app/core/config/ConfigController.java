@@ -252,18 +252,21 @@ public class ConfigController {
                 playerService.setCoins(playerService.getCoins() + 20);
 
                 model.addAttribute("positiveAnswer", applicationProperties.getWoodMerchantPositiveAnswer());
+                break;
 
             case GOOD_MERCHANT_WARSAW:
                 playerService.getListOfGoods().remove(Good.IRON);
                 playerService.setCoins(playerService.getCoins() + 20);
 
                 model.addAttribute("positiveAnswer", applicationProperties.getIronMerchantPositiveAnswer());
+                break;
 
             case GOOD_MERCHANT_ZAKOPANE:
                 playerService.getListOfGoods().remove(Good.COPPER);
                 playerService.setCoins(playerService.getCoins() + 20);
 
                 model.addAttribute("positiveAnswer", applicationProperties.getCopperMerchantPositiveAnswer());
+                break;
 
         }
 
@@ -297,12 +300,15 @@ public class ConfigController {
 
             case MOTLAWA:
                 model.addAttribute("dialog", applicationProperties.getMotlawaDialog());
+                break;
 
             case VISTULA:
                 model.addAttribute("dialog", applicationProperties.getVistulaDialog());
+                break;
 
             case GUBALOWKA:
                 model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
+                break;
         }
 
         playerService.setCoins(playerService.getCoins() - 5);
@@ -327,10 +333,15 @@ public class ConfigController {
 
             case GDANSK:
                 model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
+                break;
+
             case WARSAW:
                 model.addAttribute("localCompanyDialog", applicationProperties.getIronWorksDialog());
+                break;
+
             case ZAKOPANE:
-                model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
+                model.addAttribute("localCompanyDialog", applicationProperties.getSawmillDialog());
+                break;
         }
 
         playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY);

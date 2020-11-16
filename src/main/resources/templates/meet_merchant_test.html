@@ -25,13 +25,13 @@
 <br>
 
 
-<form th:action="@{/meet_merchant}" th:object="${answerForm}" method="post">
+<form th:action="@{/meet_merchant}" th:object="${merchantAnswerForm}" method="post">
 
     <th:block th:each="answer : ${allAnswers}">
 
 
         <input type="radio" checked="checked" th:text="${answer.name}"
-               th:value="${answer}" th:field="*{answerSelected}"
+               th:value="${answer}" th:field="*{getMerchantAnswerSelected}"
                aria-label="Radio button for following text input">
         <br>
     </th:block>

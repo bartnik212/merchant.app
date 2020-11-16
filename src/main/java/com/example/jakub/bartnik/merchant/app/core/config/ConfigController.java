@@ -156,6 +156,7 @@ public class ConfigController {
 
         playerService.setGameInitializationState(GameInitializationState.CITY_SELECTED);
         playerService.setCitySelected(cityChosenForm.getChosenCity());
+        playerService.setCoins(playerService.getCoins() - 5);
         log.info("chosen city: " + playerService.getCitySelected());
 
         return "redirect:/city_actions";
@@ -194,8 +195,8 @@ public class ConfigController {
 
         Good goodType = playerService.getCurrentlyVisitingMerchantGood();
 
-        model.addAttribute("answerForm", new AnswerForm());
-        model.addAttribute("allAnswers", Answer.values());
+        model.addAttribute("answerForm", new MerchantAnswerForm());
+        model.addAttribute("allAnswers", MerchantAnswer.values());
 
 
         if (goodType == null) {
@@ -224,9 +225,9 @@ public class ConfigController {
     }
 
     @PostMapping("/meet_merchant")
-    public String postMeetMerchant(AnswerForm answerForm) {
+    public String postMeetMerchant(MerchantAnswerForm merchantAnswerForm) {
 
-        return answerForm.getAnswerSelected() == Answer.YES ? "redirect:/positive_answer" :
+        return merchantAnswerForm.getMerchantAnswerSelected() == MerchantAnswer.YES ? "redirect:/positive_answer" :
                 "redirect:/negative_answer";
 
     }
@@ -352,8 +353,8 @@ public class ConfigController {
     @GetMapping("/go_to_local_company2")
     public String goToLocalCompany2(Model model) {
 
-        model.addAttribute("answerForm", new AnswerForm());
-        model.addAttribute("allAnswers", Answer.values());
+        model.addAttribute("battleAnswerForm", new BattleAnswerForm());
+        model.addAttribute("allAnswers", BattleAnswer.values());
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
 
         switch (enemy) {
@@ -368,11 +369,9 @@ public class ConfigController {
     }
 
     @PostMapping("/go_to_local_company2")
-    public String postGoToLocalCompany2(AnswerForm answerForm) {
+    public String postGoToLocalCompany2(BattleAnswerForm battleAnswerForm) {
 
-        //TODO
-
-        return answerForm.getAnswerSelected() == Answer.YES ? "redirect:/go_to_local_company3" :
+        return battleAnswerForm.getBattleAnswerSelected() == BattleAnswer.FIGHT ? "redirect:/go_to_local_company3" :
                 "redirect:/leave";
 
     }

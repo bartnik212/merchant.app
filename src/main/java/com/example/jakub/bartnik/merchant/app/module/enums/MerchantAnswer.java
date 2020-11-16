@@ -1,13 +1,13 @@
 package com.example.jakub.bartnik.merchant.app.module.enums;
 
-public enum Answer {
+public enum MerchantAnswer {
 
     YES("Yes"),
     NO("No");
 
     private String name;
 
-    Answer(String name) {
+    MerchantAnswer(String name) {
         this.name = name;
     }
 

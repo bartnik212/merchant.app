@@ -4,8 +4,8 @@ public enum CityAction {
 
     SHOW_CITY_ACTIONS("Show city actions"),
     MEET_WITH_GOOD_MERCHANT ("Meet with goods merchant"),
-    GO_ON_VACATION ("Go on a one-day vacation (5 coins)"),
-    CHANGE_THE_CITY ("Change the city"),
+    GO_ON_VACATION ("Go on one-day vacation (5 coins)"),
+    CHANGE_THE_CITY ("Change the city (5 coins)"),
     RANDOM_ACTION ("Random action which can be something good to you, like for example, additional coin for you or attack of evil robbers!"),
     GO_TO_LOCAL_COMPANY ("Go to the local company to look for some good"),
     GO_TO_WEAPON_STORE ("Go to the weapon store"),

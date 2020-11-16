@@ -1,6 +1,5 @@
 package com.example.jakub.bartnik.merchant.app.module.services;
 
-import com.example.jakub.bartnik.merchant.app.core.config.ApplicationProperties;
 import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,7 @@ public class PlayerService {
     private int healthPoints; // = 100
     private City citySelected;
     private GameInitializationState gameInitializationState = GameInitializationState.ENTER_NAME;
-    private Answer answer;
+    private MerchantAnswer merchantAnswer;
 
     private CityAction cityActionSelected;
 

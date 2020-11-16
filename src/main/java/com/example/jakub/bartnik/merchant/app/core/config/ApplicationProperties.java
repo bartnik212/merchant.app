@@ -60,6 +60,9 @@ public class ApplicationProperties {
     @Value("${sawmillDialog}")
     private String sawmillDialog;
 
+    @Value("${leaveLocalCompany}")
+    private String leaveLocalCompany;
+
     @Value("${weaponStoreDialog}")
     private String weaponStoreDialog;
 

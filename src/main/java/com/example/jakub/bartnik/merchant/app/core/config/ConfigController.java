@@ -372,7 +372,7 @@ public class ConfigController {
     public String postGoToLocalCompany2(BattleAnswerForm battleAnswerForm) {
 
         return battleAnswerForm.getBattleAnswerSelected() == BattleAnswer.FIGHT ? "redirect:/go_to_local_company3" :
-                "redirect:/leave";
+                "redirect:/leave_local_company";
 
     }
 
@@ -392,7 +392,7 @@ public class ConfigController {
     }
 
     @GetMapping("/go_to_local_company4")
-    public String goToLocalCompany4 (Model model) {
+    public String goToLocalCompany4(Model model) {
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
         FightResult fightResult = playerService.paperScissorsRock(enemy);
 
@@ -404,6 +404,15 @@ public class ConfigController {
         }
 
         return "/go_to_local_company4";
+    }
+
+    @GetMapping("leave_local_company")
+    public String leaveLocalCompany(Model model) {
+
+        model.addAttribute("leaveLocalCompany", applicationProperties.getLeaveLocalCompany());
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+
+        return "leave_local_company";
     }
 
     @GetMapping("/go_to_weapon_store")

@@ -195,7 +195,7 @@ public class ConfigController {
 
         Good goodType = playerService.getCurrentlyVisitingMerchantGood();
 
-        model.addAttribute("answerForm", new MerchantAnswerForm());
+        model.addAttribute("merchantAnswerForm", new MerchantAnswerForm());
         model.addAttribute("allAnswers", MerchantAnswer.values());
 
 
@@ -365,8 +365,11 @@ public class ConfigController {
             case TWOHANDEDSWORDER:
                 model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerIronWorksDialog());
                 break;
-        }
 
+            case SWORDSHIELDER:
+                model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerSawmillDialog());
+                break;
+        }
 
         return "go_to_local_company2";
     }
@@ -391,6 +394,11 @@ public class ConfigController {
 
             case TWOHANDEDSWORDER:
                 model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerIronWorksDialog2());
+                break;
+
+            case SWORDSHIELDER:
+                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerSawmillDialog2());
+                break;
 
         }
 
@@ -401,19 +409,39 @@ public class ConfigController {
     public String goToLocalCompany4(Model model) {
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
         BattleResult battleResult = playerService.paperScissorsRock(enemy);
+        City citySelected = playerService.getCitySelected();
 
         switch (battleResult) {
 
             case WIN:
-                model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompany());
-                playerService.saveGood(Good.COPPER);
+
+                if (citySelected == City.GDANSK) {
+                    model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyCopper());
+                    playerService.saveGood(Good.COPPER);
+
+                } else if (citySelected == City.WARSAW) {
+                    model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyIron());
+                    playerService.saveGood(Good.IRON);
+
+                } else if (citySelected == City.ZAKOPANE) {
+                    model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyWood());
+                    playerService.saveGood(Good.WOOD);
+                }
                 break;
 
             case LOSE:
                 model.addAttribute("afterBattleDialog", applicationProperties.getLoseDialogLocalCompany());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 50);
+                break;
+
+            case DRAW:
+                model.addAttribute("afterBattleDialog", applicationProperties.getDrawDialogLocalCompany());
+                playerService.setHealthPoints(playerService.getHealthPoints() - 30);
+                break;
+
         }
 
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "/go_to_local_company4";
     }
 

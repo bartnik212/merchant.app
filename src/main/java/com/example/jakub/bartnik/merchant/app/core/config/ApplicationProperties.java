@@ -66,11 +66,26 @@ public class ApplicationProperties {
     @Value("${sawmillDialog}")
     private String sawmillDialog;
 
-    @Value("${winDialogLocalCompany}")
-    private String winDialogLocalCompany;
+    @Value("${workerSawmillDialog}")
+    private String workerSawmillDialog;
+
+    @Value("${workerSawmillDialog2}")
+    private String workerSawmillDialog2;
+
+    @Value("${winDialogLocalCompanyCopper}")
+    private String winDialogLocalCompanyCopper;
+
+    @Value("${winDialogLocalCompanyIron}")
+    private String winDialogLocalCompanyIron;
+
+    @Value("${winDialogLocalCompanyWood}")
+    private String winDialogLocalCompanyWood;
 
     @Value("${loseDialogLocalCompany}")
     private String loseDialogLocalCompany;
+
+    @Value("${drawDialogLocalCompany}")
+    private String drawDialogLocalCompany;
 
     @Value("${leaveLocalCompany}")
     private String leaveLocalCompany;

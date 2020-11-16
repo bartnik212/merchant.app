@@ -1,8 +1,8 @@
 package com.example.jakub.bartnik.merchant.app.module.enums;
 
-public enum FightResult {
+public enum BattleResult {
 
     WIN,
     LOSE,
-    EMPATE;
+    DRAW;
 }

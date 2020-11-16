@@ -54,11 +54,23 @@ public class ApplicationProperties {
     @Value("${ironWorksDialog}")
     private String ironWorksDialog;
 
+    @Value("${workerIronWorksDialog}")
+    private String workerIronWorksDialog;
+
+    @Value("${workerIronWorksDialog2}")
+    private String workerIronWorksDialog2;
+
     @Value("${noGoodDialog}")
     private String noGoodDialog;
 
     @Value("${sawmillDialog}")
     private String sawmillDialog;
+
+    @Value("${winDialogLocalCompany}")
+    private String winDialogLocalCompany;
+
+    @Value("${loseDialogLocalCompany}")
+    private String loseDialogLocalCompany;
 
     @Value("${leaveLocalCompany}")
     private String leaveLocalCompany;
@@ -84,8 +96,6 @@ public class ApplicationProperties {
     @Value("${weaponBought}")
     private String weaponBought;
 
-    @Value("${winDialog}")
-    private String winDialog;
 
 
 

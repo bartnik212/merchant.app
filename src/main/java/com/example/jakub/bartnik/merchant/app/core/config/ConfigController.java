@@ -362,6 +362,9 @@ public class ConfigController {
                 model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerCopperSmelterDialog());
                 break;
 
+            case TWOHANDEDSWORDER:
+                model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerIronWorksDialog());
+                break;
         }
 
 
@@ -386,6 +389,9 @@ public class ConfigController {
                 model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerCopperSmelterDialog2());
                 break;
 
+            case TWOHANDEDSWORDER:
+                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerIronWorksDialog2());
+
         }
 
         return "go_to_local_company3";
@@ -394,13 +400,18 @@ public class ConfigController {
     @GetMapping("/go_to_local_company4")
     public String goToLocalCompany4(Model model) {
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
-        FightResult fightResult = playerService.paperScissorsRock(enemy);
+        BattleResult battleResult = playerService.paperScissorsRock(enemy);
 
-        switch (fightResult) {
+        switch (battleResult) {
 
             case WIN:
-                model.addAttribute("winDialog", applicationProperties.getWinDialog());
+                model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompany());
                 playerService.saveGood(Good.COPPER);
+                break;
+
+            case LOSE:
+                model.addAttribute("afterBattleDialog", applicationProperties.getLoseDialogLocalCompany());
+                playerService.setHealthPoints(playerService.getHealthPoints() - 50);
         }
 
         return "/go_to_local_company4";

@@ -109,7 +109,6 @@ public class PlayerService {
         return cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY ? citySelected : null;
 
 
-
 //        City localCompany = null;
 //
 //        if(cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY){
@@ -127,10 +126,10 @@ public class PlayerService {
         if (citySelected == City.GDANSK) {
             enemy = Enemy.FIREARMER;
 
-        } else if(citySelected == City.WARSAW) {
+        } else if (citySelected == City.WARSAW) {
             enemy = Enemy.TWOHANDEDSWORDER;
 
-        } else if(citySelected == City.ZAKOPANE){
+        } else if (citySelected == City.ZAKOPANE) {
             enemy = Enemy.SWORDSHIELDER;
         }
 
@@ -139,12 +138,11 @@ public class PlayerService {
     }
 
 
-
-    public PositiveAnswerAction getPositiveAnswer () {
+    public PositiveAnswerAction getPositiveAnswer() {
 
         PositiveAnswerAction positiveAnswerAction = null;
 
-        if (citySelected == City.GDANSK && cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT){
+        if (citySelected == City.GDANSK && cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
             positiveAnswerAction = PositiveAnswerAction.GOOD_MERCHANT_GDANSK;
 
@@ -166,16 +164,34 @@ public class PlayerService {
 
     }
 
-    public FightResult paperScissorsRock(Enemy enemy) {
+    public BattleResult paperScissorsRock(Enemy enemy) {
 
-        FightResult fightResult = null;
+        BattleResult battleResult;
 
-        if(weaponSelected == Weapon.SWORDSHIELD && enemy == Enemy.FIREARMER){
-            fightResult = FightResult.WIN;
+        if (weaponSelected == Weapon.SWORDSHIELD && enemy == Enemy.FIREARMER) {
+            battleResult = BattleResult.WIN;
+
+        } else if (weaponSelected == Weapon.FIREARM && enemy == Enemy.TWOHANDEDSWORDER) {
+            battleResult = BattleResult.WIN;
+
+        } else if (weaponSelected == Weapon.TWOHANDEDSWORD && enemy == Enemy.SWORDSHIELDER) {
+            battleResult = BattleResult.WIN;
+
+        } else if (weaponSelected == Weapon.FIREARM && enemy == Enemy.SWORDSHIELDER) {
+            battleResult = BattleResult.LOSE;
+
+        } else if (weaponSelected == Weapon.TWOHANDEDSWORD && enemy == Enemy.FIREARMER) {
+            battleResult = BattleResult.LOSE;
+
+        } else if (weaponSelected == Weapon.SWORDSHIELD && enemy == Enemy.TWOHANDEDSWORDER) {
+            battleResult = BattleResult.LOSE;
+
+        } else {
+            battleResult = BattleResult.DRAW;
 
         }
 
-        return fightResult;
+        return battleResult;
     }
 }
 

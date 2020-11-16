@@ -20,9 +20,25 @@
 
 <body>
 
-<h1 th:utext="${randomActionDialog}"></h1>
+<h1 th:utext="${robberDialog}"></h1>
 
-<a href="/game2"><button class="btn btn-lg btn-primary btn-block" type="button">Back to City Actions</button></a>
+<form th:action="@{/random_action2}" th:object="${battleAnswerForm}" method="post">
+
+<th:block th:each="battleAnswer : ${battleAnswers}">
+
+    <input type="radio" checked="checked" th:text="${battleAnswer.name}"
+           th:value="${battleAnswer}" th:field="*{battleAnswerSelected}"
+           aria-label="Radio button for following text input">
+
+    <br>
+</th:block>
+
+<br>
+
+<input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
+
+</form>
+
 
 
 

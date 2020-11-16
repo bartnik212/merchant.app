@@ -319,11 +319,6 @@ public class ConfigController {
         return "go_on_vacation";
     }
 
-    @GetMapping("/random_action")
-    public String getRandomAction(Model model) {
-
-        return "random_action";
-    }
 
     @GetMapping("/go_to_local_company")
     public String goToLocalCompany(Model model) {
@@ -493,6 +488,65 @@ public class ConfigController {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         return "weapon_bought";
+    }
+
+    @GetMapping("random_action")
+    public String getRandomAction(Model model) {
+        RandomAction randomAction = playerService.getRandomAction();
+
+        switch (randomAction){
+
+            case FIND_COINS:
+                model.addAttribute("randomActionDialog", applicationProperties.getFindCoins());
+                playerService.setCoins(playerService.getCoins() + 15);
+                break;
+
+            case FIND_WOOD:
+                model.addAttribute("randomActionDialog", applicationProperties.getFindWood());
+                playerService.getListOfGoods().add(Good.WOOD);
+                break;
+
+            case FIND_COPPER:
+                model.addAttribute("randomActionDialog", applicationProperties.getFindCopper());
+                playerService.getListOfGoods().add(Good.COPPER);
+                break;
+
+            case FIND_IRON:
+                model.addAttribute("randomActionDialog", applicationProperties.getFindIron());
+                playerService.getListOfGoods().add(Good.IRON);
+                break;
+
+            case NEGATIVE_RANDOM_ACTION:
+                return "random_action2";
+        }
+
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+
+        return "random_action";
+    }
+
+    @GetMapping("/random_action2")
+    public String getRandomAction2 (Model model) {
+        Enemy enemy = playerService.getNegativeRandomAction();
+
+        model.addAttribute("battleAnswerForm", new BattleAnswerForm());
+        model.addAttribute("battleAnswers", BattleAnswer.values());
+
+        switch (enemy){
+
+            case SWORDSHIELDER:
+                model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
+                break;
+        }
+
+        return "random_action2";
+    }
+
+    @PostMapping("/random_action2")
+    public String postRandomAction2 (BattleAnswerForm battleAnswerForm) {
+
+        return battleAnswerForm.getBattleAnswerSelected() == BattleAnswer.FIGHT ? "redirect:/random_action3" :
+                "redirect:/run";
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 @Data
 @Component
@@ -192,6 +193,62 @@ public class PlayerService {
         }
 
         return battleResult;
+    }
+
+    public RandomAction getRandomAction() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(5);
+        RandomAction randomAction = null;
+
+
+        switch (randomNumber) {
+
+            case 1:
+                randomAction = RandomAction.FIND_COINS;
+                break;
+
+            case 2:
+                randomAction = RandomAction.FIND_COPPER;
+                break;
+
+            case 3:
+                randomAction = RandomAction.FIND_IRON;
+                break;
+
+            case 4:
+                randomAction = RandomAction.FIND_WOOD;
+                break;
+
+            case 5:
+                randomAction = RandomAction.NEGATIVE_RANDOM_ACTION;
+                break;
+
+        }
+
+        return randomAction;
+    }
+
+    public Enemy getNegativeRandomAction() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(4);
+
+        Enemy enemy = null;
+
+        switch (randomNumber) {
+            case 1:
+                enemy = Enemy.SWORDSHIELDER;
+                break;
+
+            case 2:
+                enemy = Enemy.TWOHANDEDSWORDER;
+                break;
+
+            case 3:
+                enemy = Enemy.FIREARMER;
+                break;
+        }
+
+        return enemy;
     }
 }
 

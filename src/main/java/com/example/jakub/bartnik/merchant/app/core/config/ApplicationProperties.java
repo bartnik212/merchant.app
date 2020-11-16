@@ -111,7 +111,20 @@ public class ApplicationProperties {
     @Value("${weaponBought}")
     private String weaponBought;
 
+    @Value("${findCoins}")
+    private String findCoins;
 
+    @Value(("${findWood}"))
+    private String findWood;
+
+    @Value(("${findCopper}"))
+    private String findCopper;
+
+    @Value(("${findIron}"))
+    private String findIron;
+
+    @Value(("${robberSwordShield}"))
+    private String robberSwordShield;
 
 
 

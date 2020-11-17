@@ -123,14 +123,20 @@ public class ApplicationProperties {
     @Value("${findIron}")
     private String findIron;
 
+    @Value("${robberDialog}")
+    private String robberDialog;
+
     @Value("${robberSwordShield}")
     private String robberSwordShield;
 
-    @Value("${robberSwordShield2}")
-    private String robberSwordShield2;
+    @Value("${robberTwoHandedSword}")
+    private String robberTwoHandedSword;
 
     @Value("${winRobberDialog}")
     private String winRobberDialog;
+
+    @Value("${loseRobberDialog}")
+    private String loseRobberDialog;
 
 
 

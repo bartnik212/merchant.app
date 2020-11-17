@@ -528,17 +528,10 @@ public class ConfigController {
 
     @GetMapping("/random_action2")
     public String getRandomAction2(Model model) {
-        Enemy enemy = playerService.getNegativeRandomAction();
 
+        model.addAttribute("robberDialog", applicationProperties.getRobberDialog());
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("battleAnswers", BattleAnswer.values());
-
-        switch (enemy) {
-
-            case SWORDSHIELDER:
-                model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
-                break;
-        }
 
         return "random_action2";
     }
@@ -558,12 +551,12 @@ public class ConfigController {
         switch (enemy) {
 
             case SWORDSHIELDER:
-                model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield2());
+                model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
                 break;
-//
-//            case TWOHANDEDSWORDER:
-//                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerIronWorksDialog2());
-//                break;
+
+            case TWOHANDEDSWORDER:
+                model.addAttribute("robberDialog", applicationProperties.getRobberTwoHandedSword());
+                break;
 //
 //            case FIREARMER:
 //                model.addAttribute("robberDialog", applicationProperties.getWorkerCopperSmelterDialog2());
@@ -588,10 +581,11 @@ public class ConfigController {
                 playerService.setCoins(playerService.getCoins() + 15);
                 break;
 
-//            case LOSE:
-//                model.addAttribute("afterBattleDialog", applicationProperties.getLoseDialogLocalCompany());
-//                playerService.setHealthPoints(playerService.getHealthPoints() - 50);
-//                break;
+            case LOSE:
+                model.addAttribute("afterBattleRobberDialog", applicationProperties.getLoseRobberDialog());
+                playerService.setHealthPoints(playerService.getHealthPoints() - 30);
+                playerService.setCoins(0);
+                break;
 //
 //            case DRAW:
 //                model.addAttribute("afterBattleDialog", applicationProperties.getDrawDialogLocalCompany());

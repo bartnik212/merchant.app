@@ -225,8 +225,7 @@ public class PlayerService {
 
         }
 
-//        return randomAction;
-        return RandomAction.NEGATIVE_RANDOM_ACTION;
+        return randomAction;
     }
 
     public Enemy getNegativeRandomAction() {
@@ -250,8 +249,7 @@ public class PlayerService {
                 break;
         }
 
-//        return enemy;
-        return Enemy.SWORDSHIELDER;
+        return enemy;
     }
 }
 

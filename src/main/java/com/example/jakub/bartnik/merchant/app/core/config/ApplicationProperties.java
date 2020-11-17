@@ -132,11 +132,17 @@ public class ApplicationProperties {
     @Value("${robberTwoHandedSword}")
     private String robberTwoHandedSword;
 
+    @Value("${robberFireArm}")
+    private String robberFireArm;
+
     @Value("${winRobberDialog}")
     private String winRobberDialog;
 
     @Value("${loseRobberDialog}")
     private String loseRobberDialog;
+
+    @Value("${drawRobberDialog}")
+    private String drawRobberDialog;
 
 
 

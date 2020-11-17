@@ -1,6 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
-import com.example.jakub.bartnik.merchant.app.core.config.reward.ChuckNorrisResponseMain;
+import com.example.jakub.bartnik.merchant.app.core.reward.ChuckNorrisResponseMain;
 import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
@@ -156,14 +156,18 @@ public class ConfigController {
     @GetMapping("/choose_city")
     public String showCitiesToChoose(Model model) {
 
-        playerService.setGameInitializationState(GameInitializationState.CHOOSE_CITY);
+        if (playerService.getCoins() < 5) {
+            return "redirect:/not_enough_coins";
 
+        } else {
+            playerService.setGameInitializationState(GameInitializationState.CHOOSE_CITY);
 
-        model.addAttribute("message4", applicationProperties.getMessage4());
-        model.addAttribute("allCities", City.values());
-        model.addAttribute("cityChosenForm", new CityChosenForm());
+            model.addAttribute("message4", applicationProperties.getMessage4());
+            model.addAttribute("allCities", City.values());
+            model.addAttribute("cityChosenForm", new CityChosenForm());
 
-        return "choose_city";
+            return "choose_city";
+        }
     }
 
     @PostMapping("/choose_city")
@@ -206,6 +210,14 @@ public class ConfigController {
         log.info("city action selected: " + playerService.getCityActionSelected());
 
         return "redirect:/game2";
+    }
+
+    @GetMapping("not_enough_coins")
+    public String noEnoughCoins(Model model) {
+        model.addAttribute("noEnoughCoinsDialog", applicationProperties.getNotEnoughCoins());
+
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+        return "not_enough_coins";
     }
 
     @GetMapping("/meet_merchant")
@@ -317,22 +329,27 @@ public class ConfigController {
     @GetMapping("/go_on_vacation")
     public String goOnVacation(Model model) {
 
-
         VacationPlace vacationPlace = playerService.getCurrentlyVisitingVacationPlace();
 
-        switch (vacationPlace) {
+        if (playerService.getCoins() < 5) {
+            return "redirect:/not_enough_coins";
 
-            case MOTLAWA:
-                model.addAttribute("dialog", applicationProperties.getMotlawaDialog());
-                break;
+        } else {
 
-            case VISTULA:
-                model.addAttribute("dialog", applicationProperties.getVistulaDialog());
-                break;
+            switch (vacationPlace) {
 
-            case GUBALOWKA:
-                model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
-                break;
+                case MOTLAWA:
+                    model.addAttribute("dialog", applicationProperties.getMotlawaDialog());
+                    break;
+
+                case VISTULA:
+                    model.addAttribute("dialog", applicationProperties.getVistulaDialog());
+                    break;
+
+                case GUBALOWKA:
+                    model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
+                    break;
+            }
         }
 
         playerService.setCoins(playerService.getCoins() - 5);
@@ -507,6 +524,10 @@ public class ConfigController {
 
         if (playerService.getListOfWeapons().contains(weaponOwnedForm.getOwnedWeapons())) {
             return "redirect:/duplicated_weapon";
+
+        } else if (playerService.getCoins() < 10) {
+            return "redirect:/not_enough_coins";
+
         } else {
             playerService.saveWeapon(weaponOwnedForm.getOwnedWeapons());
         }
@@ -682,7 +703,6 @@ public class ConfigController {
         return "chuck_norris";
     }
 
-
     @GetMapping("/game")
     public String game() {
 
@@ -748,7 +768,6 @@ public class ConfigController {
 
         return "/game2";
     }
-
 
 
 //        if (cityActionSelected == CityAction.CHANGE_THE_CITY) {

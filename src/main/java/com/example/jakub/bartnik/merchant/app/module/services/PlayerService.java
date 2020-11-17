@@ -86,6 +86,7 @@ public class PlayerService {
         } else if (citySelected == City.ZAKOPANE &&
                 cityActionSelected == CityAction.GO_ON_VACATION) {
             vacationPlace = VacationPlace.GUBALOWKA;
+
         }
 
         return vacationPlace;

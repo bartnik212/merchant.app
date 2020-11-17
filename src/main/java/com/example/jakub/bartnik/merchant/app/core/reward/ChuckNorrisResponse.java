@@ -1,4 +1,4 @@
-package com.example.jakub.bartnik.merchant.app.core.config.reward;
+package com.example.jakub.bartnik.merchant.app.core.reward;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

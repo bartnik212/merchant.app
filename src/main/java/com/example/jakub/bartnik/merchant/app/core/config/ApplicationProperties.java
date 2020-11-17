@@ -153,6 +153,9 @@ public class ApplicationProperties {
     @Value("${youWonTheGame}")
     private String youWonTheGame;
 
+    @Value("${notEnoughCoins}")
+    private String notEnoughCoins;
+
 
 
 }

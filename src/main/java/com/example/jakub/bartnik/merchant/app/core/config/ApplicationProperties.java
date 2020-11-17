@@ -114,17 +114,24 @@ public class ApplicationProperties {
     @Value("${findCoins}")
     private String findCoins;
 
-    @Value(("${findWood}"))
+    @Value("${findWood}")
     private String findWood;
 
-    @Value(("${findCopper}"))
+    @Value("${findCopper}")
     private String findCopper;
 
-    @Value(("${findIron}"))
+    @Value("${findIron}")
     private String findIron;
 
-    @Value(("${robberSwordShield}"))
+    @Value("${robberSwordShield}")
     private String robberSwordShield;
+
+    @Value("${robberSwordShield2}")
+    private String robberSwordShield2;
+
+    @Value("${winRobberDialog}")
+    private String winRobberDialog;
+
 
 
 

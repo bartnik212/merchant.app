@@ -493,8 +493,9 @@ public class ConfigController {
     @GetMapping("random_action")
     public String getRandomAction(Model model) {
         RandomAction randomAction = playerService.getRandomAction();
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-        switch (randomAction){
+        switch (randomAction) {
 
             case FIND_COINS:
                 model.addAttribute("randomActionDialog", applicationProperties.getFindCoins());
@@ -517,22 +518,22 @@ public class ConfigController {
                 break;
 
             case NEGATIVE_RANDOM_ACTION:
-                return "random_action2";
+                return "redirect:/random_action2";
+
         }
 
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         return "random_action";
     }
 
     @GetMapping("/random_action2")
-    public String getRandomAction2 (Model model) {
+    public String getRandomAction2(Model model) {
         Enemy enemy = playerService.getNegativeRandomAction();
 
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("battleAnswers", BattleAnswer.values());
 
-        switch (enemy){
+        switch (enemy) {
 
             case SWORDSHIELDER:
                 model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
@@ -543,10 +544,63 @@ public class ConfigController {
     }
 
     @PostMapping("/random_action2")
-    public String postRandomAction2 (BattleAnswerForm battleAnswerForm) {
+    public String postRandomAction2(BattleAnswerForm battleAnswerForm) {
 
         return battleAnswerForm.getBattleAnswerSelected() == BattleAnswer.FIGHT ? "redirect:/random_action3" :
                 "redirect:/run";
+    }
+
+
+    @GetMapping("/random_action3")
+    public String getRandomAction3 (Model model) {
+        Enemy enemy = playerService.getNegativeRandomAction();
+
+        switch (enemy) {
+
+            case SWORDSHIELDER:
+                model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield2());
+                break;
+//
+//            case TWOHANDEDSWORDER:
+//                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerIronWorksDialog2());
+//                break;
+//
+//            case FIREARMER:
+//                model.addAttribute("robberDialog", applicationProperties.getWorkerCopperSmelterDialog2());
+//                break;
+
+        }
+
+        return "random_action3";
+    }
+
+
+    @GetMapping("/random_action4")
+    public String getRandomAction4(Model model) {
+
+        Enemy enemy = playerService.getNegativeRandomAction();
+        BattleResult battleResult = playerService.paperScissorsRock(enemy);
+
+        switch (battleResult) {
+
+            case WIN:
+                model.addAttribute("afterBattleRobberDialog", applicationProperties.getWinRobberDialog());
+                playerService.setCoins(playerService.getCoins() + 15);
+                break;
+
+//            case LOSE:
+//                model.addAttribute("afterBattleDialog", applicationProperties.getLoseDialogLocalCompany());
+//                playerService.setHealthPoints(playerService.getHealthPoints() - 50);
+//                break;
+//
+//            case DRAW:
+//                model.addAttribute("afterBattleDialog", applicationProperties.getDrawDialogLocalCompany());
+//                playerService.setHealthPoints(playerService.getHealthPoints() - 30);
+//                break;
+
+
+        }
+        return "random_action4";
     }
 
 

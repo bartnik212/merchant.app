@@ -197,7 +197,7 @@ public class PlayerService {
 
     public RandomAction getRandomAction() {
         Random random = new Random();
-        int randomNumber = random.nextInt(5);
+        int randomNumber = random.nextInt(6);
         RandomAction randomAction = null;
 
 
@@ -225,12 +225,14 @@ public class PlayerService {
 
         }
 
-        return randomAction;
+//        return randomAction;
+        return RandomAction.NEGATIVE_RANDOM_ACTION;
     }
 
     public Enemy getNegativeRandomAction() {
         Random random = new Random();
         int randomNumber = random.nextInt(4);
+
 
         Enemy enemy = null;
 
@@ -248,7 +250,8 @@ public class PlayerService {
                 break;
         }
 
-        return enemy;
+//        return enemy;
+        return Enemy.SWORDSHIELDER;
     }
 }
 

@@ -150,6 +150,9 @@ public class ApplicationProperties {
     @Value("${healthPointsBelow0}")
     private String healthPointsBelow0;
 
+    @Value("${youWonTheGame}")
+    private String youWonTheGame;
+
 
 
 }

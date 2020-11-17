@@ -1,5 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
+import com.example.jakub.bartnik.merchant.app.core.config.reward.ChuckNorrisResponseMain;
 import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.io.IOException;
 
 
 @Slf4j
@@ -19,6 +22,9 @@ public class ConfigController {
 
     @Autowired
     private ApplicationProperties applicationProperties;
+
+    @Autowired
+    private ChuckNorrisResponseMain chuckNorrisResponseMain;
 
     @GetMapping("/nav")
     public String getNavBar() {
@@ -643,7 +649,7 @@ public class ConfigController {
         return "random_action4";
     }
 
-    @GetMapping("run_away_from_robber")
+    @GetMapping("/run_away_from_robber")
     public String getRunAwayFromRobber(Model model) {
 
         model.addAttribute("runAwayFromRobber", applicationProperties.getRunAwayFromRobber());
@@ -653,11 +659,27 @@ public class ConfigController {
         return "run_away_from_robber";
     }
 
-    @GetMapping("health_points_below_0")
+    @GetMapping("/health_points_below_0")
     public String getLoseTheGameBecauseOfHealthPoints(Model model) {
         model.addAttribute("healthPointsBelow0", applicationProperties.getHealthPointsBelow0());
 
         return "health_points_below_0";
+    }
+
+
+    @GetMapping("/you_won_the_game")
+    public String getYouWonTheGame(Model model) {
+        model.addAttribute("winTheGameDialog", applicationProperties.getYouWonTheGame());
+
+        return "you_won_the_game";
+    }
+
+    @GetMapping("chuck_norris")
+    public String getChuckNorrisJoke(Model model) throws IOException, InterruptedException {
+
+        model.addAttribute("chuckNorrisJoke", chuckNorrisResponseMain.getChuckNorrisJoke());
+
+        return "chuck_norris";
     }
 
 

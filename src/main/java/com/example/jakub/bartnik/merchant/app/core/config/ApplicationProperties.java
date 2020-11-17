@@ -147,6 +147,8 @@ public class ApplicationProperties {
     @Value("${runAwayFromRobber}")
     private String runAwayFromRobber;
 
+    @Value("${healthPointsBelow0}")
+    private String healthPointsBelow0;
 
 
 

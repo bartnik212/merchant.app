@@ -119,7 +119,6 @@ public class ConfigController {
 
         playerService.setGameInitializationState(GameInitializationState.SELECT_WEAPON);
 
-
         model.addAttribute("message3", applicationProperties.getMessage3());
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
@@ -261,10 +260,6 @@ public class ConfigController {
 
     @GetMapping("/positive_answer")
     public String positiveAnswer(Model model) {
-
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-
-
         PositiveAnswerAction positiveAnswerAction = playerService.getPositiveAnswer();
 
         switch (positiveAnswerAction) {
@@ -289,9 +284,9 @@ public class ConfigController {
 
                 model.addAttribute("positiveAnswer", applicationProperties.getCopperMerchantPositiveAnswer());
                 break;
-
         }
 
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "positive_answer";
 
     }
@@ -299,7 +294,6 @@ public class ConfigController {
     @GetMapping("/negative_answer")
     public String negativeAnswer(Model model) {
 
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         if (playerService.getCitySelected() == City.GDANSK &&
                 playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
@@ -308,6 +302,7 @@ public class ConfigController {
 
         }
 
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "negative_answer";
 
     }
@@ -316,7 +311,6 @@ public class ConfigController {
     @GetMapping("/go_on_vacation")
     public String goOnVacation(Model model) {
 
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         VacationPlace vacationPlace = playerService.getCurrentlyVisitingVacationPlace();
 
@@ -337,6 +331,8 @@ public class ConfigController {
 
         playerService.setCoins(playerService.getCoins() - 5);
         playerService.setHealthPoints(100);
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+
 
         return "go_on_vacation";
     }
@@ -370,7 +366,7 @@ public class ConfigController {
 
     @GetMapping("/go_to_local_company2")
     public String goToLocalCompany2(Model model) {
-        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY2);
+//        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY2);
 
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("allAnswers", BattleAnswer.values());
@@ -403,7 +399,7 @@ public class ConfigController {
 
     @GetMapping("/go_to_local_company3")
     public String goToLocalCompany3(Model model) {
-        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY3);
+//        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY3);
 
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
 
@@ -455,11 +451,23 @@ public class ConfigController {
             case LOSE:
                 model.addAttribute("afterBattleDialog", applicationProperties.getLoseDialogLocalCompany());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 50);
+
+                if (playerService.getHealthPoints() <= 0) {
+                    playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+                    return "redirect:/health_points_below_0";
+                }
+
                 break;
 
             case DRAW:
                 model.addAttribute("afterBattleDialog", applicationProperties.getDrawDialogLocalCompany());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 30);
+
+                if (playerService.getHealthPoints() <= 0) {
+                    playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+                    return "redirect:/health_points_below_0";
+                }
+
                 break;
 
         }
@@ -520,7 +528,6 @@ public class ConfigController {
 
     @GetMapping("random_action")
     public String getRandomAction(Model model) {
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         RandomAction randomAction = playerService.getRandomAction();
 
         switch (randomAction) {
@@ -550,16 +557,19 @@ public class ConfigController {
 
         }
 
+
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "random_action";
     }
 
     @GetMapping("/random_action2")
     public String getRandomAction2(Model model) {
-        playerService.setCityActionSelected(CityAction.RANDOM_ACTION2);
 
         model.addAttribute("robberDialog", applicationProperties.getRobberDialog());
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("battleAnswers", BattleAnswer.values());
+
+//        playerService.setCityActionSelected(CityAction.RANDOM_ACTION2);
 
         return "random_action2";
     }
@@ -574,7 +584,6 @@ public class ConfigController {
 
     @GetMapping("/random_action3")
     public String getRandomAction3(Model model) {
-        playerService.setCityActionSelected(CityAction.RANDOM_ACTION3);
 
         Enemy enemy = playerService.getNegativeRandomAction();
 
@@ -594,14 +603,13 @@ public class ConfigController {
 
         }
 
+//        playerService.setCityActionSelected(CityAction.RANDOM_ACTION3);
         return "random_action3";
     }
 
 
     @GetMapping("/random_action4")
     public String getRandomAction4(Model model) {
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-
 
         Enemy enemy = playerService.getNegativeRandomAction();
         BattleResult battleResult = playerService.paperScissorsRock(enemy);
@@ -617,6 +625,12 @@ public class ConfigController {
                 model.addAttribute("afterBattleRobberDialog", applicationProperties.getLoseRobberDialog());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 40);
                 playerService.setCoins(0);
+
+                if (playerService.getHealthPoints() <= 0) {
+                    playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+                    return "redirect:/health_points_below_0";
+                }
+
                 break;
 
             case DRAW:
@@ -625,17 +639,25 @@ public class ConfigController {
                 break;
 
         }
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "random_action4";
     }
 
     @GetMapping("run_away_from_robber")
     public String getRunAwayFromRobber(Model model) {
-        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         model.addAttribute("runAwayFromRobber", applicationProperties.getRunAwayFromRobber());
         playerService.setCoins(0);
 
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "run_away_from_robber";
+    }
+
+    @GetMapping("health_points_below_0")
+    public String getLoseTheGameBecauseOfHealthPoints(Model model) {
+        model.addAttribute("healthPointsBelow0", applicationProperties.getHealthPointsBelow0());
+
+        return "health_points_below_0";
     }
 
 
@@ -680,39 +702,69 @@ public class ConfigController {
         if (cityActionSelected == CityAction.CHANGE_THE_CITY) {
             return "redirect:/choose_city";
 
+        } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
+            return "redirect:/city_actions";
+
         } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
             return "redirect:/meet_merchant";
 
         } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
             return "redirect:/go_on_vacation";
 
-        } else if (cityActionSelected == CityAction.RANDOM_ACTION2) {
-            return "redirect:/random_action2";
-
-        } else if (cityActionSelected == CityAction.RANDOM_ACTION3) {
-            return "redirect:/random_action3";
+        } else if (cityActionSelected == CityAction.RANDOM_ACTION) {
+            return "redirect:/random_action";
 
         } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
             return "redirect:/go_to_local_company";
-
-        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY2) {
-            return "redirect:/go_to_local_company2";
-
-        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY3) {
-            return "redirect:/go_to_local_company3";
 
         } else if (cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
             return "redirect:/go_to_weapon_store";
 
         } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
             return "redirect:/select_weapon";
-
-        } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
-            return "redirect:/city_actions";
         }
 
         return "/game2";
     }
+
+
+
+//        if (cityActionSelected == CityAction.CHANGE_THE_CITY) {
+//            return "redirect:/choose_city";
+//
+//        } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
+//            return "redirect:/meet_merchant";
+//
+//        } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
+//            return "redirect:/go_on_vacation";
+//
+//        } else if (cityActionSelected == CityAction.RANDOM_ACTION2) {
+//            return "redirect:/random_action2";
+//
+//        } else if (cityActionSelected == CityAction.RANDOM_ACTION3) {
+//            return "redirect:/random_action3";
+//
+//        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
+//            return "redirect:/go_to_local_company";
+//
+//        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY2) {
+//            return "redirect:/go_to_local_company2";
+//
+//        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY3) {
+//            return "redirect:/go_to_local_company3";
+//
+//        } else if (cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
+//            return "redirect:/go_to_weapon_store";
+//
+//        } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
+//            return "redirect:/select_weapon";
+//
+//        } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
+//            return "redirect:/city_actions";
+//        }
+//
+//        return "/game2";
+//    }
 
 }
 

@@ -15,7 +15,6 @@ public enum CityAction {
     GO_TO_LOCAL_COMPANY2 ("Go to local company2"),
     GO_TO_LOCAL_COMPANY3 ("Go to local company3"),
 
-
     GO_TO_WEAPON_STORE ("Go to the weapon store"),
     CHOOSE_WEAPON_TO_FIGHT ("Choose the weapon to fight");
 

@@ -485,7 +485,6 @@ public class ConfigController {
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
-
         return "go_to_weapon_store";
     }
 
@@ -521,7 +520,7 @@ public class ConfigController {
 
     @GetMapping("random_action")
     public String getRandomAction(Model model) {
-        playerService.setCityActionSelected(CityAction.RANDOM_ACTION);
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         RandomAction randomAction = playerService.getRandomAction();
 
         switch (randomAction) {
@@ -551,7 +550,6 @@ public class ConfigController {
 
         }
 
-
         return "random_action";
     }
 
@@ -570,7 +568,7 @@ public class ConfigController {
     public String postRandomAction2(BattleAnswerForm battleAnswerForm) {
 
         return battleAnswerForm.getBattleAnswerSelected() == BattleAnswer.FIGHT ? "redirect:/random_action3" :
-                "redirect:/run";
+                "redirect:/run_away_from_robber";
     }
 
 
@@ -630,6 +628,16 @@ public class ConfigController {
         return "random_action4";
     }
 
+    @GetMapping("run_away_from_robber")
+    public String getRunAwayFromRobber(Model model) {
+        playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+
+        model.addAttribute("runAwayFromRobber", applicationProperties.getRunAwayFromRobber());
+        playerService.setCoins(0);
+
+        return "run_away_from_robber";
+    }
+
 
     @GetMapping("/game")
     public String game() {
@@ -677,9 +685,6 @@ public class ConfigController {
 
         } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
             return "redirect:/go_on_vacation";
-
-        } else if (cityActionSelected == CityAction.RANDOM_ACTION) {
-            return "redirect:/random_action";
 
         } else if (cityActionSelected == CityAction.RANDOM_ACTION2) {
             return "redirect:/random_action2";

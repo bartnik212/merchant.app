@@ -144,6 +144,9 @@ public class ApplicationProperties {
     @Value("${drawRobberDialog}")
     private String drawRobberDialog;
 
+    @Value("${runAwayFromRobber}")
+    private String runAwayFromRobber;
+
 
 
 

@@ -169,7 +169,6 @@ public class ConfigController {
     @PostMapping("/choose_city")
     public String postChosenCity(CityChosenForm cityChosenForm) {
 
-        playerService.setGameInitializationState(GameInitializationState.CITY_SELECTED);
         playerService.setCitySelected(cityChosenForm.getChosenCity());
         playerService.setCoins(playerService.getCoins() - 5);
         log.info("chosen city: " + playerService.getCitySelected());
@@ -180,9 +179,7 @@ public class ConfigController {
 
     @GetMapping("/city_actions")
     public String showCityActions(Model model) {
-
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-
 
         CityAction[] cityActionsToShow = {CityAction.MEET_WITH_GOOD_MERCHANT,
                 CityAction.CHANGE_THE_CITY,
@@ -191,7 +188,6 @@ public class ConfigController {
                 CityAction.GO_TO_WEAPON_STORE,
                 CityAction.CHOOSE_WEAPON_TO_FIGHT,
                 CityAction.RANDOM_ACTION};
-
 
         model.addAttribute("message5", applicationProperties.getMessage5());
         model.addAttribute("cityActionsToShow", cityActionsToShow);
@@ -460,7 +456,6 @@ public class ConfigController {
     public String goToLocalCompany4(Model model) {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-//        Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
         BattleResult battleResult = playerService.paperScissorsRock(playerService.getEnemy());
         City citySelected = playerService.getCitySelected();
 
@@ -737,21 +732,12 @@ public class ConfigController {
         } else if (gameInitializationState == GameInitializationState.CHOOSE_CITY) {
             return "redirect:/choose_city";
 
-        } else if (gameInitializationState == GameInitializationState.CITY_SELECTED) {
-            return "redirect:/city_actions";
-
         }
-
         return "redirect:/game2";
-        //wywolaj bezposrednio metode
-        //zdjac endpointa z game2
-        //gamestate zmienic game initialization state
-
     }
 
     @GetMapping("/game2")
     public String game2(Model model) {
-
 
         CityAction cityActionSelected = playerService.getCityActionSelected();
 

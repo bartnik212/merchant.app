@@ -7,7 +7,6 @@ public enum GameInitializationState {
     CHOOSE_FIRST_WEAPON,
     SELECT_WEAPON,
     CHOOSE_CITY,
-    CITY_SELECTED;
 
 
 }

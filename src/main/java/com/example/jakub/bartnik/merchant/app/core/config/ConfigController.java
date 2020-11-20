@@ -392,7 +392,6 @@ public class ConfigController {
 
     @GetMapping("/go_to_local_company2")
     public String goToLocalCompany2(Model model) {
-//        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY2);
 
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("allAnswers", BattleAnswer.values());
@@ -412,6 +411,7 @@ public class ConfigController {
                 break;
         }
 
+        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY2);
         return "go_to_local_company2";
     }
 
@@ -425,7 +425,6 @@ public class ConfigController {
 
     @GetMapping("/go_to_local_company3")
     public String goToLocalCompany3(Model model) {
-//        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY3);
 
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
 
@@ -448,7 +447,7 @@ public class ConfigController {
                 break;
 
         }
-
+        playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY3);
         return "go_to_local_company3";
     }
 
@@ -501,7 +500,6 @@ public class ConfigController {
                 }
 
                 break;
-
         }
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
@@ -745,25 +743,31 @@ public class ConfigController {
             return showCitiesToChoose(model);
 
         } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
-            return "redirect:/city_actions";
+            return showCityActions(model);
 
         } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
-            return "redirect:/meet_merchant";
+            return meetMerchant(model);
 
         } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
-            return "redirect:/go_on_vacation";
+            return goOnVacation(model);
 
         } else if (cityActionSelected == CityAction.RANDOM_ACTION) {
-            return "redirect:/random_action";
+            return getRandomAction(model);
 
         } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
-            return "redirect:/go_to_local_company";
+            return goToLocalCompany(model);
+
+        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY2) {
+            return goToLocalCompany2(model);
+
+        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY3) {
+            return goToLocalCompany3(model);
 
         } else if (cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
-            return "redirect:/go_to_weapon_store";
+            return goToWeaponStore(model);
 
         } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
-            return "redirect:/select_weapon";
+            return showWeaponsToSelect(model);
         }
 
         return "/game2";

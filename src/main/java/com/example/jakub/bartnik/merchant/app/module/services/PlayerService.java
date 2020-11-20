@@ -94,11 +94,10 @@ public class PlayerService {
     }
 
 
-
     public City getCurrentlyVisitingLocalCompany() {
 
-
-        return cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY ? citySelected : null;
+        return cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY || cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY2
+                || cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY3 ? citySelected : null;
 
     }
 

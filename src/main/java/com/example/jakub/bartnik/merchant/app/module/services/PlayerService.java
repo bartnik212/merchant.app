@@ -19,14 +19,15 @@ public class PlayerService {
     private String name;
     private List<Good> listOfGoods = new LinkedList<>();
     private List<Weapon> listOfWeapons = new LinkedList<>();
+    private List<City> listOfCities = new LinkedList<>();
     private Weapon weaponSelected;
     private int coins; // = 25
     private int healthPoints; // = 100
     private City citySelected;
     private GameInitializationState gameInitializationState = GameInitializationState.ENTER_NAME;
     private MerchantAnswer merchantAnswer;
-
     private CityAction cityActionSelected;
+    private Enemy enemy;
 
 
     //lista city, miasta, w ktorych odiwedzielem warsztat
@@ -92,32 +93,13 @@ public class PlayerService {
         return vacationPlace;
     }
 
-    // enum Enemy z każdym rodzajem broni
 
-    // stworz metode getCurrentEnemy
-    // musi ustalac w ktorym miescie jestesmy (mamy odzytane cityselected)
-    // jesli cityselected to gdansk to enemy jest z huty miedzi
-
-    // nastepnie, druga metoda fight
-
-    // nastepnie trzecia metoda wdajSieWbojkeZZakladem (w controllerze)
-    // 1 Krok = getCurrentEnemy
-    // 2 krok = fight (papier kamien nozyce)
-    // 3 krok = aktualizacja stanu gracza (zasoby, hp na podstawie bójki)
 
     public City getCurrentlyVisitingLocalCompany() {
 
 
         return cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY ? citySelected : null;
 
-
-//        City localCompany = null;
-//
-//        if(cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY){
-//            localCompany = citySelected;
-//        }
-//
-//        return localCompany;
     }
 
     public Enemy fightWithWorkerOfLocalCompany() {

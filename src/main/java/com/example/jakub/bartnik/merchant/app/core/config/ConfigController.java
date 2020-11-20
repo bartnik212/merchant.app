@@ -360,30 +360,41 @@ public class ConfigController {
         return "go_on_vacation";
     }
 
+    @GetMapping("/you_have_already_been_here")
+    public String companyVisited(Model model) {
+        model.addAttribute("companyVisitedDialog", applicationProperties.getYouHaveAlreadyBeenHere());
+
+        return "you_have_already_been_here";
+    }
 
     @GetMapping("/go_to_local_company")
     public String goToLocalCompany(Model model) {
-
         playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY);
 
-        City localCompany = playerService.getCurrentlyVisitingLocalCompany();
+        if (playerService.getListOfCities().contains(playerService.getCitySelected())) {
+            playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
+            return "redirect:/you_have_already_been_here";
 
-        switch (localCompany) {
+        } else {
 
-            case GDANSK:
-                model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
-                break;
+            City localCompany = playerService.getCurrentlyVisitingLocalCompany();
 
-            case WARSAW:
-                model.addAttribute("localCompanyDialog", applicationProperties.getIronWorksDialog());
-                break;
+            switch (localCompany) {
 
-            case ZAKOPANE:
-                model.addAttribute("localCompanyDialog", applicationProperties.getSawmillDialog());
-                break;
+                case GDANSK:
+                    model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
+                    break;
+
+                case WARSAW:
+                    model.addAttribute("localCompanyDialog", applicationProperties.getIronWorksDialog());
+                    break;
+
+                case ZAKOPANE:
+                    model.addAttribute("localCompanyDialog", applicationProperties.getSawmillDialog());
+                    break;
+            }
+
         }
-
-
         return "go_to_local_company";
     }
 
@@ -430,14 +441,18 @@ public class ConfigController {
 
             case FIREARMER:
                 model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerCopperSmelterDialog2());
+                playerService.setEnemy(Enemy.FIREARMER);
                 break;
 
             case TWOHANDEDSWORDER:
                 model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerIronWorksDialog2());
+                playerService.setEnemy(Enemy.TWOHANDEDSWORDER);
                 break;
 
             case SWORDSHIELDER:
                 model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerSawmillDialog2());
+                playerService.setEnemy(Enemy.SWORDSHIELDER);
+
                 break;
 
         }
@@ -449,8 +464,8 @@ public class ConfigController {
     public String goToLocalCompany4(Model model) {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-        Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
-        BattleResult battleResult = playerService.paperScissorsRock(enemy);
+//        Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
+        BattleResult battleResult = playerService.paperScissorsRock(playerService.getEnemy());
         City citySelected = playerService.getCitySelected();
 
         switch (battleResult) {
@@ -469,6 +484,9 @@ public class ConfigController {
                     model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyWood());
                     playerService.saveGood(Good.WOOD);
                 }
+
+                playerService.setEnemy(null);
+                playerService.getListOfCities().add(playerService.getCitySelected());
                 break;
 
             case LOSE:
@@ -737,12 +755,13 @@ public class ConfigController {
     }
 
     @GetMapping("/game2")
-    public String game2() {
+    public String game2(Model model) {
+
 
         CityAction cityActionSelected = playerService.getCityActionSelected();
 
         if (cityActionSelected == CityAction.CHANGE_THE_CITY) {
-            return "redirect:/choose_city";
+            return showCitiesToChoose(model);
 
         } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
             return "redirect:/city_actions";

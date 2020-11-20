@@ -156,6 +156,8 @@ public class ApplicationProperties {
     @Value("${notEnoughCoins}")
     private String notEnoughCoins;
 
+    @Value("${youHaveAlreadyBeenHere}")
+    private String youHaveAlreadyBeenHere;
 
 
 }

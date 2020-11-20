@@ -11,6 +11,18 @@ public enum Weapon {
     Weapon(String name) {
         this.name = name;
     }
+//    private final Weapon winsWith;
+
+
+//    Weapon(String name, Weapon winsWith) {
+//        this.name = name;
+//        this.winsWith = winsWith;
+//    }
+
+//    public boolean isWinningWith(Weapon otherWeapon) {
+
+//        return this.winsWith == otherWeapon;
+//    }
 
     public String getName() {
         return name;

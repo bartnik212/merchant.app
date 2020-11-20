@@ -564,34 +564,39 @@ public class ConfigController {
     public String getRandomAction(Model model) {
         RandomAction randomAction = playerService.getRandomAction();
 
-        switch (randomAction) {
+        if (randomAction == null) {
+            return "redirect:/random_action2";
 
-            case FIND_COINS:
-                model.addAttribute("randomActionDialog", applicationProperties.getFindCoins());
-                playerService.setCoins(playerService.getCoins() + 15);
-                break;
+        } else {
 
-            case FIND_WOOD:
-                model.addAttribute("randomActionDialog", applicationProperties.getFindWood());
-                playerService.getListOfGoods().add(Good.WOOD);
-                break;
+            switch (randomAction) {
 
-            case FIND_COPPER:
-                model.addAttribute("randomActionDialog", applicationProperties.getFindCopper());
-                playerService.getListOfGoods().add(Good.COPPER);
-                break;
+                case FIND_COINS:
+                    model.addAttribute("randomActionDialog", applicationProperties.getFindCoins());
+                    playerService.setCoins(playerService.getCoins() + 15);
+                    break;
 
-            case FIND_IRON:
-                model.addAttribute("randomActionDialog", applicationProperties.getFindIron());
-                playerService.getListOfGoods().add(Good.IRON);
-                break;
+                case FIND_WOOD:
+                    model.addAttribute("randomActionDialog", applicationProperties.getFindWood());
+                    playerService.getListOfGoods().add(Good.WOOD);
+                    break;
 
-            case NEGATIVE_RANDOM_ACTION:
-                return "redirect:/random_action2";
+                case FIND_COPPER:
+                    model.addAttribute("randomActionDialog", applicationProperties.getFindCopper());
+                    playerService.getListOfGoods().add(Good.COPPER);
+                    break;
+
+                case FIND_IRON:
+                    model.addAttribute("randomActionDialog", applicationProperties.getFindIron());
+                    playerService.getListOfGoods().add(Good.IRON);
+                    break;
+
+                case NEGATIVE_RANDOM_ACTION:
+                    return "redirect:/random_action2";
+
+            }
 
         }
-
-
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "random_action";
     }
@@ -603,7 +608,7 @@ public class ConfigController {
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("battleAnswers", BattleAnswer.values());
 
-//        playerService.setCityActionSelected(CityAction.RANDOM_ACTION2);
+        playerService.setCityActionSelected(CityAction.RANDOM_ACTION2);
 
         return "random_action2";
     }
@@ -621,23 +626,32 @@ public class ConfigController {
 
         Enemy enemy = playerService.getNegativeRandomAction();
 
-        switch (enemy) {
+        if (enemy == null) {
+            model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
+            playerService.setEnemy(Enemy.SWORDSHIELDER);
 
-            case SWORDSHIELDER:
-                model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
-                break;
+        } else {
 
-            case TWOHANDEDSWORDER:
-                model.addAttribute("robberDialog", applicationProperties.getRobberTwoHandedSword());
-                break;
+            switch (enemy) {
 
-            case FIREARMER:
-                model.addAttribute("robberDialog", applicationProperties.getRobberFireArm());
-                break;
+                case SWORDSHIELDER:
+                    model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
+                    playerService.setEnemy(Enemy.SWORDSHIELDER);
+                    break;
+
+                case TWOHANDEDSWORDER:
+                    model.addAttribute("robberDialog", applicationProperties.getRobberTwoHandedSword());
+                    playerService.setEnemy(Enemy.TWOHANDEDSWORDER);
+                    break;
+
+                case FIREARMER:
+                    model.addAttribute("robberDialog", applicationProperties.getRobberFireArm());
+                    playerService.setEnemy(Enemy.FIREARMER);
+                    break;
+            }
 
         }
-
-//        playerService.setCityActionSelected(CityAction.RANDOM_ACTION3);
+        playerService.setCityActionSelected(CityAction.RANDOM_ACTION3);
         return "random_action3";
     }
 
@@ -645,8 +659,7 @@ public class ConfigController {
     @GetMapping("/random_action4")
     public String getRandomAction4(Model model) {
 
-        Enemy enemy = playerService.getNegativeRandomAction();
-        BattleResult battleResult = playerService.paperScissorsRock(enemy);
+        BattleResult battleResult = playerService.paperScissorsRock(playerService.getEnemy());
 
         switch (battleResult) {
 
@@ -673,6 +686,7 @@ public class ConfigController {
                 break;
 
         }
+        playerService.setEnemy(null);
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "random_action4";
     }
@@ -754,6 +768,12 @@ public class ConfigController {
         } else if (cityActionSelected == CityAction.RANDOM_ACTION) {
             return getRandomAction(model);
 
+        } else if (cityActionSelected == CityAction.RANDOM_ACTION2) {
+            return getRandomAction2(model);
+
+        } else if (cityActionSelected == CityAction.RANDOM_ACTION3) {
+            return getRandomAction3(model);
+
         } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
             return goToLocalCompany(model);
 
@@ -772,44 +792,6 @@ public class ConfigController {
 
         return "/game2";
     }
-
-
-//        if (cityActionSelected == CityAction.CHANGE_THE_CITY) {
-//            return "redirect:/choose_city";
-//
-//        } else if (cityActionSelected == CityAction.MEET_WITH_GOOD_MERCHANT) {
-//            return "redirect:/meet_merchant";
-//
-//        } else if (cityActionSelected == CityAction.GO_ON_VACATION) {
-//            return "redirect:/go_on_vacation";
-//
-//        } else if (cityActionSelected == CityAction.RANDOM_ACTION2) {
-//            return "redirect:/random_action2";
-//
-//        } else if (cityActionSelected == CityAction.RANDOM_ACTION3) {
-//            return "redirect:/random_action3";
-//
-//        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY) {
-//            return "redirect:/go_to_local_company";
-//
-//        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY2) {
-//            return "redirect:/go_to_local_company2";
-//
-//        } else if (cityActionSelected == CityAction.GO_TO_LOCAL_COMPANY3) {
-//            return "redirect:/go_to_local_company3";
-//
-//        } else if (cityActionSelected == CityAction.GO_TO_WEAPON_STORE) {
-//            return "redirect:/go_to_weapon_store";
-//
-//        } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
-//            return "redirect:/select_weapon";
-//
-//        } else if (cityActionSelected == CityAction.SHOW_CITY_ACTIONS) {
-//            return "redirect:/city_actions";
-//        }
-//
-//        return "/game2";
-//    }
 
 }
 

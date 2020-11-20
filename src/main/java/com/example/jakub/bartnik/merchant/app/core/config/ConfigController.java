@@ -76,7 +76,6 @@ public class ConfigController {
         return "redirect:/choose_first_good";
     }
 
-
     @GetMapping("/choose_first_good")
     public String chooseFirstGood(Model model) {
 
@@ -89,13 +88,9 @@ public class ConfigController {
         return "choose_first_good";
     }
 
-
     @PostMapping("/choose_first_good")
     public String postFirstGood(GoodOwnedForm goodOwnedForm) {
-
-
         playerService.saveGood(goodOwnedForm.getOwnedGoods());
-
 
         return "redirect:/choose_first_weapon";
     }
@@ -122,8 +117,8 @@ public class ConfigController {
 
     @GetMapping("/select_weapon")
     public String showWeaponsToSelect(Model model) {
-
-        playerService.setGameInitializationState(GameInitializationState.SELECT_WEAPON);
+        if (playerService.getGameInitializationState() != null)
+            playerService.setGameInitializationState(GameInitializationState.SELECT_WEAPON);
 
         model.addAttribute("message3", applicationProperties.getMessage3());
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
@@ -142,6 +137,7 @@ public class ConfigController {
         if (isInitializingSelectWeapon) {
             playerService.setGameInitializationState(GameInitializationState.CHOOSE_CITY);
             redirect = "redirect:/choose_city";
+
         } else {
             playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
             redirect = "redirect:/city_actions";
@@ -177,6 +173,7 @@ public class ConfigController {
         playerService.setCitySelected(cityChosenForm.getChosenCity());
         playerService.setCoins(playerService.getCoins() - 5);
         log.info("chosen city: " + playerService.getCitySelected());
+        playerService.setGameInitializationState(null);
 
         return "redirect:/city_actions";
     }
@@ -355,7 +352,6 @@ public class ConfigController {
         playerService.setCoins(playerService.getCoins() - 5);
         playerService.setHealthPoints(100);
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-
 
         return "go_on_vacation";
     }
@@ -742,7 +738,6 @@ public class ConfigController {
             return "redirect:/choose_city";
 
         } else if (gameInitializationState == GameInitializationState.CITY_SELECTED) {
-            playerService.setGameInitializationState(null);
             return "redirect:/city_actions";
 
         }

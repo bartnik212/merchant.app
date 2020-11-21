@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-public class ApplicationProperties {
+public class MessagesProperties {
 
     @Value("${message1}")
     private String message1;

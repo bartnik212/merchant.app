@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Component
-public class ChuckNorrisResponseMain {
+public class ChuckNorrisGetJoke {
 
     public String getChuckNorrisJoke() throws IOException, InterruptedException {
 
@@ -28,9 +28,9 @@ public class ChuckNorrisResponseMain {
                 HttpResponse.BodyHandlers.ofString());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ChuckNorrisResponse response = objectMapper.
+        ChuckNorrisJsonProperty response = objectMapper.
                 readValue(resp.body(),
-                        ChuckNorrisResponse.class);
+                        ChuckNorrisJsonProperty.class);
 
         return response.getValue();
     }

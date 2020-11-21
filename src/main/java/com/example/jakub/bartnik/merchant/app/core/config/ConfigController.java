@@ -1,6 +1,6 @@
 package com.example.jakub.bartnik.merchant.app.core.config;
 
-import com.example.jakub.bartnik.merchant.app.core.reward.ChuckNorrisResponseMain;
+import com.example.jakub.bartnik.merchant.app.core.reward.ChuckNorrisGetJoke;
 import com.example.jakub.bartnik.merchant.app.module.enums.*;
 import com.example.jakub.bartnik.merchant.app.module.services.PlayerService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +21,10 @@ public class ConfigController {
     PlayerService playerService;
 
     @Autowired
-    private ApplicationProperties applicationProperties;
+    private MessagesProperties messagesProperties;
 
     @Autowired
-    private ChuckNorrisResponseMain chuckNorrisResponseMain;
+    private ChuckNorrisGetJoke chuckNorrisGetJoke;
 
     @GetMapping("/nav")
     public String getNavBar() {
@@ -81,7 +81,7 @@ public class ConfigController {
 
         playerService.setGameInitializationState(GameInitializationState.CHOOSE_FIRST_GOOD);
 
-        model.addAttribute("message1", applicationProperties.getMessage1());
+        model.addAttribute("message1", messagesProperties.getMessage1());
         model.addAttribute("allGoods", Good.values());
         model.addAttribute("goodOwnedForm", new GoodOwnedForm());
 
@@ -101,7 +101,7 @@ public class ConfigController {
         playerService.setGameInitializationState(GameInitializationState.CHOOSE_FIRST_WEAPON);
 
 
-        model.addAttribute("message2", applicationProperties.getMessage2());
+        model.addAttribute("message2", messagesProperties.getMessage2());
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
@@ -120,7 +120,7 @@ public class ConfigController {
         if (playerService.getGameInitializationState() != null)
             playerService.setGameInitializationState(GameInitializationState.SELECT_WEAPON);
 
-        model.addAttribute("message3", applicationProperties.getMessage3());
+        model.addAttribute("message3", messagesProperties.getMessage3());
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
@@ -158,7 +158,7 @@ public class ConfigController {
         } else {
             playerService.setGameInitializationState(GameInitializationState.CHOOSE_CITY);
 
-            model.addAttribute("message4", applicationProperties.getMessage4());
+            model.addAttribute("message4", messagesProperties.getMessage4());
             model.addAttribute("allCities", City.values());
             model.addAttribute("cityChosenForm", new CityChosenForm());
 
@@ -189,7 +189,7 @@ public class ConfigController {
                 CityAction.CHOOSE_WEAPON_TO_FIGHT,
                 CityAction.RANDOM_ACTION};
 
-        model.addAttribute("message5", applicationProperties.getMessage5());
+        model.addAttribute("message5", messagesProperties.getMessage5());
         model.addAttribute("cityActionsToShow", cityActionsToShow);
         model.addAttribute("cityActionForm", new CityActionForm());
 
@@ -207,7 +207,7 @@ public class ConfigController {
 
     @GetMapping("not_enough_coins")
     public String noEnoughCoins(Model model) {
-        model.addAttribute("noEnoughCoinsDialog", applicationProperties.getNotEnoughCoins());
+        model.addAttribute("noEnoughCoinsDialog", messagesProperties.getNotEnoughCoins());
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "not_enough_coins";
@@ -232,15 +232,15 @@ public class ConfigController {
 
             switch (goodType) {
                 case WOOD:
-                    model.addAttribute("merchantDialog", applicationProperties.getWoodMerchantDialog());
+                    model.addAttribute("merchantDialog", messagesProperties.getWoodMerchantDialog());
                     break;
 
                 case IRON:
-                    model.addAttribute("merchantDialog", applicationProperties.getIronMerchantDialog());
+                    model.addAttribute("merchantDialog", messagesProperties.getIronMerchantDialog());
                     break;
 
                 case COPPER:
-                    model.addAttribute("merchantDialog", applicationProperties.getCopperMerchantDialog());
+                    model.addAttribute("merchantDialog", messagesProperties.getCopperMerchantDialog());
                     break;
 
             }
@@ -263,7 +263,7 @@ public class ConfigController {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
 
-        model.addAttribute("noGoodDialog", applicationProperties.getNoGoodDialog());
+        model.addAttribute("noGoodDialog", messagesProperties.getNoGoodDialog());
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "no_good_merchant";
 
@@ -279,21 +279,21 @@ public class ConfigController {
                 playerService.getListOfGoods().remove(Good.WOOD);
                 playerService.setCoins(playerService.getCoins() + 20);
 
-                model.addAttribute("positiveAnswer", applicationProperties.getWoodMerchantPositiveAnswer());
+                model.addAttribute("positiveAnswer", messagesProperties.getWoodMerchantPositiveAnswer());
                 break;
 
             case GOOD_MERCHANT_WARSAW:
                 playerService.getListOfGoods().remove(Good.IRON);
                 playerService.setCoins(playerService.getCoins() + 20);
 
-                model.addAttribute("positiveAnswer", applicationProperties.getIronMerchantPositiveAnswer());
+                model.addAttribute("positiveAnswer", messagesProperties.getIronMerchantPositiveAnswer());
                 break;
 
             case GOOD_MERCHANT_ZAKOPANE:
                 playerService.getListOfGoods().remove(Good.COPPER);
                 playerService.setCoins(playerService.getCoins() + 20);
 
-                model.addAttribute("positiveAnswer", applicationProperties.getCopperMerchantPositiveAnswer());
+                model.addAttribute("positiveAnswer", messagesProperties.getCopperMerchantPositiveAnswer());
                 break;
         }
 
@@ -309,7 +309,7 @@ public class ConfigController {
         if (playerService.getCitySelected() == City.GDANSK &&
                 playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
 
-            model.addAttribute("negativeAnswer", applicationProperties.getMerchantNegativeAnswer());
+            model.addAttribute("negativeAnswer", messagesProperties.getMerchantNegativeAnswer());
 
         }
 
@@ -332,15 +332,15 @@ public class ConfigController {
             switch (vacationPlace) {
 
                 case MOTLAWA:
-                    model.addAttribute("dialog", applicationProperties.getMotlawaDialog());
+                    model.addAttribute("dialog", messagesProperties.getMotlawaDialog());
                     break;
 
                 case VISTULA:
-                    model.addAttribute("dialog", applicationProperties.getVistulaDialog());
+                    model.addAttribute("dialog", messagesProperties.getVistulaDialog());
                     break;
 
                 case GUBALOWKA:
-                    model.addAttribute("dialog", applicationProperties.getGubalowkaDialog());
+                    model.addAttribute("dialog", messagesProperties.getGubalowkaDialog());
                     break;
             }
         }
@@ -354,7 +354,7 @@ public class ConfigController {
 
     @GetMapping("/you_have_already_been_here")
     public String companyVisited(Model model) {
-        model.addAttribute("companyVisitedDialog", applicationProperties.getYouHaveAlreadyBeenHere());
+        model.addAttribute("companyVisitedDialog", messagesProperties.getYouHaveAlreadyBeenHere());
 
         return "you_have_already_been_here";
     }
@@ -374,15 +374,15 @@ public class ConfigController {
             switch (localCompany) {
 
                 case GDANSK:
-                    model.addAttribute("localCompanyDialog", applicationProperties.getCopperSmelterDialog());
+                    model.addAttribute("localCompanyDialog", messagesProperties.getCopperSmelterDialog());
                     break;
 
                 case WARSAW:
-                    model.addAttribute("localCompanyDialog", applicationProperties.getIronWorksDialog());
+                    model.addAttribute("localCompanyDialog", messagesProperties.getIronWorksDialog());
                     break;
 
                 case ZAKOPANE:
-                    model.addAttribute("localCompanyDialog", applicationProperties.getSawmillDialog());
+                    model.addAttribute("localCompanyDialog", messagesProperties.getSawmillDialog());
                     break;
             }
 
@@ -399,15 +399,15 @@ public class ConfigController {
 
         switch (enemy) {
             case FIREARMER:
-                model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerCopperSmelterDialog());
+                model.addAttribute("workerLocalCompanyDialog", messagesProperties.getWorkerCopperSmelterDialog());
                 break;
 
             case TWOHANDEDSWORDER:
-                model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerIronWorksDialog());
+                model.addAttribute("workerLocalCompanyDialog", messagesProperties.getWorkerIronWorksDialog());
                 break;
 
             case SWORDSHIELDER:
-                model.addAttribute("workerLocalCompanyDialog", applicationProperties.getWorkerSawmillDialog());
+                model.addAttribute("workerLocalCompanyDialog", messagesProperties.getWorkerSawmillDialog());
                 break;
         }
 
@@ -431,17 +431,17 @@ public class ConfigController {
         switch (enemy) {
 
             case FIREARMER:
-                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerCopperSmelterDialog2());
+                model.addAttribute("workerLocalCompanyDialog2", messagesProperties.getWorkerCopperSmelterDialog2());
                 playerService.setEnemy(Enemy.FIREARMER);
                 break;
 
             case TWOHANDEDSWORDER:
-                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerIronWorksDialog2());
+                model.addAttribute("workerLocalCompanyDialog2", messagesProperties.getWorkerIronWorksDialog2());
                 playerService.setEnemy(Enemy.TWOHANDEDSWORDER);
                 break;
 
             case SWORDSHIELDER:
-                model.addAttribute("workerLocalCompanyDialog2", applicationProperties.getWorkerSawmillDialog2());
+                model.addAttribute("workerLocalCompanyDialog2", messagesProperties.getWorkerSawmillDialog2());
                 playerService.setEnemy(Enemy.SWORDSHIELDER);
 
                 break;
@@ -463,15 +463,15 @@ public class ConfigController {
             case WIN:
 
                 if (citySelected == City.GDANSK) {
-                    model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyCopper());
+                    model.addAttribute("afterBattleDialog", messagesProperties.getWinDialogLocalCompanyCopper());
                     playerService.saveGood(Good.COPPER);
 
                 } else if (citySelected == City.WARSAW) {
-                    model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyIron());
+                    model.addAttribute("afterBattleDialog", messagesProperties.getWinDialogLocalCompanyIron());
                     playerService.saveGood(Good.IRON);
 
                 } else if (citySelected == City.ZAKOPANE) {
-                    model.addAttribute("afterBattleDialog", applicationProperties.getWinDialogLocalCompanyWood());
+                    model.addAttribute("afterBattleDialog", messagesProperties.getWinDialogLocalCompanyWood());
                     playerService.saveGood(Good.WOOD);
                 }
 
@@ -480,7 +480,7 @@ public class ConfigController {
                 break;
 
             case LOSE:
-                model.addAttribute("afterBattleDialog", applicationProperties.getLoseDialogLocalCompany());
+                model.addAttribute("afterBattleDialog", messagesProperties.getLoseDialogLocalCompany());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 50);
 
                 if (playerService.getHealthPoints() <= 0) {
@@ -491,7 +491,7 @@ public class ConfigController {
                 break;
 
             case DRAW:
-                model.addAttribute("afterBattleDialog", applicationProperties.getDrawDialogLocalCompany());
+                model.addAttribute("afterBattleDialog", messagesProperties.getDrawDialogLocalCompany());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 30);
 
                 if (playerService.getHealthPoints() <= 0) {
@@ -510,7 +510,7 @@ public class ConfigController {
     public String leaveLocalCompany(Model model) {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-        model.addAttribute("leaveLocalCompany", applicationProperties.getLeaveLocalCompany());
+        model.addAttribute("leaveLocalCompany", messagesProperties.getLeaveLocalCompany());
 
         return "leave_local_company";
     }
@@ -519,7 +519,7 @@ public class ConfigController {
     public String goToWeaponStore(Model model) {
         playerService.setCityActionSelected(CityAction.GO_TO_WEAPON_STORE);
 
-        model.addAttribute("weaponStoreDialog", applicationProperties.getWeaponStoreDialog());
+        model.addAttribute("weaponStoreDialog", messagesProperties.getWeaponStoreDialog());
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
@@ -545,7 +545,7 @@ public class ConfigController {
     @GetMapping("/duplicated_weapon")
     public String duplicatedWeapon(Model model) {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        model.addAttribute("duplicatedWeapon", applicationProperties.getDuplicatedWeapon());
+        model.addAttribute("duplicatedWeapon", messagesProperties.getDuplicatedWeapon());
 
         return "duplicated_weapon";
     }
@@ -554,7 +554,7 @@ public class ConfigController {
     public String weaponBought(Model model) {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-        model.addAttribute("weaponBought", applicationProperties.getWeaponBought());
+        model.addAttribute("weaponBought", messagesProperties.getWeaponBought());
         playerService.setCoins(playerService.getCoins() - 10);
 
         return "weapon_bought";
@@ -572,22 +572,22 @@ public class ConfigController {
             switch (randomAction) {
 
                 case FIND_COINS:
-                    model.addAttribute("randomActionDialog", applicationProperties.getFindCoins());
+                    model.addAttribute("randomActionDialog", messagesProperties.getFindCoins());
                     playerService.setCoins(playerService.getCoins() + 15);
                     break;
 
                 case FIND_WOOD:
-                    model.addAttribute("randomActionDialog", applicationProperties.getFindWood());
+                    model.addAttribute("randomActionDialog", messagesProperties.getFindWood());
                     playerService.getListOfGoods().add(Good.WOOD);
                     break;
 
                 case FIND_COPPER:
-                    model.addAttribute("randomActionDialog", applicationProperties.getFindCopper());
+                    model.addAttribute("randomActionDialog", messagesProperties.getFindCopper());
                     playerService.getListOfGoods().add(Good.COPPER);
                     break;
 
                 case FIND_IRON:
-                    model.addAttribute("randomActionDialog", applicationProperties.getFindIron());
+                    model.addAttribute("randomActionDialog", messagesProperties.getFindIron());
                     playerService.getListOfGoods().add(Good.IRON);
                     break;
 
@@ -604,7 +604,7 @@ public class ConfigController {
     @GetMapping("/random_action2")
     public String getRandomAction2(Model model) {
 
-        model.addAttribute("robberDialog", applicationProperties.getRobberDialog());
+        model.addAttribute("robberDialog", messagesProperties.getRobberDialog());
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
         model.addAttribute("battleAnswers", BattleAnswer.values());
 
@@ -627,7 +627,7 @@ public class ConfigController {
         Enemy enemy = playerService.getNegativeRandomAction();
 
         if (enemy == null) {
-            model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
+            model.addAttribute("robberDialog", messagesProperties.getRobberSwordShield());
             playerService.setEnemy(Enemy.SWORDSHIELDER);
 
         } else {
@@ -635,17 +635,17 @@ public class ConfigController {
             switch (enemy) {
 
                 case SWORDSHIELDER:
-                    model.addAttribute("robberDialog", applicationProperties.getRobberSwordShield());
+                    model.addAttribute("robberDialog", messagesProperties.getRobberSwordShield());
                     playerService.setEnemy(Enemy.SWORDSHIELDER);
                     break;
 
                 case TWOHANDEDSWORDER:
-                    model.addAttribute("robberDialog", applicationProperties.getRobberTwoHandedSword());
+                    model.addAttribute("robberDialog", messagesProperties.getRobberTwoHandedSword());
                     playerService.setEnemy(Enemy.TWOHANDEDSWORDER);
                     break;
 
                 case FIREARMER:
-                    model.addAttribute("robberDialog", applicationProperties.getRobberFireArm());
+                    model.addAttribute("robberDialog", messagesProperties.getRobberFireArm());
                     playerService.setEnemy(Enemy.FIREARMER);
                     break;
             }
@@ -664,12 +664,12 @@ public class ConfigController {
         switch (battleResult) {
 
             case WIN:
-                model.addAttribute("afterBattleRobberDialog", applicationProperties.getWinRobberDialog());
+                model.addAttribute("afterBattleRobberDialog", messagesProperties.getWinRobberDialog());
                 playerService.setCoins(playerService.getCoins() + 15);
                 break;
 
             case LOSE:
-                model.addAttribute("afterBattleRobberDialog", applicationProperties.getLoseRobberDialog());
+                model.addAttribute("afterBattleRobberDialog", messagesProperties.getLoseRobberDialog());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 40);
                 playerService.setCoins(0);
 
@@ -681,7 +681,7 @@ public class ConfigController {
                 break;
 
             case DRAW:
-                model.addAttribute("afterBattleRobberDialog", applicationProperties.getDrawRobberDialog());
+                model.addAttribute("afterBattleRobberDialog", messagesProperties.getDrawRobberDialog());
                 playerService.setHealthPoints(playerService.getHealthPoints() - 20);
                 break;
 
@@ -694,7 +694,7 @@ public class ConfigController {
     @GetMapping("/run_away_from_robber")
     public String getRunAwayFromRobber(Model model) {
 
-        model.addAttribute("runAwayFromRobber", applicationProperties.getRunAwayFromRobber());
+        model.addAttribute("runAwayFromRobber", messagesProperties.getRunAwayFromRobber());
         playerService.setCoins(0);
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
@@ -703,7 +703,7 @@ public class ConfigController {
 
     @GetMapping("/health_points_below_0")
     public String getLoseTheGameBecauseOfHealthPoints(Model model) {
-        model.addAttribute("healthPointsBelow0", applicationProperties.getHealthPointsBelow0());
+        model.addAttribute("healthPointsBelow0", messagesProperties.getHealthPointsBelow0());
 
         return "health_points_below_0";
     }
@@ -711,7 +711,7 @@ public class ConfigController {
 
     @GetMapping("/you_won_the_game")
     public String getYouWonTheGame(Model model) {
-        model.addAttribute("winTheGameDialog", applicationProperties.getYouWonTheGame());
+        model.addAttribute("winTheGameDialog", messagesProperties.getYouWonTheGame());
 
         return "you_won_the_game";
     }
@@ -719,7 +719,7 @@ public class ConfigController {
     @GetMapping("chuck_norris")
     public String getChuckNorrisJoke(Model model) throws IOException, InterruptedException {
 
-        model.addAttribute("chuckNorrisJoke", chuckNorrisResponseMain.getChuckNorrisJoke());
+        model.addAttribute("chuckNorrisJoke", chuckNorrisGetJoke.getChuckNorrisJoke());
 
         return "chuck_norris";
     }

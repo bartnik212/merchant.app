@@ -115,6 +115,11 @@ public class ConfigController {
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
+        model.addAttribute("twoHandedSword", Weapon.TWOHANDEDSWORD);
+        model.addAttribute("swordShield", Weapon.SWORDSHIELD);
+        model.addAttribute("fireArm", Weapon.FIREARM);
+
+
         return "game-initialization-states/choose_first_weapon";
     }
 

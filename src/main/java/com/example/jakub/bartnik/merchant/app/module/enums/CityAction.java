@@ -7,7 +7,7 @@ public enum CityAction {
     GO_ON_VACATION ("Go on one-day vacation (5 coins)"),
     CHANGE_THE_CITY ("Change the city (5 coins)"),
 
-    RANDOM_ACTION ("Random action which can be something good to you, like for example, additional coin for you or attack of evil robbers!"),
+    RANDOM_ACTION ("Random action"),
     RANDOM_ACTION2("Random Action2"),
     RANDOM_ACTION3("Random Action3"),
 

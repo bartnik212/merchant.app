@@ -199,17 +199,16 @@ public class ConfigController {
     public String showCityActions(Model model) {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-        CityAction[] cityActionsToShow = {CityAction.MEET_WITH_GOOD_MERCHANT,
-                CityAction.CHANGE_THE_CITY,
-                CityAction.GO_TO_LOCAL_COMPANY,
-                CityAction.GO_ON_VACATION,
-                CityAction.GO_TO_WEAPON_STORE,
-                CityAction.CHOOSE_WEAPON_TO_FIGHT,
-                CityAction.RANDOM_ACTION};
-
         model.addAttribute("message5", messagesProperties.getMessage5());
-        model.addAttribute("cityActionsToShow", cityActionsToShow);
         model.addAttribute("cityActionForm", new CityActionForm());
+
+        model.addAttribute("meetMerchant", CityAction.MEET_WITH_GOOD_MERCHANT);
+        model.addAttribute("cityChange", CityAction.CHANGE_THE_CITY);
+        model.addAttribute("localCompany", CityAction.GO_TO_LOCAL_COMPANY);
+        model.addAttribute("vacation", CityAction.GO_ON_VACATION);
+        model.addAttribute("weaponStore", CityAction.GO_TO_WEAPON_STORE);
+        model.addAttribute("selectWeapon", CityAction.CHOOSE_WEAPON_TO_FIGHT);
+        model.addAttribute("randomAction", CityAction.RANDOM_ACTION);
 
         return "city-actions/city_actions";
     }

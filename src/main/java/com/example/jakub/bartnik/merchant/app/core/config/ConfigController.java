@@ -235,12 +235,11 @@ public class ConfigController {
 
         playerService.setCityActionSelected(CityAction.MEET_WITH_GOOD_MERCHANT);
 
+        model.addAttribute("positiveAnswer", MerchantAnswer.YES);
+        model.addAttribute("negativeAnswer", MerchantAnswer.NO);
+        model.addAttribute("merchantAnswerForm", new MerchantAnswerForm());
 
         Good goodType = playerService.getCurrentlyVisitingMerchantGood();
-
-        model.addAttribute("merchantAnswerForm", new MerchantAnswerForm());
-        model.addAttribute("allAnswers", MerchantAnswer.values());
-
 
         if (goodType == null) {
             return "redirect:/no_good_merchant";

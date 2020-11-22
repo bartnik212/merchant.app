@@ -321,13 +321,7 @@ public class ConfigController {
     @GetMapping("/negative_answer")
     public String negativeAnswer(Model model) {
 
-
-        if (playerService.getCitySelected() == City.GDANSK &&
-                playerService.getCityActionSelected() == CityAction.MEET_WITH_GOOD_MERCHANT) {
-
-            model.addAttribute("negativeAnswer", messagesProperties.getMerchantNegativeAnswer());
-
-        }
+        model.addAttribute("negativeAnswer", messagesProperties.getMerchantNegativeAnswer());
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "answers/negative_answer";

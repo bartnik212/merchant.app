@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessagesProperties {
 
+    @Value("${helloMessage}")
+    private String helloMessage;
+
     @Value("${message1}")
     private String message1;
 

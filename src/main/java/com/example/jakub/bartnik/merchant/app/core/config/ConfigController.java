@@ -53,10 +53,18 @@ public class ConfigController {
         return "player_status";
     }
 
+    @GetMapping("landing_page")
+    public String getInitialPage(Model model) {
+        playerService.setGameInitializationState(GameInitializationState.LANDING_PAGE);
+        model.addAttribute("helloMessage", messagesProperties.getHelloMessage());
+
+        return "landing_page";
+    }
+
     @GetMapping("/user_form")
     public String getUserForm(Model model) {
 
-        playerService.setGameInitializationState(GameInitializationState.CHOOSE_FIRST_GOOD);
+        playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
 
         model.addAttribute("nameForm", new NameForm());
         model.addAttribute("username", playerService.getName());
@@ -66,8 +74,6 @@ public class ConfigController {
 
     @PostMapping("/user_form")
     public String postUserForm(NameForm nameForm) {
-        playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
-
 
         playerService.setHealthPoints(100);
         playerService.setCoins(25);
@@ -726,13 +732,15 @@ public class ConfigController {
     }
 
 
-
     @GetMapping("/game")
     public String game(Model model) {
 
         GameInitializationState gameInitializationState = playerService.getGameInitializationState();
 
-        if (gameInitializationState == GameInitializationState.ENTER_NAME) {
+        if (gameInitializationState == GameInitializationState.LANDING_PAGE) {
+            return getInitialPage(model);
+
+        } else if (gameInitializationState == GameInitializationState.ENTER_NAME) {
             return getUserForm(model);
 
         } else if (gameInitializationState == GameInitializationState.CHOOSE_FIRST_GOOD) {

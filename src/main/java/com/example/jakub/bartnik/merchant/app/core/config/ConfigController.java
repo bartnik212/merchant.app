@@ -402,9 +402,10 @@ public class ConfigController {
 
     @GetMapping("/go_to_local_company2")
     public String goToLocalCompany2(Model model) {
-
+        model.addAttribute("fight", BattleAnswer.FIGHT);
+        model.addAttribute("leave", BattleAnswer.LEAVE);
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
-        model.addAttribute("allAnswers", BattleAnswer.values());
+
         Enemy enemy = playerService.fightWithWorkerOfLocalCompany();
 
         switch (enemy) {
@@ -568,6 +569,13 @@ public class ConfigController {
         playerService.setCoins(playerService.getCoins() - 10);
 
         return "city-actions/weapons/weapon_bought";
+    }
+
+    @GetMapping("selected_weapon")
+    public String getSelectedWeapon(Model model) {
+        model.addAttribute("selectedWeapon", playerService.getWeaponSelected());
+
+        return "city-actions/weapons/selected_weapon";
     }
 
     @GetMapping("random_action")

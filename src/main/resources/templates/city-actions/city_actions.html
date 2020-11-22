@@ -20,27 +20,38 @@
 </head>
 <body>
 
-<h1 th:text="${message5}"></h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 th:text="${message5}"></h1>
 
-<br>
+            <br>
 
-<form th:action="@{/city_actions}" th:object="${cityActionForm}" method="post">
+            <form th:action="@{/city_actions}" th:object="${cityActionForm}" method="post">
 
-    <th:block th:each="cityAction : ${cityActionsToShow}">
+                <th:block th:each="cityAction : ${cityActionsToShow}">
 
 
-        <input type="radio" checked="checked" th:text="${cityAction.name}"
-               th:value="${cityAction}" th:field="*{actionSelected}"
-               aria-label="Radio button for following text input">
-        <br>
-    </th:block>
+                    <input type="radio" checked="checked" th:text="${cityAction.name}"
+                           th:value="${cityAction}" th:field="*{actionSelected}"
+                           aria-label="Radio button for following text input">
+                    <br>
+                </th:block>
 
-    <br>
+                <br>
 
-    <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
-</form>
+                <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">
+            </form>
 
-<!--<iframe src="/player_status" width="100%" height="500" style="border:1px solid black;">-->
-<!--</iframe>-->
+        </div>
+        <div class="col">
+            <iframe src="/player_status" width="100%" height="500" style="border:1px solid black;">
+            </iframe>
+
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>

@@ -89,8 +89,11 @@ public class ConfigController {
         playerService.setGameInitializationState(GameInitializationState.CHOOSE_FIRST_GOOD);
 
         model.addAttribute("message1", messagesProperties.getMessage1());
-        model.addAttribute("allGoods", Good.values());
         model.addAttribute("goodOwnedForm", new GoodOwnedForm());
+
+        model.addAttribute("wood", Good.WOOD);
+        model.addAttribute("iron", Good.IRON);
+        model.addAttribute("copper", Good.COPPER);
 
         return "game-initialization-states/choose_first_good";
     }

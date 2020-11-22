@@ -2,9 +2,9 @@ package com.example.jakub.bartnik.merchant.app.module.enums;
 
 public enum Good {
 
-    WOOD("wood"),
-    IRON("iron"),
-    COPPER("copper");
+    WOOD("Wood"),
+    IRON("Iron"),
+    COPPER("Copper");
 
     private String name;
 

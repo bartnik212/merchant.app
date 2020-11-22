@@ -41,7 +41,8 @@
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="negativeAnswer" checked="checked" th:value="${negativeAnswer}" th:field="*{merchantAnswerSelected}"
                            class="custom-control-input">
-                    <label class="custom-control-label" for="negativeAnswer">Warsaw</label>
+                    <label class="custom-control-label" for="negativeAnswer">No
+                    </label>
 
                 </div>
 
@@ -61,30 +62,4 @@
 
 </body>
 
-
-
-<!--<body>-->
-
-<!--<h1 th:utext="${merchantDialog}"></h1>-->
-
-<!--<br>-->
-
-
-<!--<form th:action="@{/meet_merchant}" th:object="${merchantAnswerForm}" method="post">-->
-
-<!--    <th:block th:each="answer : ${allAnswers}">-->
-
-
-<!--        <input type="radio" checked="checked" th:text="${answer.name}"-->
-<!--               th:value="${answer}" th:field="*{merchantAnswerSelected}"-->
-<!--               aria-label="Radio button for following text input">-->
-<!--&lt;!&ndash;        jesli nie zadziala z getMerchantAnswerSelected sprobuj z merchantAnswerSelected&ndash;&gt;-->
-<!--        <br>-->
-<!--    </th:block>-->
-
-<!--    <br>-->
-
-<!--    <input type="submit" class="btn btn-primary" aria-label="Submit of radio button">-->
-<!--</form>-->
-<!--</body>-->
 </html>

@@ -174,8 +174,11 @@ public class ConfigController {
             playerService.setGameInitializationState(GameInitializationState.CHOOSE_CITY);
 
             model.addAttribute("message4", messagesProperties.getMessage4());
-            model.addAttribute("allCities", City.values());
             model.addAttribute("cityChosenForm", new CityChosenForm());
+
+            model.addAttribute("gdansk", City.GDANSK);
+            model.addAttribute("warsaw", City.WARSAW);
+            model.addAttribute("zakopane", City.ZAKOPANE);
 
             return "city-actions/choose_city";
         }

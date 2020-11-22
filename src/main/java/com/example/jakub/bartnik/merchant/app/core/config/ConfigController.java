@@ -60,7 +60,7 @@ public class ConfigController {
         model.addAttribute("nameForm", new NameForm());
         model.addAttribute("username", playerService.getName());
 
-        return "user_form";
+        return "game-initialization-states/user_form";
     }
 
     @PostMapping("/user_form")
@@ -73,7 +73,7 @@ public class ConfigController {
         playerService.setName(nameForm.getName());
         log.info("name: " + playerService.getName());
 
-        return "redirect:/choose_first_good";
+        return "redirect:choose_first_good";
     }
 
     @GetMapping("/choose_first_good")
@@ -85,7 +85,7 @@ public class ConfigController {
         model.addAttribute("allGoods", Good.values());
         model.addAttribute("goodOwnedForm", new GoodOwnedForm());
 
-        return "choose_first_good";
+        return "game-initialization-states/choose_first_good";
     }
 
     @PostMapping("/choose_first_good")
@@ -105,7 +105,7 @@ public class ConfigController {
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
-        return "choose_first_weapon";
+        return "game-initialization-states/choose_first_weapon";
     }
 
     @PostMapping("/choose_first_weapon")
@@ -124,7 +124,7 @@ public class ConfigController {
         model.addAttribute("ownedWeapons", playerService.getListOfWeapons());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
-        return "select_weapon";
+        return "city-actions/weapons/select_weapon";
 
     }
 
@@ -162,7 +162,7 @@ public class ConfigController {
             model.addAttribute("allCities", City.values());
             model.addAttribute("cityChosenForm", new CityChosenForm());
 
-            return "choose_city";
+            return "city-actions/choose_city";
         }
     }
 
@@ -193,7 +193,7 @@ public class ConfigController {
         model.addAttribute("cityActionsToShow", cityActionsToShow);
         model.addAttribute("cityActionForm", new CityActionForm());
 
-        return "city_actions";
+        return "city-actions/city_actions";
     }
 
     @PostMapping("/city_actions")
@@ -210,7 +210,7 @@ public class ConfigController {
         model.addAttribute("noEnoughCoinsDialog", messagesProperties.getNotEnoughCoins());
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "not_enough_coins";
+        return "impossible-actions/not_enough_coins";
     }
 
     @GetMapping("/meet_merchant")
@@ -246,7 +246,7 @@ public class ConfigController {
             }
         }
 
-        return "meet_merchant_test";
+        return "city-actions/merchants/meet_merchant";
 
     }
 
@@ -265,7 +265,7 @@ public class ConfigController {
 
         model.addAttribute("noGoodDialog", messagesProperties.getNoGoodDialog());
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "no_good_merchant";
+        return "city-actions/merchants/no_good_merchant";
 
     }
 
@@ -298,7 +298,7 @@ public class ConfigController {
         }
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "positive_answer";
+        return "answers/positive_answer";
 
     }
 
@@ -314,7 +314,7 @@ public class ConfigController {
         }
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "negative_answer";
+        return "answers/negative_answer";
 
     }
 
@@ -349,14 +349,14 @@ public class ConfigController {
         playerService.setHealthPoints(100);
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
-        return "go_on_vacation";
+        return "city-actions/go_on_vacation";
     }
 
     @GetMapping("/you_have_already_been_here")
     public String companyVisited(Model model) {
         model.addAttribute("companyVisitedDialog", messagesProperties.getYouHaveAlreadyBeenHere());
 
-        return "you_have_already_been_here";
+        return "impossible-actions/you_have_already_been_here";
     }
 
     @GetMapping("/go_to_local_company")
@@ -387,7 +387,7 @@ public class ConfigController {
             }
 
         }
-        return "go_to_local_company";
+        return "city-actions/companies/go_to_local_company";
     }
 
     @GetMapping("/go_to_local_company2")
@@ -412,7 +412,7 @@ public class ConfigController {
         }
 
         playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY2);
-        return "go_to_local_company2";
+        return "city-actions/companies/go_to_local_company2";
     }
 
     @PostMapping("/go_to_local_company2")
@@ -448,7 +448,7 @@ public class ConfigController {
 
         }
         playerService.setCityActionSelected(CityAction.GO_TO_LOCAL_COMPANY3);
-        return "go_to_local_company3";
+        return "city-actions/companies/go_to_local_company3";
     }
 
     @GetMapping("/go_to_local_company4")
@@ -503,7 +503,7 @@ public class ConfigController {
         }
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "/go_to_local_company4";
+        return "city-actions/companies/go_to_local_company4";
     }
 
     @GetMapping("leave_local_company")
@@ -512,7 +512,7 @@ public class ConfigController {
 
         model.addAttribute("leaveLocalCompany", messagesProperties.getLeaveLocalCompany());
 
-        return "leave_local_company";
+        return "city-actions/companies/leave_local_company";
     }
 
     @GetMapping("/go_to_weapon_store")
@@ -523,7 +523,7 @@ public class ConfigController {
         model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
-        return "go_to_weapon_store";
+        return "city-actions/weapons/go_to_weapon_store";
     }
 
     @PostMapping("/go_to_weapon_store")
@@ -547,7 +547,7 @@ public class ConfigController {
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         model.addAttribute("duplicatedWeapon", messagesProperties.getDuplicatedWeapon());
 
-        return "duplicated_weapon";
+        return "city-actions/weapons/duplicated_weapon";
     }
 
     @GetMapping("weapon_bought")
@@ -557,7 +557,7 @@ public class ConfigController {
         model.addAttribute("weaponBought", messagesProperties.getWeaponBought());
         playerService.setCoins(playerService.getCoins() - 10);
 
-        return "weapon_bought";
+        return "city-actions/weapons/weapon_bought";
     }
 
     @GetMapping("random_action")
@@ -598,7 +598,7 @@ public class ConfigController {
 
         }
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "random_action";
+        return "city-actions/random-actions/random_action";
     }
 
     @GetMapping("/random_action2")
@@ -610,7 +610,7 @@ public class ConfigController {
 
         playerService.setCityActionSelected(CityAction.RANDOM_ACTION2);
 
-        return "random_action2";
+        return "city-actions/random-actions/random_action2";
     }
 
     @PostMapping("/random_action2")
@@ -652,7 +652,7 @@ public class ConfigController {
 
         }
         playerService.setCityActionSelected(CityAction.RANDOM_ACTION3);
-        return "random_action3";
+        return "city-actions/random-actions/random_action3";
     }
 
 
@@ -688,7 +688,7 @@ public class ConfigController {
         }
         playerService.setEnemy(null);
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "random_action4";
+        return "city-actions/random-actions/random_action4";
     }
 
     @GetMapping("/run_away_from_robber")
@@ -698,14 +698,14 @@ public class ConfigController {
         playerService.setCoins(0);
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
-        return "run_away_from_robber";
+        return "city-actions/random-actions/run_away_from_robber";
     }
 
     @GetMapping("/health_points_below_0")
     public String getLoseTheGameBecauseOfHealthPoints(Model model) {
         model.addAttribute("healthPointsBelow0", messagesProperties.getHealthPointsBelow0());
 
-        return "health_points_below_0";
+        return "game-lose/health_points_below_0";
     }
 
 
@@ -713,7 +713,7 @@ public class ConfigController {
     public String getYouWonTheGame(Model model) {
         model.addAttribute("winTheGameDialog", messagesProperties.getYouWonTheGame());
 
-        return "you_won_the_game";
+        return "game-win/you_won_the_game";
     }
 
     @GetMapping("chuck_norris")
@@ -721,7 +721,7 @@ public class ConfigController {
 
         model.addAttribute("chuckNorrisJoke", chuckNorrisGetJoke.getChuckNorrisJoke());
 
-        return "chuck_norris";
+        return "game-win/chuck_norris";
     }
 
     @GetMapping("/game")

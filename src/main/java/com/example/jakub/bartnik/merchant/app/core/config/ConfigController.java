@@ -26,6 +26,7 @@ public class ConfigController {
     @Autowired
     private ChuckNorrisGetJoke chuckNorrisGetJoke;
 
+
     @GetMapping("/nav")
     public String getNavBar() {
         return "part_navigator";
@@ -724,25 +725,27 @@ public class ConfigController {
         return "game-win/chuck_norris";
     }
 
+
+
     @GetMapping("/game")
-    public String game() {
+    public String game(Model model) {
 
         GameInitializationState gameInitializationState = playerService.getGameInitializationState();
 
         if (gameInitializationState == GameInitializationState.ENTER_NAME) {
-            return "redirect:/user_form";
+            return getUserForm(model);
 
         } else if (gameInitializationState == GameInitializationState.CHOOSE_FIRST_GOOD) {
-            return "redirect:/choose_first_good";
+            return chooseFirstGood(model);
 
         } else if (gameInitializationState == GameInitializationState.CHOOSE_FIRST_WEAPON) {
-            return "redirect:/choose_first_weapon";
+            return chooseFirstWeapon(model);
 
         } else if (gameInitializationState == GameInitializationState.SELECT_WEAPON) {
-            return "redirect:/select_weapon";
+            return showWeaponsToSelect(model);
 
         } else if (gameInitializationState == GameInitializationState.CHOOSE_CITY) {
-            return "redirect:/choose_city";
+            return showCitiesToChoose(model);
 
         }
         return "redirect:/game2";

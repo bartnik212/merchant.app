@@ -726,6 +726,10 @@ public class ConfigController {
     public String getLoseTheGameBecauseOfHealthPoints(Model model) {
         model.addAttribute("healthPointsBelow0", messagesProperties.getHealthPointsBelow0());
 
+        playerService.getListOfCities().clear();
+        playerService.getListOfGoods().clear();
+        playerService.getListOfWeapons().clear();
+
         return "game-lose/health_points_below_0";
     }
 

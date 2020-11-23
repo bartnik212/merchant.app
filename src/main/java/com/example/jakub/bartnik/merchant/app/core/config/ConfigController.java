@@ -112,7 +112,6 @@ public class ConfigController {
 
 
         model.addAttribute("message2", messagesProperties.getMessage2());
-        model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
 
         model.addAttribute("twoHandedSword", Weapon.TWOHANDEDSWORD);
@@ -224,7 +223,7 @@ public class ConfigController {
 
     @GetMapping("not_enough_coins")
     public String noEnoughCoins(Model model) {
-        model.addAttribute("noEnoughCoinsDialog", messagesProperties.getNotEnoughCoins());
+        model.addAttribute("notEnoughCoinsDialog", messagesProperties.getNotEnoughCoins());
 
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "impossible-actions/not_enough_coins";
@@ -531,8 +530,11 @@ public class ConfigController {
         playerService.setCityActionSelected(CityAction.GO_TO_WEAPON_STORE);
 
         model.addAttribute("weaponStoreDialog", messagesProperties.getWeaponStoreDialog());
-        model.addAttribute("allWeapons", Weapon.values());
         model.addAttribute("weaponOwnedForm", new WeaponOwnedForm());
+
+        model.addAttribute("twoHandedSword", Weapon.TWOHANDEDSWORD);
+        model.addAttribute("swordShield", Weapon.SWORDSHIELD);
+        model.addAttribute("fireArm", Weapon.FIREARM);
 
         return "city-actions/weapons/go_to_weapon_store";
     }

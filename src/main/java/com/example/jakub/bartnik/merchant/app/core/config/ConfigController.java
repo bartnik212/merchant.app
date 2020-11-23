@@ -626,7 +626,8 @@ public class ConfigController {
 
         model.addAttribute("robberDialog", messagesProperties.getRobberDialog());
         model.addAttribute("battleAnswerForm", new BattleAnswerForm());
-        model.addAttribute("battleAnswers", BattleAnswer.values());
+        model.addAttribute("fight", BattleAnswer.FIGHT);
+        model.addAttribute("leave", BattleAnswer.LEAVE);
 
         playerService.setCityActionSelected(CityAction.RANDOM_ACTION2);
 

@@ -342,15 +342,15 @@ public class ConfigController {
             switch (vacationPlace) {
 
                 case MOTLAWA:
-                    model.addAttribute("dialog", messagesProperties.getMotlawaDialog());
+                    model.addAttribute("vacationDialog", messagesProperties.getMotlawaDialog());
                     break;
 
                 case VISTULA:
-                    model.addAttribute("dialog", messagesProperties.getVistulaDialog());
+                    model.addAttribute("vacationDialog", messagesProperties.getVistulaDialog());
                     break;
 
                 case GUBALOWKA:
-                    model.addAttribute("dialog", messagesProperties.getGubalowkaDialog());
+                    model.addAttribute("vacationDialog", messagesProperties.getGubalowkaDialog());
                     break;
             }
         }

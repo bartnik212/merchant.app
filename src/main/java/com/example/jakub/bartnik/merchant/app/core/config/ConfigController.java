@@ -201,6 +201,8 @@ public class ConfigController {
         model.addAttribute("message5", messagesProperties.getMessage5());
         model.addAttribute("cityActionForm", new CityActionForm());
 
+        model.addAttribute("allValues", CityAction.values());
+
         model.addAttribute("meetMerchant", CityAction.MEET_WITH_GOOD_MERCHANT);
         model.addAttribute("cityChange", CityAction.CHANGE_THE_CITY);
         model.addAttribute("localCompany", CityAction.GO_TO_LOCAL_COMPANY);

@@ -12,29 +12,31 @@
 
 
 
-<!--    <style>-->
-<!--        html,-->
-<!--        body {-->
-<!--            height: 100%;-->
-<!--            box-shadow: none;-->
-<!--            background-color: red;-->
-<!--            /*background-image: url("/templates/background.jpg");*/-->
-<!--            /*background-size: cover;*/-->
-<!--            /*background-repeat: no-repeat;*/-->
-<!--        }-->
+    <style>
+        html,
+        body {
+            height: 100%;
+            box-shadow: none;
 
-<!--    </style>-->
+        }
+
+        h1 {
+            font-family: monospace;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body th:style="'background :url(/background.jpg) no-repeat center center fixed;'">
+<body th:style="'background-image:url(' + @{/backgrounds/background.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
 <form class="form-signin" th:action="@{/user_form}" th:object="${nameForm}" method="post">
 
-    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Please Enter your name</h1>
+    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Please Enter Your Name</h1>
     <label for="inputUserName" class="sr-only">User Name</label>
     <input type="text" id="inputUserName" class="form-control" th:value="${username}" th:field="*{name}"  placeholder="Please enter your user name" required autofocus>
 
 
-    <a href="/game"><button class="btn btn-lg btn-primary btn-block" type="button">Play!</button></a>
+    <a href="/game"><button class="btn btn-lg btn-dark btn-block" type="button">Play!</button></a>
     <p class="mt-5 mb-3 text-muted" style="text-align: center">&copy; 2020</p>
 </form>
 

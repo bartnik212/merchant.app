@@ -7,35 +7,34 @@
 
 <style>
     h1 {
-        padding-top: 55px;
         font-family: monospace;
         font-size: 40px;
         font-weight: bold;
-        text-align: center;
     }
-
-    div {
-        padding-top: 10px;
-    }
-
 </style>
+
 <head>
     <meta charset="UTF-8">
-    <title>You have already been here</title>
+    <title>No Good</title>
+
 
 
 </head>
+
 <body th:style="'background-image:url(' + @{/backgrounds/background.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
-<h1 th:utext="${companyVisitedDialog}"></h1>
+<div style="padding-top: 90px" class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 style="text-align: center" th:utext="${companyVisitedDialog}"></h1>
+        </div>
 
-<div style="text-align: center" class="col">
-
-    <a href="/city_actions">
-        <button type="button" class="btn btn-dark">Back to City Actions</button>
-    </a>
-</div></a>
-
+        <div style="text-align: center" class="col">
+            <br>
+            <a href="/game2"><button type="button" class="btn btn-dark">Back to City Actions</button></a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

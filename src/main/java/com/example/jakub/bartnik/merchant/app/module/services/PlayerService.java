@@ -21,17 +21,13 @@ public class PlayerService {
     private List<Weapon> listOfWeapons = new LinkedList<>();
     private List<City> listOfCities = new LinkedList<>();
     private Weapon weaponSelected;
-    private int coins; // = 25
-    private int healthPoints; // = 100
+    private int coins;
+    private int healthPoints;
     private City citySelected;
-    private GameInitializationState gameInitializationState = GameInitializationState.ENTER_NAME;
+    private GameInitializationState gameInitializationState = GameInitializationState.LANDING_PAGE;
     private MerchantAnswer merchantAnswer;
     private CityAction cityActionSelected;
     private Enemy enemy;
-
-
-    //lista city, miasta, w ktorych odiwedzielem warsztat
-    //metody miast, a konkretnie te, ktore sie roznia
 
     public void saveGood(Good good) {
         listOfGoods.add(good);

@@ -499,7 +499,7 @@ public class ConfigController {
                 playerService.setHealthPoints(playerService.getHealthPoints() - 50);
 
                 if (playerService.getHealthPoints() <= 0) {
-                    playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+                    playerService.setGameInitializationState(GameInitializationState.LANDING_PAGE);
                     return "redirect:/health_points_below_0";
                 }
 
@@ -510,7 +510,7 @@ public class ConfigController {
                 playerService.setHealthPoints(playerService.getHealthPoints() - 30);
 
                 if (playerService.getHealthPoints() <= 0) {
-                    playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+                    playerService.setGameInitializationState(GameInitializationState.LANDING_PAGE);
                     return "redirect:/health_points_below_0";
                 }
 
@@ -697,7 +697,7 @@ public class ConfigController {
                 playerService.setCoins(0);
 
                 if (playerService.getHealthPoints() <= 0) {
-                    playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+                    playerService.setGameInitializationState(GameInitializationState.LANDING_PAGE);
                     return "redirect:/health_points_below_0";
                 }
 
@@ -731,7 +731,7 @@ public class ConfigController {
         playerService.getListOfCities().clear();
         playerService.getListOfGoods().clear();
         playerService.getListOfWeapons().clear();
-        playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+        playerService.setGameInitializationState(GameInitializationState.LANDING_PAGE);
 
         return "game-lose/health_points_below_0";
     }
@@ -751,7 +751,7 @@ public class ConfigController {
         playerService.getListOfWeapons().clear();
         playerService.getListOfGoods().clear();
         playerService.getListOfCities().clear();
-        playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
+        playerService.setGameInitializationState(GameInitializationState.LANDING_PAGE);
 
         return "game-win/chuck_norris";
     }

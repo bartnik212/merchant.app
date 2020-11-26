@@ -11,26 +11,22 @@
 
 
     <style>
-        html,
-        body {
-            height: 100%;
-            box-shadow: none;
 
+        div {
+            padding-left: 405px;
         }
 
         h1 {
-            font-family: monospace;
-            font-size: 40px;
-            font-weight: bold;
+            padding-top: 20px;
         }
 
     </style>
 </head>
 <body th:style="'background-image:url(' + @{/backgrounds/background.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
-<form class="form-signin" th:action="@{/user_form}" th:object="${nameForm}" method="post">
+<form th:action="@{/user_form}" th:object="${nameForm}" method="post">
 
-    <div class="container">
+    <div style="display: flex" class="container">
         <div class="row">
             <div class="col-12">
                 <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Please Enter Your Name</h1>
@@ -48,9 +44,8 @@
             </div>
         </div>
     </div>
-
-
 </form>
+
 
 </body>
 </html>

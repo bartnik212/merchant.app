@@ -76,7 +76,7 @@ public class ConfigController {
     public String postUserForm(NameForm nameForm) {
 
         playerService.setHealthPoints(100);
-        playerService.setCoins(25);
+        playerService.setCoins(95);
         playerService.setName(nameForm.getName());
         log.info("name: " + playerService.getName());
 
@@ -196,13 +196,13 @@ public class ConfigController {
 
     @GetMapping("/city_actions")
     public String showCityActions(Model model) {
+        if (playerService.getCoins() >= 100)
+            return getYouWonTheGame(model);
+
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
 
         model.addAttribute("message5", messagesProperties.getMessage5());
         model.addAttribute("cityActionForm", new CityActionForm());
-
-        model.addAttribute("allValues", CityAction.values());
-
         model.addAttribute("meetMerchant", CityAction.MEET_WITH_GOOD_MERCHANT);
         model.addAttribute("cityChange", CityAction.CHANGE_THE_CITY);
         model.addAttribute("localCompany", CityAction.GO_TO_LOCAL_COMPANY);
@@ -263,9 +263,11 @@ public class ConfigController {
             }
         }
 
+
         return "city-actions/merchants/meet_merchant";
 
     }
+
 
     @PostMapping("/meet_merchant")
     public String postMeetMerchant(MerchantAnswerForm merchantAnswerForm) {
@@ -613,6 +615,9 @@ public class ConfigController {
             }
 
         }
+
+
+
         playerService.setCityActionSelected(CityAction.SHOW_CITY_ACTIONS);
         return "city-actions/random-actions/random_action";
     }
@@ -640,6 +645,7 @@ public class ConfigController {
 
     @GetMapping("/random_action3")
     public String getRandomAction3(Model model) {
+        model.addAttribute("selectedWeapon", playerService.getWeaponSelected());
 
         Enemy enemy = playerService.getNegativeRandomAction();
 
@@ -725,6 +731,7 @@ public class ConfigController {
         playerService.getListOfCities().clear();
         playerService.getListOfGoods().clear();
         playerService.getListOfWeapons().clear();
+        playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
 
         return "game-lose/health_points_below_0";
     }
@@ -739,8 +746,12 @@ public class ConfigController {
 
     @GetMapping("chuck_norris")
     public String getChuckNorrisJoke(Model model) throws IOException, InterruptedException {
-
         model.addAttribute("chuckNorrisJoke", chuckNorrisGetJoke.getChuckNorrisJoke());
+
+        playerService.getListOfWeapons().clear();
+        playerService.getListOfGoods().clear();
+        playerService.getListOfCities().clear();
+        playerService.setGameInitializationState(GameInitializationState.ENTER_NAME);
 
         return "game-win/chuck_norris";
     }
@@ -813,10 +824,9 @@ public class ConfigController {
 
         } else if (cityActionSelected == CityAction.CHOOSE_WEAPON_TO_FIGHT) {
             return showWeaponsToSelect(model);
-        }
 
+        }
         return "/game2";
     }
-
 }
 

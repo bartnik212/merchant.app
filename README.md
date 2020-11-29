@@ -20,4 +20,14 @@ HOW TO OPEN THE GAME
 - run the application
 - enter http://localhost:8080/game into the browser
 
+USED TECHNOLOGIES:
+
+- Java 11
+- HTML/CSS
+- Bootstrap
+- Spring boot
+- Thymeleaf
+- GIT
+
+
 

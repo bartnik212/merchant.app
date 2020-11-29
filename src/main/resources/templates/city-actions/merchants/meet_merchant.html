@@ -6,6 +6,7 @@
         font-family: monospace;
         font-size: 40px;
         font-weight: bold;
+        text-align: center
     }
 
     .custom-control {
@@ -25,7 +26,6 @@
     <div th:replace="part_navigator :: navbar"/>
 
 
-
 </head>
 
 <body th:style="'background-image:url(' + @{/backgrounds/background.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
@@ -33,7 +33,7 @@
 <div style="padding-top: 90px" class="container">
     <div class="row">
         <div class="col-12">
-            <h1 style="text-align: center" th:utext="${merchantDialog}"></h1>
+            <h1 style="font-weight: bold" th:utext="${merchantDialog}"></h1>
         </div>
     </div>
     <br>
@@ -42,13 +42,15 @@
             <form th:action="@{/meet_merchant}" th:object="${merchantAnswerForm}" method="post">
 
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="positiveAnswer" checked="checked" th:value="${positiveAnswer}" th:field="*{merchantAnswerSelected}"
+                    <input type="radio" id="positiveAnswer" checked="checked" th:value="${positiveAnswer}"
+                           th:field="*{merchantAnswerSelected}"
                            class="custom-control-input">
                     <label class="custom-control-label" for="positiveAnswer">Yes</label>
                 </div>
 
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="negativeAnswer" checked="checked" th:value="${negativeAnswer}" th:field="*{merchantAnswerSelected}"
+                    <input type="radio" id="negativeAnswer" checked="checked" th:value="${negativeAnswer}"
+                           th:field="*{merchantAnswerSelected}"
                            class="custom-control-input">
                     <label class="custom-control-label" for="negativeAnswer">No
                     </label>

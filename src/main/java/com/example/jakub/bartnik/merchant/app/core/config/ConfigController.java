@@ -76,7 +76,7 @@ public class ConfigController {
     public String postUserForm(NameForm nameForm) {
 
         playerService.setHealthPoints(100);
-        playerService.setCoins(95);
+        playerService.setCoins(25);
         playerService.setName(nameForm.getName());
         log.info("name: " + playerService.getName());
 

@@ -1,6 +1,7 @@
 PROJECT CONTAINS A SIMPLE BROWSER GAME
 
 SHORT DESCRIPTION
+
 This is a simple dialog game in which as a goal, player has to gain 100 coins to win the game.
 We control a Polish resource trader in medieval times.
 

@@ -15,7 +15,6 @@ Actions that can be performed in the game include:
 The entire game rules can be found while playing.
 
 HOW TO OPEN THE GAME
-- having Java Development Kit 
 - clone the repository
 - run the application
 - enter http://localhost:8080/game into the browser
